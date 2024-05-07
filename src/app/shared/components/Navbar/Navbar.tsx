@@ -9,8 +9,8 @@ export default function Navbar() {
 				<Image alt="Logo" height={100} src="/img/isologo.png" width={100} />
 			</Link>
 			<div className="flex items-center gap-4">
-				<Button variant="outline">Get Started</Button>
-				<Button>Sign In</Button>
+				<Button variant="outline">Registrarse</Button>
+				<Button>Login</Button>
 			</div>
 		</header>
 	);
