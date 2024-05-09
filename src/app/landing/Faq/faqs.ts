@@ -9,22 +9,22 @@ const faqs = [
 	{
 		title: '¿El niño puede jugar solo?',
 		description:
-			'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis dolores vero nemo ratione tenetur iure dolor mollitia officia modi facere.',
+			'Sí. Si es muy pequeño, necesitará asistencia de un adulto para el registro y para la impresión de fichas caligráficas',
 	},
 	{
 		title: '¿El niño tiene que saber leer?',
 		description:
-			'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis dolores vero nemo ratione tenetur iure dolor mollitia officia modi facere.',
+			'No',
 	},
 	{
 		title: '¿Pueden los padres seguir el progreso de sus niños?',
 		description:
-			'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis dolores vero nemo ratione tenetur iure dolor mollitia officia modi facere.',
+			'Sí. Gracias a un sistema de seguimiento que monitorea el avance de cada usuario junto con el envío de estos reportes a su correo electrónico. El adulto responsable también puede acceder a consejos sobre inteligencia emocional y sobre el tipo de acompañamiento que facilita el aprendizaje en los niños',
 	},
 	{
 		title: 'Hay algún costo asociado al uso de Lecti?',
 		description:
-			'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis dolores vero nemo ratione tenetur iure dolor mollitia officia modi facere.',
+			'No',
 	},
 ];
 
