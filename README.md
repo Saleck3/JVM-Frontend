@@ -7,7 +7,14 @@
 ```bash
 npm i
 npm run dev
-
 ```
 
 Ir a [http://localhost:3000](http://localhost:3000) en el navegador
+
+## tests
+
+**❗IMPORTANTE**: Ejecutar antes de cualquier push que se pretenda compilar. Si el coverage de tests falla, va a fallar la compilación (y cualquier pipe asociado).
+
+```bash
+npm run test:cov
+```
