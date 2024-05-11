@@ -14,7 +14,8 @@
     "start": "next start",
     "lint": "next lint",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "test:cov": "jest --silent --coverage --watchAll --collectCoverageFrom='src/app/**/*.{ts,tsx}' --collectCoverageFrom='!src/app/**/*.{types,stories,constants,test,spec}.{ts,tsx}"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.1.2",
