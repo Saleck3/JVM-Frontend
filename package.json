@@ -3,6 +3,9 @@
   "engines": {
     "node": ">=20.11.0"
   },
+  "resolutions": {
+    "**/@azure/msal-node": "2.3.0"
+  },
   "version": "0.1.0",
   "private": true,
   "scripts": {
