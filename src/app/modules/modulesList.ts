@@ -2,17 +2,17 @@ const modulesList = [
 	{
 		slug: 'basic',
 		label: 'Básico',
-		imgSrc: '/img/modules/module-1.svg',
+		imgSrc: `${process.env.NEXT_PUBLIC_BASE_PATH}/img/modules/module-1.svg`,
 	},
 	{
 		slug: 'intermediate',
 		label: 'Intermedio',
-		imgSrc: '/img/modules/module-2.svg',
+		imgSrc: `${process.env.NEXT_PUBLIC_BASE_PATH}/img/modules/module-2.svg`,
 	},
 	{
 		slug: 'advanced',
 		label: 'Avanzado',
-		imgSrc: '/img/modules/module-3.svg',
+		imgSrc: `${process.env.NEXT_PUBLIC_BASE_PATH}/img/modules/module-3.svg`,
 	},
 ];
 

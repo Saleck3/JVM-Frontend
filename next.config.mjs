@@ -6,13 +6,7 @@ const nextConfig = {
 	reactStrictMode: true,
 	basePath: isProd ? '/JVM-Frontend' : '',
 	assetPrefix: isProd ? '/JVM-Frontend/' : '',
-	output: 'export',
 	distDir: 'dist',
-	images: {
-		unoptimized: true,
-		loader: 'custom',
-		loaderFile: './imageLoader.js',
-	},
 };
 
 export default nextConfig;

@@ -28,7 +28,7 @@ export default function Hero() {
 				<Image
 					alt="Hero"
 					height="550"
-					src="/img/hero_img.png"
+					src={`${process.env.NEXT_PUBLIC_BASE_PATH}/img/hero_img.png`}
 					width="550"
 					className="justify-self-center"
 				/>
