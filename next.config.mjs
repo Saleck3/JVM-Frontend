@@ -9,6 +9,7 @@ const nextConfig = {
 	output: 'export',
 	distDir: 'dist',
 	images: {
+		unoptimized: true,
 		loader: 'custom',
 		loaderFile: './imageLoader.js',
 	},
