@@ -1,7 +1,7 @@
 {
   "name": "jvm-frontend",
   "engines": {
-    "node": ">20"
+    "node": ">=20.11.0"
   },
   "version": "0.1.0",
   "private": true,
