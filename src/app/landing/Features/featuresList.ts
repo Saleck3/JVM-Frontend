@@ -11,7 +11,6 @@ const features = [
 		description:
 			'Dispone de un sistema de recompensas, una tienda de avatares y  un ranking de ligas, que estimulan la motivación del usuario para seguir avanzando en su camino de aprendizaje',
 		imageAlt: 'feature divertido',
-		imageSrc: '/img/features/feature-fun.svg',
 		imageSrc: `${process.env.NEXT_PUBLIC_BASE_PATH}/img/features/feature-fun.svg`,
 	},
 	{
