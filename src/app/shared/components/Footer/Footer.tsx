@@ -5,7 +5,7 @@ export default function Footer() {
 	return (
 		<footer>
 			<Image
-				src="/img/footer-img.svg"
+				src={`${process.env.NEXT_PUBLIC_BASE_PATH}/img/footer-img.svg`}
 				alt="lecti"
 				width={400}
 				height={400}
