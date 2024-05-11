@@ -1,5 +1,5 @@
-const isProd = process.env.NODE_ENV === 'production';
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH;
 
 export default function myImageLoader({ src }) {
-	return isProd ? `/JVM-Frontend${src}` : `${src}`;
+	return `${basePath}${src}`;
 }
