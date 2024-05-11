@@ -40,7 +40,7 @@ export default function ModuleCard({
 			<CardContent>
 				<Image
 					src={imgSrc}
-					alt="Module 1"
+					alt={label}
 					width={200}
 					height={200}
 					className="m-auto"
