@@ -10,7 +10,6 @@ export default function Login() {
             <div className="container py-16 xl:px-20">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                     <LoginForm/>
-                    {/* La siguiente div se ocultará en resoluciones más pequeñas */}
                     <div className="hidden lg:block bg-white p-4 mb-4 lg:col-span-1">
                         <Image
                             src="/_next/image?url=%2Fimg%2Fhero_img.png&w=640&q=75"
