@@ -1,6 +1,5 @@
 "use client";
 
-// ChooseWord.tsx
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import WordImage from "../components/WordImage/WordImage";
@@ -13,9 +12,11 @@ function ChooseWord() {
     const options = ['leon', 'tigre', 'pantera', 'jaguar'];
     const [selectedWord, setSelectedWord] = useState<string | null>(null);
     const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
+    const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(true);
 
     const handleSelectWord = (word: string) => {
         setSelectedWord(word);
+        setIsButtonDisabled(false);
     };
 
     const handleSubmit = () => {
@@ -24,11 +25,13 @@ function ChooseWord() {
         } else {
             setIsCorrect(false);
         }
+        setIsButtonDisabled(true);
     };
 
     const handleReset = () => {
         setSelectedWord(null);
         setIsCorrect(null);
+        setIsButtonDisabled(true);
     };
 
     return (
@@ -50,7 +53,7 @@ function ChooseWord() {
                                 />
                             ))}
                         </div>
-                        <SubmitButton onClick={handleSubmit} disabled={selectedWord === null} />
+                        <SubmitButton onClick={handleSubmit} disabled={isButtonDisabled} />
                         {isCorrect !== null && (
                             <ResultMessage
                                 isCorrect={isCorrect}

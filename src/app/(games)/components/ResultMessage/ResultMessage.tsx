@@ -8,7 +8,7 @@ interface ResultMessageProps {
 
 function ResultMessage({ isCorrect, onReset }: ResultMessageProps) {
     return (
-        <div className="mt-4">
+        <div className="mt-4" data-testid="result-message">
             <p className={`text-lg ${isCorrect ? 'text-green-600' : 'text-red-600'}`}>
                 {isCorrect ? '¡Correcto!' : 'Incorrecto. Inténtalo de nuevo.'}
             </p>
