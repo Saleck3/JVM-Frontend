@@ -52,7 +52,7 @@ function WriteWord() {
                                         key={index}
                                         letter={letter}
                                         onChange={(e) => handleChange(index, e)}
-                                        index={index} // Pasar el índice como prop
+                                        index={index}
                                     />
                                 ))}
                             </div>
