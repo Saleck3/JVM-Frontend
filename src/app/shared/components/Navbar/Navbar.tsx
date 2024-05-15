@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
+import NavbarButtons from './NavbarButtons';
 
 export default function Navbar() {
 	return (
@@ -13,10 +13,7 @@ export default function Navbar() {
 					width={100}
 				/>
 			</Link>
-			<div className="flex items-center gap-4">
-				<Button variant="outline">Registrarse</Button>
-				<Button>Login</Button>
-			</div>
+			<NavbarButtons />
 		</header>
 	);
 }
