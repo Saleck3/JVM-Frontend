@@ -7,7 +7,7 @@ export const mockUser: User = {
 	players: [
 		{
 			id: '1',
-			name: 'Mark Doe',
+			playerName: 'Mark Doe',
 			birthDate: '2020-01-01',
 			totalCrowns: 30,
 			spentCrowns: 10,
@@ -15,7 +15,7 @@ export const mockUser: User = {
 		},
 		{
 			id: '2',
-			name: 'Jane Doe',
+			playerName: 'Jane Doe',
 			birthDate: '2020-01-01',
 			totalCrowns: 100,
 			spentCrowns: 50,

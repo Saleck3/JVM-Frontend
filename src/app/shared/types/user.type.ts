@@ -6,7 +6,7 @@ export type User = {
 };
 
 export type Player = {
-	id: number;
+	id: string;
 	playerName: string;
 	birthDate: string;
 	totalCrowns: number;
