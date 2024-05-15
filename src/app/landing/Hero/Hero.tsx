@@ -18,7 +18,7 @@ export default function Hero() {
 					</div>
 					<div className="w-full">
 						<Button className="w-full lg:w-1/3 mx-2 mb-4 lg:mb-0">
-							<Link href="../../login">Empezá ahora</Link>
+							<Link href="../../auth/login">Empezá ahora</Link>
 						</Button>
 						<Button variant={'gray'} className="w-full lg:w-1/3 mx-2">
 							<Link href="#">Test de nivelación</Link>

@@ -1,7 +1,5 @@
 "use client";
 
-"use client";
-
 import React, { useState, ChangeEvent } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import WordInput from "../components/WordInput/WordInput";
@@ -74,7 +72,7 @@ function WriteWord() {
                 </Card>
 
             </div>
-            <div className="ml-auto w-20 h-20">
+            <div className="ml-auto w-40 h-40">
                 <Lecti/>
             </div>
         </div>
