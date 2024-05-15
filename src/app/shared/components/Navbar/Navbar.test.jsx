@@ -1,16 +1,16 @@
 import { useSession } from 'next-auth/react';
-import Landing from '../../page';
+import Navbar from './Navbar';
 import { render, screen } from '@testing-library/react';
 
 jest.mock('next-auth/react');
 
-describe('landing page', () => {
+describe('Navbar', () => {
 	it('renders correctly', () => {
 		useSession.mockReturnValue({ data: null });
 
-		render(<Landing />);
+		render(<Navbar />);
 
-		const title = screen.getByRole('heading', { level: 1 });
-		expect(title).toHaveTextContent(/Unite a las aventuras/);
+		const logo = screen.getByAltText(/logo/i);
+		expect(logo).toBeInTheDocument();
 	});
 });

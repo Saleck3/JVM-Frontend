@@ -18,7 +18,7 @@ export default function CallToAction() {
 					¡Comenzá ya tu <br />
 					aventura!
 				</h2>
-				<Link href="/auth/login">
+				<Link href="/test">
 					<Button className="mt-4 w-full" size={'lg'}>
 						Realizar test de nivelación
 					</Button>
