@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Montserrat } from 'next/font/google';
 import './globals.css';
+import AuthProvider from '@/contexts/AuthProvider';
 
 const font = Montserrat({ subsets: ['latin'] });
 
@@ -9,6 +10,7 @@ export const metadata: Metadata = {
 	description: 'Aprende lectoescritura con Lecti',
 };
 
+/* istanbul ignore next */
 export default function RootLayout({
 	children,
 }: Readonly<{
@@ -16,7 +18,9 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en">
-			<body className={font.className}>{children}</body>
+			<body className={font.className}>
+				<AuthProvider>{children}</AuthProvider>
+			</body>
 		</html>
 	);
 }

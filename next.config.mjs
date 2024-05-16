@@ -1,8 +1,12 @@
 /** @type {import('next').NextConfig} */
+
+const isProd = process.env.NODE_ENV === 'production';
+
 const nextConfig = {
-	//basePath: '/JVM-Frontend',
-	//output: 'export',
-	reactStrictMode: false,
+	reactStrictMode: true,
+	basePath: isProd ? '/JVM-Frontend' : '',
+	assetPrefix: isProd ? '/JVM-Frontend/' : '',
+	distDir: 'dist',
 };
 
 export default nextConfig;

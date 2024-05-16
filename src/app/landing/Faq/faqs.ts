@@ -1,5 +1,3 @@
-import { title } from 'process';
-
 const faqs = [
 	{
 		title: '¿Qué es Lecti?',
@@ -13,8 +11,7 @@ const faqs = [
 	},
 	{
 		title: '¿El niño tiene que saber leer?',
-		description:
-			'No',
+		description: 'No',
 	},
 	{
 		title: '¿Pueden los padres seguir el progreso de sus niños?',
@@ -23,8 +20,7 @@ const faqs = [
 	},
 	{
 		title: 'Hay algún costo asociado al uso de Lecti?',
-		description:
-			'No',
+		description: 'No',
 	},
 ];
 

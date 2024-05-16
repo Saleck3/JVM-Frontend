@@ -6,7 +6,7 @@ export default function CallToAction() {
 	return (
 		<section className="flex flex-col items-center justify-center text-center lg:text-left lg:flex-row bg-secondary h-screen">
 			<Image
-				src="/img/test-now.svg"
+				src={`${process.env.NEXT_PUBLIC_BASE_PATH}/img/test-now.svg`}
 				alt="lombriz haciendo un examen"
 				width={500}
 				height={500}
@@ -18,7 +18,7 @@ export default function CallToAction() {
 					¡Comenzá ya tu <br />
 					aventura!
 				</h2>
-				<Link href="../../auth/login">
+				<Link href="/test">
 					<Button className="mt-4 w-full" size={'lg'}>
 						Realizar test de nivelación
 					</Button>
