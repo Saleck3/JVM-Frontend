@@ -1,5 +1,5 @@
 import { useSession } from 'next-auth/react';
-import Landing from '../../page';
+import Landing from '../page';
 import { render, screen } from '@testing-library/react';
 
 jest.mock('next-auth/react');
