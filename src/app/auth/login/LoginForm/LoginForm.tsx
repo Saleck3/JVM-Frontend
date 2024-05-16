@@ -15,18 +15,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import Link from "next/link";
-import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import { useToast } from "@/components/ui/use-toast";
 
-import { FormSchema } from "../../formSchemas/formSchemas";
+import { LoginSchema } from "@/app/auth/schemas/login.schema";
 
 const LoginForm = () => {
-    const router = useRouter();
-    const { toast } = useToast();
 
-    const form = useForm<z.infer<typeof FormSchema>>({
-        resolver: zodResolver(FormSchema),
+    const form = useForm<z.infer<typeof LoginSchema>>({
+        resolver: zodResolver(LoginSchema),
         defaultValues: {
             email: "",
             password: "",
@@ -34,22 +29,8 @@ const LoginForm = () => {
         },
     });
 
-    const onSubmit = async (values: z.infer<typeof FormSchema>) => {
-        const loginData = await signIn("credentials", {
-            email: values.email,
-            password: values.password,
-            redirect: false,
-        });
-
-        if (loginData?.error) {
-            toast({
-                title: "Error",
-                description: "Algo anduvo mal",
-            });
-        } else {
-            router.refresh();
-            router.push("/admin");
-        }
+    const onSubmit = async (data: z.infer<typeof LoginSchema>) => {
+        console.log("Formulario enviado correctamente:", data);
     };
 
     return (
@@ -105,7 +86,7 @@ const LoginForm = () => {
                     />
                 </div>
                 <Button className="w-full mt-6" type="submit">
-                    Login
+                    Iniciar sesión
                 </Button>
             </form>
             <p className="text-center text-md text-gray-600 mt-5">
