@@ -8,10 +8,20 @@ const mockLogin = async (credentials: any) => {
 			{
 				id: 1,
 				playerName: 'lucas',
+				alias: 'Luqi',
 				birthDate: '2020-05-05T15:30:00.000+00:00',
 				totalCrowns: 10,
 				spentCrowns: 5,
 				recommendedModule: 1,
+			},
+			{
+				id: 1,
+				playerName: 'Maria Belen',
+				alias: 'Maribel',
+				birthDate: '2020-05-05T15:30:00.000+00:00',
+				totalCrowns: 12,
+				spentCrowns: 6,
+				recommendedModule: 2,
 			},
 		],
 		token:
@@ -49,6 +59,9 @@ export const options: NextAuthOptions = {
 		async session({ session, token }: any) {
 			session.user = token.user;
 			return session;
+		},
+		async redirect({ url }: any) {
+			return url === '/logout' ? '/' : '/players';
 		},
 	},
 };

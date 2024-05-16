@@ -15,6 +15,7 @@ type Props = {
 	recommended?: boolean;
 	imgSrc: string;
 	slug: string;
+	playerNick: string;
 };
 
 export default function ModuleCard({
@@ -22,12 +23,13 @@ export default function ModuleCard({
 	recommended = false,
 	imgSrc,
 	slug,
+	playerNick,
 }: Props): JSX.Element {
 	const dropShadow = recommended
 		? 'drop-shadow-[0_10px_10px_hsl(var(--primary))]'
 		: 'shadow-lg';
 	return (
-		<Card className={`text-center mx-6 ${dropShadow}`} style={{ width: 280 }}>
+		<Card className={`text-center ${dropShadow}`} style={{ width: 280 }}>
 			<CardHeader>
 				<CardTitle className="text-sky font-semibold">
 					{recommended && <span>⭐</span>}
@@ -47,7 +49,7 @@ export default function ModuleCard({
 				/>
 			</CardContent>
 			<CardFooter>
-				<Link href={`/modules/${slug}`} className="w-full">
+				<Link href={`/${playerNick}/modules/${slug}`} className="w-full">
 					<Button className="w-full">Ver módulo</Button>
 				</Link>
 			</CardFooter>

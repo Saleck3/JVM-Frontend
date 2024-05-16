@@ -8,9 +8,9 @@ export default function Navbar() {
 			<Link href="#">
 				<Image
 					alt="Logo"
-					height={100}
+					height={140}
 					src={`${process.env.NEXT_PUBLIC_BASE_PATH}/img/isologo.png`}
-					width={100}
+					width={140}
 				/>
 			</Link>
 			<NavbarButtons />

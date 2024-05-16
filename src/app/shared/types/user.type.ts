@@ -8,6 +8,7 @@ export type User = {
 export type Player = {
 	id: string;
 	playerName: string;
+	alias: string;
 	birthDate: string;
 	totalCrowns: number;
 	spentCrowns: number;
