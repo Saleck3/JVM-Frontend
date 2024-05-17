@@ -12,9 +12,17 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment:
+      name: production
+    env:
+      NEXT_PUBLIC_BASE_PATH: ""
+      TEST_VAR: ${{ vars.TEST_VAR }}
 
     steps:
       - uses: actions/checkout@v4
+
+      - name: Test variable
+        run: "echo $TEST_VAR"
 
       - name: Set up Node.js version
         uses: actions/setup-node@v4
