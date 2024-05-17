@@ -1,6 +1,6 @@
 "use client"
 
-import { FormSchema } from "../../formSchemas/formSchemas";
+import { SignupSchema } from "@/app/auth/schemas/user.schema";
 import { useForm } from "react-hook-form";
 import {
     Form,
@@ -16,14 +16,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useToast } from "@/components/ui/use-toast";
 
 const Signup = () => {
-    const router = useRouter();
-    const { toast } = useToast();
-    const form = useForm<z.infer<typeof FormSchema>>({
-        resolver: zodResolver(FormSchema),
+    const form = useForm<z.infer<typeof SignupSchema>>({
+        resolver: zodResolver(SignupSchema),
         defaultValues: {
             firstName: "",
             lastName: "",
@@ -35,29 +31,9 @@ const Signup = () => {
         },
     });
 
-    const onSubmit = async (values: z.infer<typeof FormSchema>) => {
-        const response = await fetch("/api/user", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                firstName: values.firstName,
-                lastName: values.lastName,
-                phoneNumber: values.phoneNumber,
-                email: values.email,
-                password: values.password,
-            }),
-        });
-
-        if (response.ok) {
-            router.push("/login");
-        } else {
-            toast({
-                title: "Error",
-                description: "Algo salió mal",
-            });
-        }
+    const onSubmit = async (data: z.infer<typeof SignupSchema>) => {
+        console.log("Formulario enviado correctamente:", data);
+        // Añadir lógica adicional para el envío del formulario aquí
     };
 
     return (

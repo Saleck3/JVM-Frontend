@@ -1,6 +1,6 @@
 import * as z from "zod";
 
-export const FormSchema = z.object({
+export const SignupSchema = z.object({
     firstName: z.string().min(1, "Este campo es obligatorio"),
     lastName: z.string().min(1, "Este campo es obligatorio"),
     phoneNumber: z
@@ -23,3 +23,8 @@ export const FormSchema = z.object({
     message: "Las contraseñas no coinciden",
 });
 
+export const LoginSchema = z.object({
+    email: z.string().email("E-mail inválido"),
+    password: z.string().min(1, "Este campo es obligatorio"),
+    rememberMe: z.boolean().optional(),
+});
