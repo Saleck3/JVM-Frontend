@@ -14,15 +14,9 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: production
-    env:
-      NEXT_PUBLIC_BASE_PATH: ""
-      TEST_VAR: ${{ vars.TEST_VAR }}
 
     steps:
       - uses: actions/checkout@v4
-
-      - name: Test variable
-        run: "echo $TEST_VAR"
 
       - name: Set up Node.js version
         uses: actions/setup-node@v4
@@ -36,7 +30,7 @@ jobs:
           npm run test --if-present
 
       - name: Zip artifact for deployment
-        run: zip release.zip ./* -r
+        run: zip release.zip ./dist/* -r
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
