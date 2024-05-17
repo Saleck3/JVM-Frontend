@@ -1,6 +1,6 @@
 "use client"
 
-import { SignupSchema } from "@/app/auth/schemas/signup.schema";
+import { SignupSchema } from "@/app/auth/schemas/user.schema";
 import { useForm } from "react-hook-form";
 import {
     Form,

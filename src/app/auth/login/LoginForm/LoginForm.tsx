@@ -16,7 +16,7 @@ import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import Link from "next/link";
 
-import { LoginSchema } from "@/app/auth/schemas/login.schema";
+import { LoginSchema } from "@/app/auth/schemas/user.schema";
 
 const LoginForm = () => {
 
