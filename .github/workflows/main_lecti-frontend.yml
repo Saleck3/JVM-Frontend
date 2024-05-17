@@ -69,5 +69,5 @@ jobs:
         with:
           app-name: 'lecti-frontend'
           slot-name: 'Production'
-          package: .
+          package: ./dist/
           
