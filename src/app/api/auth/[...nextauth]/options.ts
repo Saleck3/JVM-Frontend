@@ -2,23 +2,6 @@ import { jwtDecode } from 'jwt-decode';
 import type { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
-const mockLogin = async (credentials: any) => {
-	return {
-		players: [
-			{
-				id: 1,
-				playerName: 'lucas',
-				birthDate: '2020-05-05T15:30:00.000+00:00',
-				totalCrowns: 10,
-				spentCrowns: 5,
-				recommendedModule: 1,
-			},
-		],
-		token:
-			'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0MjIyQGdtYWlsLmNvbSIsImV4cCI6MTcxNTY0ODQyOX0.xP3A2zqewS94FcmeQCLQ5h6vB7_dcYej20FYijIUNPc',
-	};
-};
-
 export const options: NextAuthOptions = {
 	providers: [
 		CredentialsProvider({
@@ -28,14 +11,42 @@ export const options: NextAuthOptions = {
 				password: { label: 'Password', type: 'password' },
 			},
 			async authorize(credentials) {
-				const { token, players } = await mockLogin(credentials);
-				const { sub: email } = await jwtDecode(token);
+				const route = process.env.API_URL + '/api/auth/login';
+				const body = JSON.stringify({
+					email: credentials!.email,
+					password: credentials!.password,
+				});
 
-				return {
-					id: email!,
-					email,
-					players,
-				};
+				try {
+					const res = await fetch(route, {
+						method: 'POST',
+						body,
+						headers: {
+							'Content-Type': 'application/json',
+						},
+					});
+
+					if (!res.ok) {
+						const error = await res.json();
+						console.error(res.status, error.message);
+						return null;
+					}
+
+					const data = await res.json();
+					const { token, players } = data;
+					const { sub: email } = await jwtDecode(token);
+
+					return {
+						id: email!,
+						email,
+						players,
+						accessToken: token,
+					};
+				} catch (e: any) {
+					console.log('------------------');
+					console.error(e);
+					return null;
+				}
 			},
 		}),
 	],
@@ -49,6 +60,9 @@ export const options: NextAuthOptions = {
 		async session({ session, token }: any) {
 			session.user = token.user;
 			return session;
+		},
+		async redirect({ url }: any) {
+			return url === '/logout' ? '/' : '/players';
 		},
 	},
 };

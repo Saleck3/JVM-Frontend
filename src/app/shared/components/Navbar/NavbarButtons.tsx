@@ -10,7 +10,7 @@ export default function NavbarButtons() {
 
 	const handleSignOut = () => {
 		signOut({
-			callbackUrl: '/',
+			callbackUrl: '/logout',
 		});
 	};
 

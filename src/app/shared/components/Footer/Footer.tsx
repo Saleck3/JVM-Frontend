@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export default function Footer() {
 	return (
-		<footer>
+		<footer className="sticky top-[100vh]">
 			<Image
 				src={`${process.env.NEXT_PUBLIC_BASE_PATH}/img/footer-img.svg`}
 				alt="lecti"

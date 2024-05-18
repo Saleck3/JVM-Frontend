@@ -11,43 +11,47 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 type Props = {
-	label: string;
+	description: string;
 	recommended?: boolean;
-	imgSrc: string;
-	slug: string;
+	id: number;
+	playerNick: string;
+	progress: number;
 };
 
 export default function ModuleCard({
-	label,
+	description,
 	recommended = false,
-	imgSrc,
-	slug,
+	id,
+	playerNick,
+	progress,
 }: Props): JSX.Element {
 	const dropShadow = recommended
 		? 'drop-shadow-[0_10px_10px_hsl(var(--primary))]'
 		: 'shadow-lg';
 	return (
-		<Card className={`text-center mx-6 ${dropShadow}`} style={{ width: 280 }}>
+		<Card className={`text-center ${dropShadow}`} style={{ width: 280 }}>
 			<CardHeader>
 				<CardTitle className="text-sky font-semibold">
 					{recommended && <span>⭐</span>}
-					{label.toUpperCase()}
+					{description.toUpperCase()}
 				</CardTitle>
 				<CardDescription className="text-yellow-400 font-bold">
+					<span className="text-sm">{progress.toFixed(2)}%</span>
+					<br />
 					{recommended ? 'Módulo recomendado' : '\u00A0'}
 				</CardDescription>
 			</CardHeader>
 			<CardContent>
 				<Image
-					src={imgSrc}
-					alt={label}
+					src={`/img/modules/module-${id}.svg`}
+					alt={description}
 					width={200}
 					height={200}
 					className="m-auto"
 				/>
 			</CardContent>
 			<CardFooter>
-				<Link href={`/modules/${slug}`} className="w-full">
+				<Link href={`/${playerNick}/modules/${id}`} className="w-full">
 					<Button className="w-full">Ver módulo</Button>
 				</Link>
 			</CardFooter>
