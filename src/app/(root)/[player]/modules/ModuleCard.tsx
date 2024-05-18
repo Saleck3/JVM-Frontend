@@ -44,7 +44,7 @@ export default function ModuleCard({
 			<CardContent>
 				<Image
 					src={`/img/modules/module-${id}.svg`}
-					alt={`Modulo ${description}`}
+					alt={description}
 					width={200}
 					height={200}
 					className="m-auto"
