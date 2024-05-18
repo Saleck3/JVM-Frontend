@@ -18,7 +18,7 @@ import Link from "next/link";
 
 import { LoginSchema } from "@/app/auth/schemas/user.schema";
 
-const LoginForm = () => {
+const Login = () => {
 
     const form = useForm<z.infer<typeof LoginSchema>>({
         resolver: zodResolver(LoginSchema),
@@ -98,5 +98,4 @@ const LoginForm = () => {
         </Form>
     );
 };
-
-export default LoginForm;
+export default Login;
