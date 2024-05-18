@@ -5,6 +5,7 @@ declare module 'next-auth' {
 	interface Session {
 		user: {
 			players: Player[];
+			accessToken: string;
 		} & DefaultSession['user'];
 	}
 }
