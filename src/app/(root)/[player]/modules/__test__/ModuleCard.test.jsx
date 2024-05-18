@@ -1,29 +1,34 @@
 import ModuleCard from '../ModuleCard';
-import modulesList from '../modulesList';
 import { render, screen } from '@testing-library/react';
 
-const moduleToRender = modulesList[0];
+const mockModule = {
+	description: 'Test module',
+	recommended: true,
+	id: 1,
+	playerNick: 'player1',
+	progress: 0,
+};
 
 describe('ModuleCard', () => {
 	it('renders the card with the correct data from props', () => {
-		render(<ModuleCard {...moduleToRender} />);
+		render(<ModuleCard {...mockModule} />);
 
-		const label = screen.getByText(moduleToRender.label.toUpperCase());
-		const image = screen.getByAltText(moduleToRender.label);
+		const label = screen.getByText(mockModule.description.toUpperCase());
+		const image = screen.getByAltText(mockModule.description);
 
 		expect(label).toBeInTheDocument();
 		expect(image).toBeInTheDocument();
 	});
 
 	it('renders the recommended module variant when recommended is true', () => {
-		render(<ModuleCard {...moduleToRender} recommended={true} />);
+		render(<ModuleCard {...mockModule} recommended={true} />);
 
 		const recommended = screen.getByText(/Módulo recomendado/);
 		expect(recommended).toBeInTheDocument();
 	});
 
 	it('should not render the recommended module variant when recommended is false', () => {
-		render(<ModuleCard {...moduleToRender} recommended={false} />);
+		render(<ModuleCard {...mockModule} recommended={false} />);
 
 		const recommended = screen.queryByText(/Módulo recomendado/);
 		expect(recommended).not.toBeInTheDocument();
