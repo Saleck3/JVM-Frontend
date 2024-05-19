@@ -37,7 +37,7 @@ export default function NavbarButtons() {
 				<Link href="/auth/register">
 					<Button variant="outline">Registrarse</Button>
 				</Link>
-				<Link href="api/auth/signin">
+				<Link href="auth/login">
 					<Button>Login</Button>
 				</Link>
 			</div>
