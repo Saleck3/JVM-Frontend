@@ -2,6 +2,7 @@ import { options } from '@/app/api/auth/[...nextauth]/options';
 import { getServerSession } from 'next-auth';
 import { getApples } from './services/apples.service';
 import ButtonApple from '@/app/(root)/[player]/apple/components/buttonApple';
+import '@/app/(root)/[player]/modules/[id]/services/appleStyles.css';
 
 export default async function ApplePath({ params }: any) {
 	const session = await getServerSession(options);
@@ -14,6 +15,13 @@ export default async function ApplePath({ params }: any) {
 		params.id,
 		session?.user?.accessToken!
 	);
+
+	if (!apples) {
+		return (
+			<h1> Aun no hay manzanas</h1>
+		);
+	}
+
 
 	return (
 		<div className="apple-container">
