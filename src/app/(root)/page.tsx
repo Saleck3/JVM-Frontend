@@ -5,13 +5,13 @@ import Hero from './Hero/Hero';
 
 export default function Landing() {
 	return (
-		<main>
+		<>
 			<div className="container py-16 xl:px-20">
 				<Hero />
 				<Features />
 			</div>
 			<CallToAction />
 			<Faq />
-		</main>
+		</>
 	);
 }

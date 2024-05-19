@@ -1,21 +1,19 @@
 import React from 'react';
 import Image from "next/image";
-import appleImage from '/public/img/apple.svg'; // Importa la imagen de la manzana
 import Link from 'next/link';
 
-// Definimos la interfaz para las propiedades de la manzana
-interface AppleProps {
+type AppleProps = {
   letter: string;
   playerNick: string;
   appleId: number;
 }
 
-// Componente de Manzana
-const ButtonApple: React.FC<AppleProps> = ({ letter, playerNick, appleId }) => {
+export default function ButtonApple({ letter, playerNick, appleId }: AppleProps):
+  JSX.Element {
   return (
     <Link className="apple-item w-full" href={`/${playerNick}/apple/${appleId}`} >
-      <li className="apple-wrapper" style={{ margin: '5px', cursor: 'pointer' }}    >
-        <Image src={appleImage} alt="Apple" />
+      <li className="apple-wrapper" >
+        <Image src={'/img/apples/apple.svg'} alt={"Apple_" + appleId} height={400} width={400} />
         <div className='apple-overlay'>
           {letter}
         </div>
@@ -23,5 +21,3 @@ const ButtonApple: React.FC<AppleProps> = ({ letter, playerNick, appleId }) => {
     </Link>
   );
 };
-
-export default ButtonApple;
