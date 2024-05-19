@@ -65,4 +65,7 @@ export const options: NextAuthOptions = {
 			return url === '/logout' ? '/' : '/players';
 		},
 	},
+	pages: {
+		signIn: '/auth/login',
+	},
 };
