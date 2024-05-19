@@ -1,9 +1,9 @@
-export const getApples = async (
+export const getApple = async (
 	playerId: string,
-	moduleId: string,
+	appleId: number,
 	token: string
 ) => {
-	const query = new URLSearchParams({ playerId, moduleId }).toString();
+	const query = new URLSearchParams({ playerId, appleId }).toString();
 	const url = `${process.env.FRONTEND_URL}/api/apples/?${query}`;
 
 	try {

@@ -16,12 +16,6 @@ export default function NavbarButtons() {
 
 	const navbarItems = [
 		{
-			label: 'Algo por aquí',
-		},
-		{
-			label: 'Algo por acá',
-		},
-		{
 			label: 'Logout',
 			onClick: handleSignOut,
 			className: 'text-red-600',

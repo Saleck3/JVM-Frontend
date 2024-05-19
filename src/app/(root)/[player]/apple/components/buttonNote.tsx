@@ -2,7 +2,7 @@ import React from 'react';
 import Image from "next/image";
 import noteImage from '/public/img/nota.png'; // Importa la imagen de la manzana
 import afterNote from "/public/img/afterNote.png";
-import beforeNote from "/public/img/Stone2.png";
+import beforeNote from "/public/img/stone2.png";
 // Definimos la interfaz para las propiedades de la manzana
 interface NoteProps {
   onClick: () => void;

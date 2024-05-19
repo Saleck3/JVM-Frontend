@@ -1,4 +1,6 @@
-export const getModules = async (playerId: string, token: string) => {
+export const getModules = async (
+	playerId: string, 
+	token: string) => {
 	const query = new URLSearchParams({ playerId }).toString();
 	const url = `${process.env.FRONTEND_URL}/api/modules?${query}`;
 
