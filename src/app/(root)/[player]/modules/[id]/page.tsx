@@ -6,70 +6,114 @@ import '@/app/(root)/[player]/modules/[id]/services/appleStyles.css';
 
 export default async function ApplePath({ params }: any) {
 	const session = await getServerSession(options);
-	/* const player = session?.user.players.find(
-	 	(player) => player.alias === params.player
-	 )!;
 
-   const apples = await getApples(
-	 	player.id,
-	 	params.id,
-	 	session?.user?.accessToken!
-	 );
-  
-  if (!apples) {
-		return (
-			<h1> Aun no hay manzanas</h1>
+	const player = session?.user.players.find(
+		(player) => player.alias === params.player
+	)!;
+	/*
+
+	//SE REEMPLAZA POR EL MOCK
+		const apples = await getApples(
+			player.id,
+			params.id,
+			session?.user?.accessToken!
 		);
-	}
+	
+		if (!apples) {
+			return (
+				<h1> Aun no hay manzanas</h1>
+			);
+		}
+	
+	
+		return (
+			<div className="apple-container">
+				<ul className="apple-list">
+					{apples.map((apple: any) => (
+						<ButtonApple
+							letter={apple.name}
+							playerNick={player.alias}
+							appleId={apple.id} />
+					))}
+				</ul>
+			</div>
+		);*/
 
+	const mockApples = [
+		[
+			{ id: 1, name: 'A', stars: 0 },
+			{ id: 2, name: 'E', stars: 0 },
+			{ id: 3, name: 'I', stars: 0 },
+			{ id: 4, name: 'O', stars: 0 },
+			{ id: 5, name: 'U', stars: 0 },
+			{ id: 6, name: 'U', stars: 0 },
+		],
+		[
+			{ id: 1, name: 'A', stars: 3 },
+			{ id: 2, name: 'E', stars: 0 },
+			{ id: 3, name: 'I', stars: 0 },
+			{ id: 4, name: 'O', stars: 0 },
+			{ id: 5, name: 'U', stars: 0 },
+			{ id: 6, name: 'U', stars: 0 },
+		], [
+			{ id: 1, name: 'A', stars: 3 },
+			{ id: 2, name: 'E', stars: 1 },
+			{ id: 3, name: 'I', stars: 0 },
+			{ id: 4, name: 'O', stars: 0 },
+			{ id: 5, name: 'U', stars: 0 },
+			{ id: 6, name: 'U', stars: 0 },
+		],
+		[
+			{ id: 1, name: 'A', stars: 3 },
+			{ id: 2, name: 'E', stars: 1 },
+			{ id: 3, name: 'I', stars: 1 },
+			{ id: 4, name: 'O', stars: 0 },
+			{ id: 5, name: 'U', stars: 0 },
+			{ id: 6, name: 'U', stars: 0 },
+		],
+		[
+			{ id: 1, name: 'A', stars: 3 },
+			{ id: 2, name: 'E', stars: 1 },
+			{ id: 3, name: 'I', stars: 1 },
+			{ id: 4, name: 'O', stars: 1 },
+			{ id: 5, name: 'U', stars: 0 },
+			{ id: 6, name: 'U', stars: 0 },
+		],
+		[
+			{ id: 1, name: 'A', stars: 3 },
+			{ id: 2, name: 'E', stars: 1 },
+			{ id: 3, name: 'I', stars: 1 },
+			{ id: 4, name: 'O', stars: 1 },
+			{ id: 5, name: 'U', stars: 1 },
+			{ id: 6, name: 'U', stars: 0 },
+		],
+		,
+		[
+			{ id: 1, name: 'A', stars: 3 },
+			{ id: 2, name: 'E', stars: 1 },
+			{ id: 3, name: 'I', stars: 1 },
+			{ id: 4, name: 'O', stars: 1 },
+			{ id: 5, name: 'U', stars: 1 },
+			{ id: 6, name: 'U', stars: 1 },
+		],
+	];
+
+	if (params.id > 6) {
+		params.id = 6
+	}
 
 	return (
 		<div className="apple-container">
 			<ul className="apple-list">
-				{apples.map((apple: any) => (
+				{mockApples[Number(params.id) - 1].map((apple: any) => (
 					<ButtonApple
 						letter={apple.name}
 						playerNick={player.alias}
-						appleId={apple.id} />
+						appleId={apple.id}
+						stars={apple.stars} />
 				))}
 			</ul>
-		</div>*/
-
-	const mockApples = [
-		[
-			{ id: 7, name: 'BL', stars: 0 },
-			{ id: 8, name: 'BR', stars: 0 },
-			{ id: 9, name: 'CL', stars: 0 },
-			{ id: 10, name: 'CR', stars: 0 },
-			{ id: 11, name: 'CH', stars: 0 },
-		],
-		[
-			{ id: 7, name: 'BL', stars: 3 },
-			{ id: 8, name: 'BR', stars: 0 },
-			{ id: 9, name: 'CL', stars: 0 },
-			{ id: 10, name: 'CR', stars: 0 },
-			{ id: 11, name: 'CH', stars: 0 },
-		],
-		[
-			{ id: 7, name: 'BL', stars: 3 },
-			{ id: 8, name: 'BR', stars: 1 },
-			{ id: 9, name: 'CL', stars: 0 },
-			{ id: 10, name: 'CR', stars: 0 },
-			{ id: 11, name: 'CH', stars: 0 },
-		],
-	];
-
-	return (
-		<main>
-			{mockApples[Number(params.id) - 1].map((apple: any) => (
-				<button
-					className="bg-primary p-2 m-2 flex flex-col items-center"
-					key={apple.id}
-				>
-					<span>Manzana de ejemplo {apple.name}</span>
-					<span>{'⭐'.repeat(apple.stars)}</span>
-				</button>
-			))}
-		</main>
+		</div>
 	);
+
 }

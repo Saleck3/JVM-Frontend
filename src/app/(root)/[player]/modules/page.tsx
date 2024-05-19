@@ -12,6 +12,12 @@ export default async function Modules({ params }: any) {
 
 	const modules = await getModules(player.id, session?.user?.accessToken!);
 
+	if (!modules) {
+		return (
+			<h1> Error al obtener modulos!</h1>
+		);
+	}
+
 	return (
 		<main className="container py-16 md:px-12 xl:px-32 space-y-12">
 			<LeadTitle
