@@ -60,7 +60,7 @@ export default function DropSyllable({
                     <CardContent>
                         <Image
                             src={image}
-                            alt="Imagen a completar"
+                            alt={"Imagen de " + correctWord.toLowerCase()}
                             width={500}
                             height={500}
                         />

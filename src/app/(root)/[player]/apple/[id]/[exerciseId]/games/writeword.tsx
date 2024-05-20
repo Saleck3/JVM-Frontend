@@ -9,21 +9,25 @@ import { Button } from '@/components/ui/button';
 
 type wordParams = {
     correctWord: string;
+    preRenderLetters?: string[];
     image: string;
     params: any;
 }
 
 export default function WriteWord({
-    correctWord, image, params
+    correctWord, preRenderLetters, image, params
 }: wordParams) {
     console.log("Palabra correcta " + correctWord);
+    //TODO Que se impriman las letras default y tome bien la palabra
+    if (!preRenderLetters) {
+        preRenderLetters = [];
+    }
     const initialInputValue = Array(correctWord.length).fill('');
     const [inputValue, setInputValue] = useState(initialInputValue);
     const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
     const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false); // Inicialmente deshabilitado
 
     const handleChange = (index: number, e: ChangeEvent<HTMLInputElement>) => {
-
         const newValue = [...inputValue];
         newValue[index] = e.target.value;
         setInputValue(newValue);
@@ -60,7 +64,7 @@ export default function WriteWord({
                     <CardContent>
                         <Image
                             src={image}
-                            alt="Imagen a completar"
+                            alt={"Imagen de " + correctWord.toLowerCase()}
                             width={500}
                             height={500}
                         />
