@@ -1,15 +1,16 @@
 "use client";
 
 import React, { useState } from 'react';
-import Image from "next/image";
-import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import SyllableContainer from "./components/SyllableContainer";
-import { Button } from '@/components/ui/button';
+import SyllableContainer from './components/SyllableContainer';
 import ResultMessage from './components/ResultMessage';
+import Image from "next/image";
+import { Button } from '@/components/ui/button';
+import { DropResult, DragDropContext, Droppable } from '@hello-pangea/dnd';
 
 type dropSyllableParams = {
-    syllables: string[]
+    syllables: string[];
     correctWord: string;
     image: string;
     params: any;
@@ -18,7 +19,6 @@ type dropSyllableParams = {
 export default function DropSyllable({
     syllables, correctWord, image, params
 }: dropSyllableParams) {
-
     const [orderedSyllables, setOrderedSyllables] = useState(syllables);
     const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
     const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
@@ -76,18 +76,16 @@ export default function DropSyllable({
                                 </Droppable>
                             </DragDropContext>
                         </div>
-
-                        <Button onClick={handleSubmit} disabled={isButtonDisabled} >Verificar</Button>
+                        <Button onClick={handleSubmit} disabled={isButtonDisabled}>Verificar</Button>
                         {isCorrect !== null && (
                             <ResultMessage
                                 isCorrect={isCorrect}
                                 onReset={handleReset}
-                                params={params}
-                            />
+                                params={params} />
                         )}
                     </CardContent>
                 </Card>
             </div>
         </div>
     );
-}
+};

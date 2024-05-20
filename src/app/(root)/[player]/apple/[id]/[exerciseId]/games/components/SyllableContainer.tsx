@@ -1,9 +1,9 @@
 import React from 'react';
-import { Droppable } from 'react-beautiful-dnd';
+import { Droppable } from '@hello-pangea/dnd';
 import Syllable from './Syllable';
 
 
-interface SyllableContainerProps {
+type SyllableContainerProps = {
     syllables: string[];
 }
 
@@ -12,11 +12,7 @@ const SyllableContainer: React.FC<SyllableContainerProps> = ({ syllables }) => {
         <div className="flex items-center justify-center h-20">
             <Droppable droppableId="syllable-container" direction="horizontal">
                 {(provided) => (
-                    <div
-                        ref={provided.innerRef}
-                        {...provided.droppableProps}
-                        className="flex justify-center space-x-1"
-                    >
+                    <div ref={provided.innerRef} {...provided.droppableProps} className="flex justify-center space-x-1"                    >
                         {syllables.map((syllable, index) => (
                             <Syllable key={`${index}`} syllable={syllable} index={index} />
                         ))}
