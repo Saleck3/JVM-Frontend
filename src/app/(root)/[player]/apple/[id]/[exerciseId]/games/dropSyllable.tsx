@@ -19,6 +19,7 @@ type dropSyllableParams = {
 export default function DropSyllable({
     syllables, correctWord, image, params
 }: dropSyllableParams) {
+    console.log("Palabra correcta " + correctWord);
     const [orderedSyllables, setOrderedSyllables] = useState(syllables);
     const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
     const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);

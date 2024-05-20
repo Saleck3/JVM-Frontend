@@ -17,6 +17,7 @@ type chooseWordParams = {
 export default function ChooseWord({
     words, correctWord, image, params
 }: chooseWordParams) {
+    console.log("Palabra correcta " + correctWord);
     const [selectedWord, setSelectedWord] = useState<string | null>(null);
     const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
     const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(true);

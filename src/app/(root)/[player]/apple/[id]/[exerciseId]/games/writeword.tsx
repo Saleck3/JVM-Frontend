@@ -16,21 +16,25 @@ type wordParams = {
 export default function WriteWord({
     correctWord, image, params
 }: wordParams) {
-
+    console.log("Palabra correcta " + correctWord);
     const initialInputValue = Array(correctWord.length).fill('');
     const [inputValue, setInputValue] = useState(initialInputValue);
     const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
     const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false); // Inicialmente deshabilitado
 
     const handleChange = (index: number, e: ChangeEvent<HTMLInputElement>) => {
+
         const newValue = [...inputValue];
         newValue[index] = e.target.value;
         setInputValue(newValue);
+        if (index + 1 < correctWord.length && e.target.value != "") {
+            document.getElementById("input_" + (index + 1)).focus();
+        }
     };
 
     const handleSubmit = () => {
-        const enteredWord = inputValue.join('').toLowerCase();
-        if (enteredWord === correctWord) {
+        const enteredWord = inputValue.join('').toUpperCase();
+        if (enteredWord === correctWord.toUpperCase()) {
             setIsCorrect(true);
         } else {
             setIsCorrect(false);
@@ -71,6 +75,8 @@ export default function WriteWord({
                                         placeholder="_"
                                         maxLength={1}
                                         className="w-10 h-10 text-center mr-2"
+                                        key={index}
+                                        id={"input_" + index}
                                     />
                                 ))}
                             </div>
