@@ -1,8 +1,8 @@
-import LeadTitle from '@/app/shared/components/LeadTitle/LeadTitle';
-import ModuleCard from './ModuleCard';
+import LeadTitle from '@/app/shared/components/LeadTitle';
+import ModuleCard from './components/ModuleCard';
 import { getServerSession } from 'next-auth';
 import { options } from '@/app/api/auth/[...nextauth]/options';
-import { getModules } from './services/modules.service';
+import { getModules } from '@/app/shared/services/modules.service';
 
 export default async function Modules({ params }: any) {
 	const session = await getServerSession(options);

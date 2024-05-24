@@ -1,13 +1,13 @@
 import Modules from '../page';
 import { render, screen } from '@testing-library/react';
 import { getServerSession } from 'next-auth';
-import { getModules } from '../services/modules.service';
+import { getModules } from '../../../../shared/services/modules.service';
 
 jest.mock('next-auth/react');
 jest.mock('next-auth', () => ({
 	getServerSession: jest.fn(),
 }));
-jest.mock('../services/modules.service', () => ({
+jest.mock('../../../../shared/services/modules.service.ts', () => ({
 	getModules: jest.fn(),
 }));
 

@@ -1,8 +1,8 @@
 import { Button } from '@/components/ui/button';
 import { getServerSession } from 'next-auth';
 import { options } from '../../api/auth/[...nextauth]/options';
-import Players from './Players';
-import LeadTitle from '@/app/shared/components/LeadTitle/LeadTitle';
+import Players from './components/Players';
+import LeadTitle from '@/app/shared/components/LeadTitle';
 
 export default async function PlayerSelection() {
 	const session = await getServerSession(options);

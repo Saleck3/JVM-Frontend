@@ -1,4 +1,4 @@
-import PlayerCard from '../PlayerCard';
+import PlayerCard from '../components/PlayerCard';
 import { render, screen } from '@testing-library/react';
 
 const mockPlayer = {

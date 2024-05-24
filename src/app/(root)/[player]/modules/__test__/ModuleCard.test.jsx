@@ -1,4 +1,4 @@
-import ModuleCard from '../ModuleCard';
+import ModuleCard from '../components/ModuleCard';
 import { render, screen } from '@testing-library/react';
 
 const mockModule = {
