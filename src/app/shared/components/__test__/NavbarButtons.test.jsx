@@ -8,16 +8,13 @@ jest.mock('next-auth/react', () => ({
 	signOut: jest.fn(),
 }));
 
-describe('NavbarButtons', () => {
-	it('renders register and login button when not signed in', () => {
+describe('NavbarButtons Component', () => {
+	it('should render register and login button when not signed in', () => {
 		useSession.mockReturnValue({ data: null });
 
 		render(<NavbarButtons />);
 
-		const register = screen.getByText(/Registrarse/i);
-		const login = screen.getByText(/Login/i);
-		expect(register).toBeInTheDocument();
-		expect(login).toBeInTheDocument();
+		checkUnsignedUserNavbarButtons();
 	});
 
 	it('should not render register and login button when signed in', () => {
@@ -30,46 +27,72 @@ describe('NavbarButtons', () => {
 		});
 
 		render(<NavbarButtons />);
-		const register = screen.queryByText(/Registrarse/i);
-		const login = screen.queryByText(/Login/i);
-		expect(register).toBeNull();
-		expect(login).toBeNull();
+		checkSignedInNavbarButtons();
 	});
 
-	it('logged user email when signed in', () => {
+	it('should display the logged user email when signed in', () => {
+		const userEmail = 'foo@bar.com';
 		useSession.mockReturnValue({
 			data: {
 				user: {
-					email: 'foo@bar.com',
+					email: userEmail,
 				},
 			},
 		});
 
 		render(<NavbarButtons />);
-
-		const email = screen.getByText(/foo@bar.com/i);
-		expect(email).toBeInTheDocument();
+		checkLoggedUserEmailRender(userEmail);
 	});
 
 	it('should call signOut when sign out button is clicked', async () => {
+		const userEmail = 'foo@bar.com';
 		useSession.mockReturnValue({
 			data: {
 				user: {
-					email: 'foo@bar.com',
+					email: userEmail,
 				},
 			},
 		});
 
 		render(<NavbarButtons />);
 
-		const menu = screen.getByText(/foo@bar.com/i);
-		await userEvent.click(menu);
-
-		await waitFor(() => screen.getByText(/Logout/i));
-
-		const signOutButton = screen.getByText(/Logout/i);
-		await userEvent.click(signOutButton);
+		await openUserMenu();
+		await waitForSignOut();
+		await clickOnSignOutButton();
 
 		expect(signOut).toHaveBeenCalled();
 	});
 });
+
+const checkUnsignedUserNavbarButtons = () => {
+	const register = screen.getByText(/Registrarse/i);
+	const login = screen.getByText(/Login/i);
+	expect(register).toBeInTheDocument();
+	expect(login).toBeInTheDocument();
+};
+
+const checkSignedInNavbarButtons = () => {
+	const register = screen.queryByText(/Registrarse/i);
+	const login = screen.queryByText(/Login/i);
+	expect(register).toBeNull();
+	expect(login).toBeNull();
+};
+
+const checkLoggedUserEmailRender = (userEmail) => {
+	const email = screen.getByText(new RegExp(userEmail, 'i'));
+	expect(email).toBeInTheDocument();
+};
+
+const openUserMenu = async () => {
+	const menu = screen.getByText(/foo@bar.com/i);
+	await userEvent.click(menu);
+};
+
+const clickOnSignOutButton = async () => {
+	const signOutButton = screen.getByText(/Logout/i);
+	await userEvent.click(signOutButton);
+};
+
+const waitForSignOut = async () => {
+	await waitFor(() => screen.getByText(/Logout/i));
+};

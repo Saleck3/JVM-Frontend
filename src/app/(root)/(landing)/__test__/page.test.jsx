@@ -4,13 +4,15 @@ import { render, screen } from '@testing-library/react';
 
 jest.mock('next-auth/react');
 
-describe('landing page', () => {
+describe('Landing Page', () => {
 	it('renders correctly', () => {
 		useSession.mockReturnValue({ data: null });
-
 		render(<Landing />);
-
-		const title = screen.getByRole('heading', { level: 1 });
-		expect(title).toHaveTextContent(/Unite a las aventuras/);
+		checkLandingPageTitle();
 	});
 });
+
+const checkLandingPageTitle = () => {
+	const title = screen.getByRole('heading', { level: 1 });
+	expect(title).toHaveTextContent(/Unite a las aventuras/);
+};

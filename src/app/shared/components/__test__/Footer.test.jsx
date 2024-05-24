@@ -1,13 +1,17 @@
 import Footer from '../Footer';
 import { render, screen } from '@testing-library/react';
 
-describe('Footer', () => {
-	it('renders correctly', () => {
+describe('Footer Component', () => {
+	it('should render correctly', () => {
 		render(<Footer />);
 
-		const copyright = screen.getByText(
-			'© 2024 Lecti. Todos los derechos reservados.'
-		);
-		expect(copyright).toBeInTheDocument();
+		checkFooterRender();
 	});
 });
+
+const checkFooterRender = () => {
+	const copyright = screen.getByText(
+		'© 2024 Lecti. Todos los derechos reservados.'
+	);
+	expect(copyright).toBeInTheDocument();
+};
