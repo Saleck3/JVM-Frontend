@@ -1,5 +1,5 @@
-import ApplePath from '../page';
 import { render, screen } from '@testing-library/react';
+import ApplePath from '../page';
 import { getServerSession } from 'next-auth';
 import { getApples } from '../../../../../shared/services/apples.service';
 
@@ -7,9 +7,7 @@ jest.mock('next-auth/react');
 jest.mock('next-auth', () => ({
 	getServerSession: jest.fn(),
 }));
-jest.mock('../../../../../shared/services/apples.service', () => ({
-	getApples: jest.fn(),
-}));
+jest.mock('../../../../../shared/services/apples.service');
 
 const mockApples = [{ id: 1, name: 'apple1' }];
 
@@ -22,10 +20,13 @@ beforeAll(() => {
 	getApples.mockResolvedValue(mockApples);
 });
 
-describe('Applepath page', () => {
+describe('ApplePath Page', () => {
 	it('renders correctly', async () => {
 		render(await ApplePath({ params: { player: 'foo' } }));
-
-		expect(ApplePath).toBeDefined();
+		checkPageRender();
 	});
 });
+
+const checkPageRender = () => {
+	expect(ApplePath).toBeDefined();
+};

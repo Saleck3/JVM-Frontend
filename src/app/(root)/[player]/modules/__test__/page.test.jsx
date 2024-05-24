@@ -1,5 +1,5 @@
-import Modules from '../page';
 import { render, screen } from '@testing-library/react';
+import Modules from '../page';
 import { getServerSession } from 'next-auth';
 import { getModules } from '../../../../shared/services/modules.service';
 
@@ -37,18 +37,24 @@ beforeAll(() => {
 	getModules.mockResolvedValue(mockModules);
 });
 
-describe('modules page', () => {
-	it('renders correctly', async () => {
+describe('Modules Page', () => {
+	it('should render correctly correctly', async () => {
 		render(await Modules({ params: { player: 'foo' } }));
-
-		const title = screen.getByRole('heading', { level: 1 });
-		expect(title).toHaveTextContent(/Selección de Módulo/);
+		checkPageTitle();
 	});
 
 	it('renders the correct number of modules', async () => {
 		render(await Modules({ params: { player: 'foo' } }));
-
-		const modules = screen.getAllByRole('heading', { level: 3 });
-		expect(modules).toHaveLength(mockModules.length);
+		checkModulesCount(mockModules.length);
 	});
 });
+
+const checkPageTitle = () => {
+	const title = screen.getByRole('heading', { level: 1 });
+	expect(title).toHaveTextContent(/Selección de Módulo/);
+};
+
+const checkModulesCount = (expectedCount) => {
+	const modules = screen.getAllByRole('heading', { level: 3 });
+	expect(modules).toHaveLength(expectedCount);
+};

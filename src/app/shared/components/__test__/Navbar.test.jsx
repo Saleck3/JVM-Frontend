@@ -4,13 +4,16 @@ import { render, screen } from '@testing-library/react';
 
 jest.mock('next-auth/react');
 
-describe('Navbar', () => {
-	it('renders correctly', () => {
+describe('Navbar Component', () => {
+	it('should render correctly', () => {
 		useSession.mockReturnValue({ data: null });
 
 		render(<Navbar />);
-
-		const logo = screen.getByAltText(/logo/i);
-		expect(logo).toBeInTheDocument();
+		checkNavbarRender();
 	});
 });
+
+const checkNavbarRender = () => {
+	const logo = screen.getByAltText(/logo/i);
+	expect(logo).toBeInTheDocument();
+};

@@ -7,11 +7,15 @@ const mockPlayer = {
 	totalCrowns: 23,
 };
 
-describe('PlayerCard', () => {
-	it('renders correctly', async () => {
+describe('PlayerCard Component', () => {
+	it('should render correctly', async () => {
 		render(<PlayerCard {...mockPlayer} />);
 
-		const title = screen.getByRole('heading', { level: 3 });
-		expect(title).toHaveTextContent(mockPlayer.playerName);
+		checkPlayerCardRender(mockPlayer);
 	});
 });
+
+const checkPlayerCardRender = (player) => {
+	const title = screen.getByRole('heading', { level: 3 });
+	expect(title).toHaveTextContent(player.playerName);
+};

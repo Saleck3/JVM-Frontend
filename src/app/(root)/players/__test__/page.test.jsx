@@ -8,6 +8,8 @@ jest.mock('next-auth', () => ({
 	getServerSession: jest.fn(),
 }));
 
+const mockSessionData = { data: null };
+
 beforeAll(() => {
 	getServerSession.mockReturnValue({
 		user: {
@@ -16,13 +18,17 @@ beforeAll(() => {
 	});
 });
 
-describe('players page', () => {
-	it('renders correctly', async () => {
-		useSession.mockReturnValue({ data: null });
+describe('Players page', () => {
+	it('should render correctly', async () => {
+		useSession.mockReturnValue(mockSessionData);
 
 		render(await PlayerSelection());
 
-		const title = screen.getByRole('heading', { level: 1 });
-		expect(title).toHaveTextContent(/Selección de jugador/);
+		checkPlayerSelectionPageRender();
 	});
 });
+
+const checkPlayerSelectionPageRender = () => {
+	const title = screen.getByRole('heading', { level: 1 });
+	expect(title).toHaveTextContent(/Selección de jugador/);
+};
