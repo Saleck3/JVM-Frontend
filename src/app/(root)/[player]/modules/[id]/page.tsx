@@ -1,6 +1,8 @@
 import { options } from '@/app/api/auth/[...nextauth]/options';
 import { getServerSession } from 'next-auth';
 import { getApples } from '@/app/shared/services/apples.service';
+import ButtonApple from './components/buttonApple';
+import '@/app/(root)/[player]/modules/[id]/components/appleStyles.css';
 
 export default async function ApplePath({ params }: any) {
 	const session = await getServerSession(options);
@@ -14,17 +16,24 @@ export default async function ApplePath({ params }: any) {
 		session?.user?.accessToken!
 	);
 
+	if (!apples) {
+		return (
+			<h1> Aun no hay manzanas</h1>
+		);
+	}
+
 	return (
-		<main>
-			{apples.map((apple: any) => (
-				<button
-					className="bg-primary p-2 m-2 flex flex-col items-center"
-					key={apple.id}
-				>
-					<span>Manzana de ejemplo {apple.name}</span>
-					<span>{'⭐'.repeat(apple.stars)}</span>
-				</button>
-			))}
-		</main>
+		<div className="apple-container">
+			<ul className="apple-list">
+				{apples.map((apple: any) => (
+					<ButtonApple
+						key={"apple_" + apple.id}
+						letter={apple.name}
+						playerNick={player.alias}
+						appleId={apple.id}
+						stars={apple.stars} />
+				))}
+			</ul>
+		</div >
 	);
 }
