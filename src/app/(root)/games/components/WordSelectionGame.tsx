@@ -12,10 +12,11 @@ type Props = {
 	correctWord: string;
 	imgSrc: string;
 	onWrongAnswer: () => void;
+	handleNextButton: () => void;
 };
 
 const WordSelectionGame = (props: Props) => {
-	const { words, correctWord, imgSrc, onWrongAnswer } = props;
+	const { words, correctWord, imgSrc, onWrongAnswer, handleNextButton } = props;
 	const [isCorrect, setIsCorrect] = useState(false);
 	const [gameWords, setGameWords] = useState(
 		words.map((word: string) => ({ value: word, selected: false }))
@@ -76,9 +77,10 @@ const WordSelectionGame = (props: Props) => {
 			{isCorrect && (
 				<>
 					<p className="text-green-500 text-center my-4">¡Correcto!</p>
-					<Link href="/games/" className="grid">
-						<Button>Volver</Button>
-					</Link>
+
+					<Button className="w-full" onClick={handleNextButton}>
+						Siguiente
+					</Button>
 				</>
 			)}
 		</div>
