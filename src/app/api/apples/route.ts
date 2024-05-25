@@ -2,34 +2,35 @@ import { headers } from 'next/headers';
 import { NextRequest } from 'next/server';
 
 export async function GET(req: NextRequest) {
-	const searchParams = req.nextUrl.searchParams;
-	const headersList = headers();
-	const playerId = searchParams.get('playerId')!;
-	const moduleId = searchParams.get('moduleId')!;
-	const token = headersList.get('Authorization')!;
+  const searchParams = req.nextUrl.searchParams;
+  const playerId = searchParams.get('playerId')!;
+  const moduleId = searchParams.get('moduleId')!;
 
-	const query = new URLSearchParams({ playerId, moduleId });
-	const url = `${process.env.API_URL}/api/apple/getApplesByModuleId?${query}`;
+  const headersList = headers();
+  const token = headersList.get('Authorization')!;
 
-	try {
-		const res = await fetch(url, {
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: token,
-			},
-		});
+  const query = new URLSearchParams({ playerId, moduleId });
+  const url = `${process.env.API_URL}/api/apple/getApplesByModuleId?${query}`;
 
-		if (!res.ok) {
-			return Response.json(
-				{ status: res.status, body: res.statusText, url },
-				{ status: res.status }
-			);
-		}
+  try {
+    const res = await fetch(url, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: token
+      }
+    });
 
-		const data = await res.json();
-		return Response.json({ data });
-	} catch (e: any) {
-		console.error(e.message);
-		return Response.json({ status: 500, message: e.message }, { status: 500 });
-	}
+    if (!res.ok) {
+      return Response.json(
+        { status: res.status, body: res.statusText, url },
+        { status: res.status }
+      );
+    }
+
+    const data = await res.json();
+    return Response.json({ data });
+  } catch (e: any) {
+    console.error(e.message);
+    return Response.json({ status: 500, message: e.message }, { status: 500 });
+  }
 }

@@ -16,7 +16,7 @@ export const getApples = async (
 		});
 		const data = await res.json();
 
-		return data;
+		return data.data.apples;
 	} catch (e: any) {
 		console.error('modules service error', e.message);
 	}

@@ -7,7 +7,7 @@ beforeAll(() => {
 const mockResponse = [{ id: 1, name: 'apple1' }];
 
 describe('Apples service', () => {
-	it('should make a request to apples internal api with correct params', () => {
+	it('should make a request to apples internal api with playerId and moduleId', () => {
 		setFetchMockResponse();
 
 		const response = getApples(1, 2, 'token');
