@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\public",
+    "\\src",
+    "\\src\\app",
+    "\\src\\app\\api",
+    "\\src\\app\\api\\apple",
+    "\\src\\app\\api\\apple\\components",
+    "\\src\\app\\api\\apple\\components\\buttonApple",
+    "\\src\\app\\api\\apple\\components\\buttonNote",
+    "\\src\\components"
+  ],
+  "SelectedNode": "\\src\\app\\api\\apple\\page.tsx",
+  "PreviewInSolutionExplorer": false
+}
