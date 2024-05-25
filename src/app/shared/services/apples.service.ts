@@ -16,8 +16,24 @@ export const getApples = async (
 		});
 		const data = await res.json();
 
-		return data.data.apples;
+		return applesAdapter(data);
 	} catch (e: any) {
 		console.error('modules service error', e.message);
 	}
 };
+
+type appleType = {
+	id: number,
+	name: string,
+	stars: number
+}
+
+function applesAdapter(data: any): [appleType] {
+	const datosBack = data.data.apples;
+	const applesArray: [appleType] = datosBack.map((unformattedApple: any) => ({
+		id: unformattedApple.id,
+		name: unformattedApple.name,
+		stars: unformattedApple.stars
+	}));
+	return applesArray;
+}
