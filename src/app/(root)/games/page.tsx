@@ -10,6 +10,9 @@ export default function page() {
 			<Link href="/games/write" className="bg-red-200 p-2 m-2">
 				Escribir palabra
 			</Link>
+			<Link href="/games/drag" className="bg-red-200 p-2 m-2">
+				Ordenar palabras
+			</Link>
 		</div>
 	);
 }
