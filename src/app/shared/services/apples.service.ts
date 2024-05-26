@@ -1,3 +1,5 @@
+import { appleType } from "../types/apple.type";
+
 export const getApples = async (
 	playerId: string,
 	moduleId: string,
@@ -22,11 +24,7 @@ export const getApples = async (
 	}
 };
 
-type appleType = {
-	id: number,
-	name: string,
-	stars: number
-}
+
 
 function applesAdapter(data: any): [appleType] {
 	const datosBack = data.data.apples;

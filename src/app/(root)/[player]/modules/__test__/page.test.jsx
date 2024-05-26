@@ -16,14 +16,14 @@ const mockModules = [
 		description: 'Test module',
 		recommended: true,
 		id: 1,
-		playerNick: 'player1',
+		playerAlias: 'player1',
 		progress: 0,
 	},
 	{
 		description: 'Test module 2',
 		recommended: false,
 		id: 2,
-		playerNick: 'player1',
+		playerAlias: 'player1',
 		progress: 0,
 	},
 ];

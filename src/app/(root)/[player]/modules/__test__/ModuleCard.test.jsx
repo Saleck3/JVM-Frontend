@@ -5,7 +5,7 @@ const mockModule = {
 	description: 'Test module',
 	recommended: true,
 	id: 1,
-	playerNick: 'player1',
+	playerAlias: 'player1',
 	progress: 0,
 };
 
