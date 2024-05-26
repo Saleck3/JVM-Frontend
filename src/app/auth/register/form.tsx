@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
+import { useEffect, useState } from "react";
 import {
   Form,
   FormControl,
@@ -14,14 +15,28 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
+import { parseError, setFieldErrors } from '@/lib/errors';
 
-const formSchema = z.object({
-  name: z.string().min(1, "Escribí tu nombre"),
-  lastname: z.string().min(1, "Escribí tu apellido"),
-  email: z.string().email().min(4, "No olvides tu email"),
-  password: z.string().min(8, "La clave debe contener al menos 8 carácteres"),
-  repeatPassword: z.string(), 
-});
+const formSchema = z
+  .object({
+    name: z.string().min(2, "Escribí tu nombre"),
+    lastname: z.string().min(2, "Escribí tu apellido"),
+    email: z
+      .string()
+      .email("Formato de email incorrecto")
+      .min(4, "No olvides tu email"),
+    password: z.string().min(8, "La clave debe contener al menos 8 caracteres"),
+    repeatPassword: z
+      .string()
+      .min(8, "La clave debe contener al menos 8 caracteres"),
+    terms: z.literal(true, {
+      errorMap: () => ({ message: "Debes aceptar los términos y condiciones" }),
+    }),
+  })
+  .refine((data) => data.password === data.repeatPassword, {
+    message: "Las contraseñas deben coincidir",
+    path: ["repeatPassword"],
+  });
 
 type FormData = z.infer<typeof formSchema>;
 
@@ -34,13 +49,35 @@ export const RegisterForm = () => {
       email: "",
       password: "",
       repeatPassword: "",
+      terms: false,
     },
   });
 
+  const { name, lastname, email, password } = form.watch();
+  const [errorMessage, setErrorMessage] = useState<string>();
+
+  useEffect(() => {
+    setErrorMessage(undefined);
+  }, [name, email, password]);
+
+  const onSubmit = async (data: FormData) => {
+    try {
+      // await api.post('/register', data);
+      // router.push('/login');
+      console.log('registrado');
+    } catch (error) {
+      const { message, fields } = parseError(error);
+      if (fields) {
+        setFieldErrors(fields, form.setError);
+      } else {
+        setErrorMessage(message || 'Something went wrong signing up');
+      }
+    }
+  };
 
   return (
     <Form {...form}>
-      <form>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
         <div className="space-y-6">
           <FormField
             control={form.control}
@@ -55,7 +92,7 @@ export const RegisterForm = () => {
                     {...field}
                   />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-red-600" />
               </FormItem>
             )}
           />
@@ -72,7 +109,7 @@ export const RegisterForm = () => {
                     {...field}
                   />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-red-600" />
               </FormItem>
             )}
           />
@@ -89,7 +126,7 @@ export const RegisterForm = () => {
                     {...field}
                   />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-red-600" />
               </FormItem>
             )}
           />
@@ -107,17 +144,16 @@ export const RegisterForm = () => {
                     {...field}
                   />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-red-600" />
               </FormItem>
             )}
           />
-
           <FormField
             control={form.control}
             name="repeatPassword"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Clave</FormLabel>
+                <FormLabel>Repetí tu Clave</FormLabel>
                 <FormControl>
                   <Input
                     placeholder="Repetí tu contraseña"
@@ -126,37 +162,39 @@ export const RegisterForm = () => {
                     {...field}
                   />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-red-600" />
               </FormItem>
             )}
           />
-
           <FormField
-            //control={form.control}
+            control={form.control}
             name="terms"
             render={({ field }) => (
               <FormItem>
                 <FormControl>
                   <Checkbox
-                    type="checkbox"
+                    {...field}
+                    checked={field.value}
                     onChange={field.onChange}
                     id="terms"
                   />
                 </FormControl>
                 <FormLabel htmlFor="terms" className="ml-2">
-                  Estoy de acuerdo con los términos y las políticas de
-                  privacidad
+                  <span className="ml-3">Estoy de acuerdo con los términos y las políticas de
+                  privacidad </span>
                 </FormLabel>
-                <FormMessage />
+                <FormMessage className="text-red-600" />
               </FormItem>
             )}
           />
         </div>
-       
-        <Button type="submit" className="w-full mt-12 hover:bg-gray-500">
+        <Button type="submit" className="w-full mt-10 link">
           Registrarse
         </Button>
       </form>
+      {errorMessage && (
+        <p className="text-sm font-semibold text-red-600 text-xs mt-1">{errorMessage}</p>
+      )}
     </Form>
   );
 };
