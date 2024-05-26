@@ -1,11 +1,11 @@
-"use client"
 import Image from 'next/image';
 import Link from 'next/link';
 import NavbarButtons from './NavbarButtons';
-import { useSession } from 'next-auth/react';
+import { options } from '@/app/api/auth/[...nextauth]/options';
+import { getServerSession } from 'next-auth';
 
-export default function Navbar() {
-	const { data: session } = useSession();
+export default async function Navbar() {
+	const session = await getServerSession(options);
 	const navbarLogohref = session?.user ? '/players' : '/'
 	
 	return (

@@ -1,7 +1,7 @@
 import { options } from '@/app/api/auth/[...nextauth]/options';
 import { getServerSession } from 'next-auth';
 import { getApples } from '@/app/shared/services/apples.service';
-import ButtonApple from './components/buttonApple';
+import ButtonApple from './components/ButtonApple';
 import '@/app/(root)/[player]/modules/[id]/components/appleStyles.css';
 
 export default async function ApplePath({ params }: any) {
@@ -28,8 +28,8 @@ export default async function ApplePath({ params }: any) {
 				{apples.map((apple: any) => (
 					<ButtonApple
 						key={"apple_" + apple.id}
-						letter={apple.name}
-						playerNick={player.alias}
+						name={apple.name}
+						playerAlias={player.alias}
 						appleId={apple.id}
 						stars={apple.stars} />
 				))}

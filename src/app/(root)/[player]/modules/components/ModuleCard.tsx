@@ -14,7 +14,7 @@ type Props = {
 	description: string;
 	recommended?: boolean;
 	id: number;
-	playerNick: string;
+	playerAlias: string;
 	progress: number;
 };
 
@@ -22,7 +22,7 @@ export default function ModuleCard({
 	description,
 	recommended = false,
 	id,
-	playerNick,
+	playerAlias,
 	progress,
 }: Props): JSX.Element {
 	const dropShadow = recommended
@@ -51,7 +51,7 @@ export default function ModuleCard({
 				/>
 			</CardContent>
 			<CardFooter>
-				<Link href={`/${playerNick}/modules/${id}`} className="w-full">
+				<Link href={`/${playerAlias}/modules/${id}`} className="w-full">
 					<Button className="w-full">Ver módulo</Button>
 				</Link>
 			</CardFooter>

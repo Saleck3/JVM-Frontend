@@ -24,7 +24,7 @@ export default async function Modules({ params }: any) {
 						key={module.id}
 						{...module}
 						recommended={player.recommendedModule === module.id}
-						playerNick={player.alias}
+						playerAlias={player.alias}
 					/>
 				))}
 			</div>
