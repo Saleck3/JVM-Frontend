@@ -2,7 +2,6 @@ import { options } from '@/app/api/auth/[...nextauth]/options';
 import { getServerSession } from 'next-auth';
 import { getApples } from '@/app/shared/services/apples.service';
 import ButtonApple from './components/ButtonApple';
-import '@/app/(root)/[player]/modules/[id]/components/appleStyles.css';
 
 export default async function ApplePath({ params }: any) {
 	const session = await getServerSession(options);
@@ -23,8 +22,8 @@ export default async function ApplePath({ params }: any) {
 	}
 
 	return (
-		<div className="apple-container">
-			<ul className="apple-list">
+		<div className="bg-blue-300 bg-[url('https://www.transparenttextures.com/patterns/asfalt-light.png')] flex justify-center p-5">
+			<ul className="list-none grid sm:grid-cols-3 xl:grid-cols-5 w-4/5">
 				{apples.map((apple: any) => (
 					<ButtonApple
 						key={"apple_" + apple.id}
