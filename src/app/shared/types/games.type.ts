@@ -6,10 +6,10 @@ Vale por 2
 - La imagen es un boton de play (Sin ayuda)
 - La imagen es una ayuda de la palabra (EJ: la imagen es una abeja)
 */
-export type letter_ordering = {
-    words: string[];
-    correctWord: string;
-    url: string;
+export type letterOrdering = {
+    options: string[];
+    correctAnswer: string;
+    image?: string;
 };
 
 /*
@@ -19,11 +19,11 @@ Si se clickea la imagen, debe hacer el sonido de la palabra (TTS)
 Si recibe label se tiene que mostrar entremedio de la imagen y la seleccion
 Ej: la palabra es muñeca el label es "__ÑECA" y las opciones "MU", "MA", "ME"
 */
-export type image_selection = {
-    words: string[];
-    label: string;
-    correctWord: string;
-    url: string;
+export type imageSelection = {
+    options: string[];
+    label?: string; //Pista
+    correctAnswer: string;
+    image?: string;
 };
 
 /*
@@ -36,18 +36,23 @@ Vale por 3
 - La imagen es el texto de la palabra (EJ: la imagen es "MA")
 - La imagen es un boton de play (Sin ayuda)
 */
-export type image_writing = {
-    correctWord: string;
-    preSelectedLetters: string[];
-    url: string;
+export type imageWriting = {
+    correctAnswer: string;
+    preSelectedLetters: preSelectedLetter[];
+    image?: string;
 };
+
+type preSelectedLetter = {
+    letter: string;
+    index: number;
+}
 
 /*
 Reproduce un video
 Sin puntaje
 */
 export type video = {
-    url: string;
+    image: string;
 };
 
 /** IA **/
@@ -55,15 +60,15 @@ export type video = {
 /*  
 Recibe la palabre, se lee por TTS y hay que grabar un audio repitiendo
 */
-export type audio_repeating = {
-    correctWord: string;
+export type audioRepeating = {
+    correctAnswer: string;
 };
 
 /*
 Se recibe solo la palabra, se muestra en pantalla y hay que grabar un audio leyendo
 */
-export type text_read = {
-    correctWord: string;
+export type textRead = {
+    correctAnswer: string;
 };
 
 
@@ -71,5 +76,5 @@ export type text_read = {
 Ficha caligrafica, solo descarga
 */
 export type worksheets = {
-    url: string;
+    image: string;
 };
