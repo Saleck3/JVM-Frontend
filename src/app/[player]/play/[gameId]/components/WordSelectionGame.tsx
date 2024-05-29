@@ -2,45 +2,46 @@
 
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
-import Link from 'next/link';
 import { useState } from 'react';
 // @ts-ignore
 import useSound from 'use-sound';
 
 type Props = {
-	words: string[];
-	correctWord: string;
-	imgSrc: string;
+	options: string[];
+	label?: string;
+	correctAnswer: string;
+	imgSrc?: string;
 	onWrongAnswer: () => void;
 	handleNextButton: () => void;
 };
 
 const WordSelectionGame = (props: Props) => {
-	const { words, correctWord, imgSrc, onWrongAnswer, handleNextButton } = props;
+	const { options, correctAnswer, imgSrc, onWrongAnswer, handleNextButton } =
+		props;
 	const [isCorrect, setIsCorrect] = useState(false);
-	const [gameWords, setGameWords] = useState(
-		words.map((word: string) => ({ value: word, selected: false }))
+	const [gameOptions, setGameOptions] = useState(
+		options.map((option: string) => ({ value: option, selected: false }))
 	);
 	const [playCorrectSound] = useSound('/sounds/success.mp3');
 	const [playWrongSound] = useSound('/sounds/wrong.mp3');
 
-	const handleClick = (word: string) => {
-		if (word === correctWord) {
+	const handleClick = (option: string) => {
+		if (option === correctAnswer) {
 			setIsCorrect(true);
 			playCorrectSound();
 		} else {
-			setGameWords((prev) =>
-				prev.map((w) => (w.value === word ? { ...w, selected: true } : w))
+			setGameOptions((prev) =>
+				prev.map((o) => (o.value === option ? { ...o, selected: true } : o))
 			);
 			playWrongSound();
 			onWrongAnswer();
 		}
 	};
 
-	const getVariant = (word: { value: string; selected: boolean }) => {
-		return isCorrect && word.value === correctWord
+	const getVariant = (option: { value: string; selected: boolean }) => {
+		return isCorrect && option.value === correctAnswer
 			? 'success'
-			: word.selected
+			: option.selected
 			? 'gray'
 			: 'secondary';
 	};
@@ -53,23 +54,23 @@ const WordSelectionGame = (props: Props) => {
 			<div className="mb-6">
 				<Image
 					src={imgSrc}
-					alt={correctWord}
+					alt={correctAnswer}
 					className="object-cover mx-auto"
 					height={300}
 					width={200}
 				/>
 			</div>
 			<div className="grid grid-cols-2 gap-4">
-				{gameWords?.map((word) => {
-					const variant = getVariant(word);
+				{gameOptions?.map((option) => {
+					const variant = getVariant(option);
 
 					return (
 						<Button
-							key={word.value}
+							key={option.value}
 							variant={variant}
-							onClick={() => handleClick(word.value)}
+							onClick={() => handleClick(option.value)}
 						>
-							{word.value}
+							{option.value}
 						</Button>
 					);
 				})}
