@@ -5,6 +5,12 @@ import WordOrderingGame from './components/WordOrderingGame';
 import WordSelectionGame from './components/WordSelectionGame';
 import WordWritingGame from './components/WordWritingGame';
 
+const gameComponents: any = {
+	letterOrdering: WordOrderingGame,
+	imageSelection: WordSelectionGame,
+	imageWriting: WordWritingGame,
+};
+
 export default function Games() {
 	const [games, setGames] = useState<any>([]);
 	const [currentGameIndex, setCurrentGameIndex] = useState<number>(0);
@@ -15,54 +21,25 @@ export default function Games() {
 	}, []);
 
 	const getCurrentGame = () => {
-		switch (games[currentGameIndex]?.exerciseType) {
-			case 'letterOrdering':
-				return (
-					<WordOrderingGame
-						options={games[currentGameIndex].params.options}
-						correctAnswer={games[currentGameIndex].params.correctAnswer}
-						onWrongAnswer={() => setErrorCounter((prevValue) => prevValue + 1)}
-						handleNextButton={() =>
-							setCurrentGameIndex((prevValue) => prevValue + 1)
-						}
-					/>
-				);
-			case 'imageSelection':
-				return (
-					<WordSelectionGame
-						options={games[currentGameIndex].params.options}
-						correctAnswer={games[currentGameIndex].params.correctAnswer}
-						onWrongAnswer={() => setErrorCounter((prevValue) => prevValue + 1)}
-						imgSrc={games[currentGameIndex].params.image}
-						handleNextButton={() =>
-							setCurrentGameIndex((prevValue) => prevValue + 1)
-						}
-					/>
-				);
-			case 'imageWriting':
-				return (
-					<WordWritingGame
-						correctAnswer={games[currentGameIndex].params.correctAnswer}
-						onWrongAnswer={() => setErrorCounter((prevValue) => prevValue + 1)}
-						imgSrc={games[currentGameIndex].params.image}
-						handleNextButton={() =>
-							setCurrentGameIndex((prevValue) => prevValue + 1)
-						}
-						preselectedLetters={
-							games[currentGameIndex].params.preSelectedLetters
-						}
-					/>
-				);
-			default:
-				return (
-					<div>
-						Fin <br />
-						Errores: {errorCounter}
-						<img src="https://i.ytimg.com/vi/Ywv8A0vsFqk/hqdefault.jpg" />
-						<button onClick={() => setCurrentGameIndex(0)}>Otra vez</button>
-					</div>
-				);
-		}
+		const currentGame = games[currentGameIndex];
+		const GameComponent = gameComponents[currentGame?.exerciseType];
+
+		if (!GameComponent) return null;
+
+		const { params: gameParams } = currentGame;
+
+		return (
+			<GameComponent
+				options={gameParams.options}
+				correctAnswer={gameParams.correctAnswer}
+				onWrongAnswer={() => setErrorCounter((prevValue) => prevValue + 1)}
+				handleNextButton={() =>
+					setCurrentGameIndex((prevValue) => prevValue + 1)
+				}
+				imgSrc={gameParams.image}
+				preselectedLetters={gameParams.preSelectedLetters}
+			/>
+		);
 	};
 
 	const completedPercentage = Math.trunc(
@@ -77,7 +54,15 @@ export default function Games() {
 					style={{ width: `${completedPercentage}%` }}
 				></div>
 			</div>
-			{getCurrentGame()}
+			{currentGameIndex < games.length ? (
+				getCurrentGame()
+			) : (
+				<div>
+					Errores: {errorCounter}{' '}
+					<img src="https://i.ytimg.com/vi/Ywv8A0vsFqk/hqdefault.jpg" alt="" />
+					<button onClick={() => setCurrentGameIndex(0)}>De nuevo</button>
+				</div>
+			)}
 		</div>
 	);
 }

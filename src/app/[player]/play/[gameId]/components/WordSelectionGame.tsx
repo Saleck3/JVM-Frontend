@@ -15,7 +15,7 @@ type Props = {
 	handleNextButton: () => void;
 };
 
-const WordSelectionGame = (props: Props) => {
+const WordSelectionGame = (props: Props): JSX.Element => {
 	const { options, correctAnswer, imgSrc, onWrongAnswer, handleNextButton } =
 		props;
 	const [isCorrect, setIsCorrect] = useState(false);

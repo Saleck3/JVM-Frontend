@@ -17,7 +17,7 @@ type Props = {
 
 const font = Roboto_Mono({ subsets: ['latin'] });
 
-const WordWritingGame = (props: Props) => {
+const WordWritingGame = (props: Props): JSX.Element => {
 	const { correctAnswer, imgSrc, onWrongAnswer, handleNextButton } = props;
 	const [isCorrect, setIsCorrect] = useState(false);
 	const [isIncorrect, setIsIncorrect] = useState(false);

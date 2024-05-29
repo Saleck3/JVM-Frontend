@@ -13,7 +13,7 @@ type Props = {
 	handleNextButton: () => void;
 };
 
-const WordOrderingGame = (props: Props) => {
+const WordOrderingGame = (props: Props): JSX.Element => {
 	const { options, correctAnswer, onWrongAnswer, handleNextButton } = props;
 	const [orderedOptions, setOrderedOptions] = useState<string[]>(options);
 	const [isCorrect, setIsCorrect] = useState(false);
