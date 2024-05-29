@@ -14,9 +14,9 @@ export const getApples = async (
 				Authorization: `Bearer ${token}`,
 			},
 		});
-		const data = await res.json();
+		const { data } = await res.json();
 
-		return data;
+		return data.apples;
 	} catch (e: any) {
 		console.error('modules service error', e.message);
 	}
