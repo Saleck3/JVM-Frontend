@@ -22,15 +22,17 @@ export default async function ApplePath({ params }: any) {
 	}
 
 	return (
-		<div className="bg-blue-300 bg-[url('https://www.transparenttextures.com/patterns/asfalt-light.png')] flex justify-center p-5">
-			<ul className="list-none grid sm:grid-cols-3 xl:grid-cols-5 w-4/5">
-				{apples.map((apple: any) => (
+		<div className="bg-blue-300 bg-[url('https://www.transparenttextures.com/patterns/asfalt-light.png')] bg-cover flex flex-col items-center p-5 overflow-y-scroll h-screen">
+			<ul className="relative w-full">
+				{apples.map((apple: any, index: number) => (
 					<ButtonApple
 						key={"apple_" + apple.id}
 						name={apple.name}
 						playerAlias={player.alias}
 						appleId={apple.id}
-						stars={apple.stars} />
+						stars={apple.stars} 
+						index={index}
+						/>
 				))}
 			</ul>
 		</div >
