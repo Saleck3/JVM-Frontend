@@ -16,9 +16,7 @@ export default async function ApplePath({ params }: any) {
 	);
 
 	if (!apples) {
-		return (
-			<h1> Aun no hay manzanas</h1>
-		);
+		return <h1> Aún no hay manzanas</h1>;
 	}
 
 	return (
@@ -26,15 +24,15 @@ export default async function ApplePath({ params }: any) {
 			<ul className="relative w-full">
 				{apples.map((apple: any, index: number) => (
 					<ButtonApple
-						key={"apple_" + apple.id}
+						key={'apple_' + apple.id}
 						name={apple.name}
 						playerAlias={player.alias}
 						appleId={apple.id}
-						stars={apple.stars} 
+						stars={apple.stars}
 						index={index}
-						/>
+					/>
 				))}
 			</ul>
-		</div >
+		</div>
 	);
 }

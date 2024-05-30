@@ -1,4 +1,4 @@
-import { adaptApples } from "../adapters/adaptApples";
+import { adaptApples } from '../adapters/apples.adapter';
 
 export const getApples = async (
 	playerId: string,

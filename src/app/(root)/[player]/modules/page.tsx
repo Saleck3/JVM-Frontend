@@ -6,9 +6,12 @@ import { getModules } from '@/app/shared/services/modules.service';
 
 export default async function Modules({ params }: any) {
 	const session = await getServerSession(options);
+
 	const player = session?.user.players.find(
 		(player) => player.alias === params.player
 	)!;
+
+	// if (!player) devolver 403
 
 	const modules = await getModules(player.id, session?.user?.accessToken!);
 
