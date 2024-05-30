@@ -1,4 +1,4 @@
-import { appleType } from "../types/apple.type";
+import { adaptApples } from "../adapters/adaptApples";
 
 export const getApples = async (
 	playerId: string,
@@ -18,20 +18,8 @@ export const getApples = async (
 		});
 		const data = await res.json();
 
-		return applesAdapter(data);
+		return adaptApples(data.data.apples);
 	} catch (e: any) {
 		console.error('modules service error', e.message);
 	}
 };
-
-
-
-function applesAdapter(data: any): [appleType] {
-	const datosBack = data.data.apples;
-	const applesArray: [appleType] = datosBack.map((unformattedApple: any) => ({
-		id: unformattedApple.id,
-		name: unformattedApple.name,
-		stars: unformattedApple.stars
-	}));
-	return applesArray;
-}

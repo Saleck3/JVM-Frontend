@@ -25,7 +25,7 @@ export default function ButtonApple({ name, playerAlias, appleId, stars, index }
                                 <Image
                     className="max-w-full max-h-full object-cover rounded-lg"
                     src={'/img/modules/apple.svg'}
-                    alt={"Apple_" + name}
+                    alt={"Manzana_" + name}
                     height={400}
                     width={400} />
                 <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white text-[calc(3vw+3vh+2vmin)] font-bold '>
