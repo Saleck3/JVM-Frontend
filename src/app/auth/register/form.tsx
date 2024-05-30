@@ -16,6 +16,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { parseError, setFieldErrors } from '@/lib/errors';
+import { register } from "./register.service";
 
 const formSchema = z
   .object({
@@ -62,10 +63,11 @@ export const RegisterForm = () => {
 
   const onSubmit = async (data: FormData) => {
     try {
-      // await api.post('/register', data);
-      // router.push('/login');
-      console.log('registrado');
-    } catch (error) {
+      register(name,
+        lastname,
+        email,
+        password);
+    } catch (error: any) {
       const { message, fields } = parseError(error);
       if (fields) {
         setFieldErrors(fields, form.setError);
@@ -181,7 +183,7 @@ export const RegisterForm = () => {
                 </FormControl>
                 <FormLabel htmlFor="terms" className="ml-2">
                   <span className="ml-3">Estoy de acuerdo con los términos y las políticas de
-                  privacidad </span>
+                    privacidad </span>
                 </FormLabel>
                 <FormMessage className="text-red-600" />
               </FormItem>
