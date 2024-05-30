@@ -1,35 +1,39 @@
 'use client';
 
-import { ImageSelection } from '@/app/shared/types/games.type';
 import { Button } from '@/components/ui/button';
-import Image from 'next/image';
+import { ImageSelection } from '@/app/shared/types/games.type';
 import { useState } from 'react';
-// @ts-ignore
-import useSound from 'use-sound';
+import Image from 'next/image';
+
 interface Props extends ImageSelection {
 	onWrongAnswer: () => void;
+	onCorrectAnswer: () => void;
 	handleNextButton: () => void;
 }
 
 const WordSelectionGame = (props: Props): JSX.Element => {
-	const { options, correctAnswer, image, onWrongAnswer, handleNextButton } =
-		props;
+	const {
+		options,
+		correctAnswer,
+		image,
+		onWrongAnswer,
+		onCorrectAnswer,
+		handleNextButton,
+	} = props;
+
 	const [isCorrect, setIsCorrect] = useState(false);
 	const [gameOptions, setGameOptions] = useState(
 		options.map((option: string) => ({ value: option, selected: false }))
 	);
-	const [playCorrectSound] = useSound('/sounds/success.mp3');
-	const [playWrongSound] = useSound('/sounds/wrong.mp3');
 
 	const handleClick = (option: string) => {
 		if (option === correctAnswer) {
 			setIsCorrect(true);
-			playCorrectSound();
+			onCorrectAnswer();
 		} else {
 			setGameOptions((prev) =>
 				prev.map((o) => (o.value === option ? { ...o, selected: true } : o))
 			);
-			playWrongSound();
 			onWrongAnswer();
 		}
 	};

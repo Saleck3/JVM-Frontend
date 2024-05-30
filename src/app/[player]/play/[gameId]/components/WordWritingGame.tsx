@@ -1,14 +1,13 @@
 'use client';
 
-import { ImageWriting } from '@/app/shared/types/games.type';
 import { Button } from '@/components/ui/button';
-import Image from 'next/image';
 import { FormEvent, useState } from 'react';
-// @ts-ignore
-import useSound from 'use-sound';
+import { ImageWriting } from '@/app/shared/types/games.type';
+import Image from 'next/image';
 
 interface Props extends ImageWriting {
 	onWrongAnswer: () => void;
+	onCorrectAnswer: () => void;
 	handleNextButton: () => void;
 }
 
@@ -18,20 +17,17 @@ const WordWritingGame = (props: Props): JSX.Element => {
 		image,
 		preSelectedLetters,
 		onWrongAnswer,
+		onCorrectAnswer,
 		handleNextButton,
 	} = props;
 	const [isCorrect, setIsCorrect] = useState(false);
 	const [isIncorrect, setIsIncorrect] = useState(false);
-
-	const [playCorrectSound] = useSound('/sounds/success.mp3');
-	const [playWrongSound] = useSound('/sounds/wrong.mp3');
 
 	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		setIsIncorrect(false);
 
 		const playerAnswer = getPlayerAnswer(e);
-		console.log('playerAnswer', playerAnswer);
 
 		if (!playerAnswer.length) return;
 
@@ -39,10 +35,9 @@ const WordWritingGame = (props: Props): JSX.Element => {
 			correctAnswer.toLocaleLowerCase() === playerAnswer.toLocaleLowerCase()
 		) {
 			setIsCorrect(true);
-			playCorrectSound();
+			onCorrectAnswer();
 		} else {
 			setIsIncorrect(true);
-			playWrongSound();
 			onWrongAnswer();
 		}
 	};
@@ -56,7 +51,7 @@ const WordWritingGame = (props: Props): JSX.Element => {
 
 	const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
 		const input = e.currentTarget;
-		console.log('input', input.disabled);
+
 		if (e.key === 'Backspace') {
 			const previousInput = findSiblingInput(input, 'prev');
 			if (previousInput) previousInput.focus();

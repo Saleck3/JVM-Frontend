@@ -1,36 +1,37 @@
 'use client';
 
-import { LetterOrdering } from '@/app/shared/types/games.type';
 import { Button } from '@/components/ui/button';
-import Image from 'next/image';
+import { LetterOrdering } from '@/app/shared/types/games.type';
 import { useRef, useState } from 'react';
-// @ts-ignore
-import useSound from 'use-sound';
+import Image from 'next/image';
 
 interface Props extends LetterOrdering {
 	onWrongAnswer: () => void;
+	onCorrectAnswer: () => void;
 	handleNextButton: () => void;
 }
 
 const WordOrderingGame = (props: Props): JSX.Element => {
-	const { options, image, correctAnswer, onWrongAnswer, handleNextButton } =
-		props;
+	const {
+		options,
+		image,
+		correctAnswer,
+		onWrongAnswer,
+		onCorrectAnswer,
+		handleNextButton,
+	} = props;
 	const [orderedOptions, setOrderedOptions] = useState<string[]>(options);
 	const [isCorrect, setIsCorrect] = useState(false);
 	const [isIncorrect, setIsIncorrect] = useState(false);
-
-	const [playCorrectSound] = useSound('/sounds/success.mp3');
-	const [playWrongSound] = useSound('/sounds/wrong.mp3');
 
 	const handleCheck = () => {
 		setIsIncorrect(false);
 
 		if (orderedOptions.join('').toLowerCase() === correctAnswer.toLowerCase()) {
 			setIsCorrect(true);
-			playCorrectSound();
+			onCorrectAnswer();
 		} else {
 			setIsIncorrect(true);
-			playWrongSound();
 			onWrongAnswer();
 		}
 	};

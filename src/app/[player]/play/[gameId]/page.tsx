@@ -5,6 +5,9 @@ import WordOrderingGame from './components/WordOrderingGame';
 import WordSelectionGame from './components/WordSelectionGame';
 import WordWritingGame from './components/WordWritingGame';
 
+// @ts-ignore
+import useSound from 'use-sound';
+
 const gameComponents: any = {
 	letterOrdering: WordOrderingGame,
 	imageSelection: WordSelectionGame,
@@ -15,6 +18,18 @@ export default function Games() {
 	const [games, setGames] = useState<any>([]);
 	const [currentGameIndex, setCurrentGameIndex] = useState<number>(0);
 	const [errorCounter, setErrorCounter] = useState<number>(0);
+
+	const [playCorrectSound] = useSound('/sounds/success.mp3');
+	const [playWrongSound] = useSound('/sounds/wrong.mp3');
+
+	const handleWrongAnswer = () => {
+		playWrongSound();
+		setErrorCounter((prevValue) => prevValue + 1);
+	};
+
+	const handleCorrectAnswer = () => {
+		playCorrectSound();
+	};
 
 	useEffect(() => {
 		setGames(mockApple);
@@ -32,7 +47,8 @@ export default function Games() {
 			<GameComponent
 				options={gameParams.options}
 				correctAnswer={gameParams.correctAnswer}
-				onWrongAnswer={() => setErrorCounter((prevValue) => prevValue + 1)}
+				onWrongAnswer={handleWrongAnswer}
+				onCorrectAnswer={handleCorrectAnswer}
 				handleNextButton={() =>
 					setCurrentGameIndex((prevValue) => prevValue + 1)
 				}
