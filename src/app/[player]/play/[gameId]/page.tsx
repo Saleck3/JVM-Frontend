@@ -36,8 +36,8 @@ export default function Games() {
 				handleNextButton={() =>
 					setCurrentGameIndex((prevValue) => prevValue + 1)
 				}
-				imgSrc={gameParams.image}
-				preselectedLetters={gameParams.preSelectedLetters}
+				image={gameParams.image}
+				preSelectedLetters={gameParams.preSelectedLetters}
 			/>
 		);
 	};
