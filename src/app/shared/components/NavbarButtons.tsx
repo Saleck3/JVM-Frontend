@@ -2,12 +2,15 @@
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 
-import { signOut, useSession } from 'next-auth/react';
+import { signOut } from 'next-auth/react';
 import DropdownButton from './DropdownButton';
+import { User } from '../types/user.type';
 
-export default function NavbarButtons() {
-	const { data: session } = useSession();
+type Props = {
+	user?: User;
+};
 
+export default function NavbarButtons({ user }: Props) {
 	const handleSignOut = () => {
 		signOut({
 			callbackUrl: '/logout',
@@ -16,12 +19,6 @@ export default function NavbarButtons() {
 
 	const navbarItems = [
 		{
-			label: 'Algo por aquí',
-		},
-		{
-			label: 'Algo por acá',
-		},
-		{
 			label: 'Logout',
 			onClick: handleSignOut,
 			className: 'text-red-600',
@@ -29,10 +26,10 @@ export default function NavbarButtons() {
 		},
 	];
 
-	if (session?.user) {
+	if (user) {
 		return (
 			<DropdownButton
-				label={session?.user?.email}
+				label={user.email}
 				title="Mi cuenta"
 				items={navbarItems}
 			/>

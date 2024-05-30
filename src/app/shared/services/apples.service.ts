@@ -1,3 +1,5 @@
+import { adaptApples } from '../adapters/apples.adapter';
+
 export const getApples = async (
 	playerId: string,
 	moduleId: string,
@@ -14,9 +16,10 @@ export const getApples = async (
 				Authorization: `Bearer ${token}`,
 			},
 		});
-		const { data } = await res.json();
+		const data = await res.json();
+		console.log('data', data);
 
-		return data.apples;
+		return adaptApples(data.data.apples);
 	} catch (e: any) {
 		console.error('modules service error', e.message);
 	}

@@ -3,7 +3,7 @@ export type User = {
 	name?: string;
 	email?: string;
 	players: Player[];
-	token: string;
+	accessToken: string;
 };
 
 export type Player = {

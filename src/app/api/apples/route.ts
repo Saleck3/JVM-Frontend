@@ -3,9 +3,10 @@ import { NextRequest } from 'next/server';
 
 export async function GET(req: NextRequest) {
 	const searchParams = req.nextUrl.searchParams;
-	const headersList = headers();
 	const playerId = searchParams.get('playerId')!;
 	const moduleId = searchParams.get('moduleId')!;
+
+	const headersList = headers();
 	const token = headersList.get('Authorization')!;
 
 	const query = new URLSearchParams({ playerId, moduleId });
