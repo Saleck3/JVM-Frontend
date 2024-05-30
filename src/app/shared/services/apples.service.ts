@@ -15,9 +15,8 @@ export const getApples = async (
 			},
 		});
 		const data = await res.json();
-
 		return data;
 	} catch (e: any) {
-		console.error('modules service error', e.message);
+		console.error('apples service error', e.message);
 	}
 };
