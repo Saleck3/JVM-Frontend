@@ -1,13 +1,13 @@
 'use client';
 
-import { imageWriting } from '@/app/shared/types/games.type';
+import { ImageWriting } from '@/app/shared/types/games.type';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import { FormEvent, useState } from 'react';
 // @ts-ignore
 import useSound from 'use-sound';
 
-interface Props extends imageWriting {
+interface Props extends ImageWriting {
 	onWrongAnswer: () => void;
 	handleNextButton: () => void;
 }
@@ -76,7 +76,7 @@ const WordWritingGame = (props: Props): JSX.Element => {
 		let temp = input[siblingProperty];
 
 		while (temp) {
-			if (temp instanceof HTMLInputElement && temp.disabled!) {
+			if (temp instanceof HTMLInputElement && !temp.disabled!) {
 				return temp;
 			}
 			temp = temp[siblingProperty] as HTMLInputElement;

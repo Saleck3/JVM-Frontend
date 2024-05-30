@@ -1,20 +1,20 @@
 'use client';
 
+import { LetterOrdering } from '@/app/shared/types/games.type';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import { useRef, useState } from 'react';
 // @ts-ignore
 import useSound from 'use-sound';
 
-type Props = {
-	options: string[];
-	correctAnswer: string;
+interface Props extends LetterOrdering {
 	onWrongAnswer: () => void;
 	handleNextButton: () => void;
-};
+}
 
 const WordOrderingGame = (props: Props): JSX.Element => {
-	const { options, correctAnswer, onWrongAnswer, handleNextButton } = props;
+	const { options, image, correctAnswer, onWrongAnswer, handleNextButton } =
+		props;
 	const [orderedOptions, setOrderedOptions] = useState<string[]>(options);
 	const [isCorrect, setIsCorrect] = useState(false);
 	const [isIncorrect, setIsIncorrect] = useState(false);
@@ -53,11 +53,11 @@ const WordOrderingGame = (props: Props): JSX.Element => {
 			</h1>
 			<div className="mb-6 text-center space-y-10">
 				<Image
-					src="/img/icons/play-icon.svg"
-					alt="play"
-					className="mx-auto bg-accent rounded-full p-4 cursor-pointer active:bg-sky active:scale-110 transition-all"
-					height={150}
-					width={150}
+					src={image!}
+					alt={correctAnswer}
+					className="object-cover mx-auto mb-6"
+					height={300}
+					width={200}
 				/>
 				<div className="flex justify-around">
 					{orderedOptions?.map((option, i) => {
@@ -65,13 +65,12 @@ const WordOrderingGame = (props: Props): JSX.Element => {
 							<Button
 								key={option + i}
 								variant={'secondary'}
-								size={'lg'}
 								draggable
 								onDragStart={() => (dragOption.current = i)}
 								onDragEnter={() => (draggedOverOption.current = i)}
 								onDragEnd={handleSort}
 								onDragOver={(e) => e.preventDefault()}
-								className="cursor-grab active:scale-110 active:cursor-grabbing transition-all"
+								className="cursor-grab active:scale-110 active:cursor-grabbing transition-all text-5xl"
 							>
 								{option}
 							</Button>
