@@ -11,13 +11,13 @@ import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
-import AudioRepeatingGame from '@/app/shared/components/AudioRepeatingGame';
+/*import AudioRepeatingGame from '@/app/shared/components/AudioRepeatingGame';*/
 
 const gameComponents: any = {
 	letterOrdering: WordOrderingGame,
 	imageSelection: WordSelectionGame,
 	imageWriting: WordWritingGame,
-	audio_repeating: AudioRepeatingGame,
+	/*audio_repeating: AudioRepeatingGame,*/
 };
 
 export default function Games() {
@@ -26,7 +26,7 @@ export default function Games() {
 	const [apple, setApple] = useState<any>([]);
 	const [currentGameIndex, setCurrentGameIndex] = useState<number>(0);
 	const [errorCounter, setErrorCounter] = useState<number>(0);
-	const [gamesResults, setGamesResults] = useState(null);
+	const [gamesResults, setGamesResults] = useState({ score: 0 });
 
 	const [playCorrectSound] = useSound('/sounds/success.mp3');
 	const [playWrongSound] = useSound('/sounds/wrong.mp3');

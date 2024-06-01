@@ -1,4 +1,4 @@
-'use client';
+/*'use client';
 
 import { Button } from '@/components/ui/button';
 import { useRef, useState, useEffect } from 'react';
@@ -180,3 +180,4 @@ const AudioRepeatingGame = (props: Props): JSX.Element => {
 };
 
 export default AudioRepeatingGame;
+*/
