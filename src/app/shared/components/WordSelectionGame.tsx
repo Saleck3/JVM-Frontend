@@ -52,8 +52,8 @@ const WordSelectionGame = (props: Props): JSX.Element => {
 				Selecciona la palabra correcta
 			</h1>
 			<div className="mb-6">
-				<Image
-					src={imgSrc}
+				{image && <Image
+					src={image}
 					alt={correctAnswer}
 					className="object-cover mx-auto"
 					height={300}
