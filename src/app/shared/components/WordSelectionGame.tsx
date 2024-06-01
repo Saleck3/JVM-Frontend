@@ -1,39 +1,39 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import Image from 'next/image';
+import { ImageSelection } from '@/app/shared/types/games.type';
 import { useState } from 'react';
-// @ts-ignore
-import useSound from 'use-sound';
+import Image from 'next/image';
 
-type Props = {
-	options: string[];
-	label?: string;
-	correctAnswer: string;
-	imgSrc?: string;
+interface Props extends ImageSelection {
 	onWrongAnswer: () => void;
+	onCorrectAnswer: () => void;
 	handleNextButton: () => void;
-};
+}
 
-const WordSelectionGame = (props: Props) => {
-	const { options, correctAnswer, imgSrc, onWrongAnswer, handleNextButton } =
-		props;
+const WordSelectionGame = (props: Props): JSX.Element => {
+	const {
+		options,
+		correctAnswer,
+		image,
+		onWrongAnswer,
+		onCorrectAnswer,
+		handleNextButton,
+	} = props;
+
 	const [isCorrect, setIsCorrect] = useState(false);
 	const [gameOptions, setGameOptions] = useState(
 		options.map((option: string) => ({ value: option, selected: false }))
 	);
-	const [playCorrectSound] = useSound('/sounds/success.mp3');
-	const [playWrongSound] = useSound('/sounds/wrong.mp3');
 
 	const handleClick = (option: string) => {
 		if (option === correctAnswer) {
 			setIsCorrect(true);
-			playCorrectSound();
+			onCorrectAnswer();
 		} else {
 			setGameOptions((prev) =>
 				prev.map((o) => (o.value === option ? { ...o, selected: true } : o))
 			);
-			playWrongSound();
 			onWrongAnswer();
 		}
 	};
@@ -52,7 +52,7 @@ const WordSelectionGame = (props: Props) => {
 				Selecciona la palabra correcta
 			</h1>
 			<div className="mb-6">
-				{imgSrc && <Image
+				<Image
 					src={imgSrc}
 					alt={correctAnswer}
 					className="object-cover mx-auto"
@@ -68,6 +68,7 @@ const WordSelectionGame = (props: Props) => {
 						<Button
 							key={option.value}
 							variant={variant}
+							className="text-lg"
 							onClick={() => handleClick(option.value)}
 						>
 							{option.value}

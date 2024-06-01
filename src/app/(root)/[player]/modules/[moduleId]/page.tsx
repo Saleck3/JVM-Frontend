@@ -15,6 +15,8 @@ export default async function ApplePath({ params }: any) {
 		session?.user?.accessToken!
 	);
 
+	console.log('apples', apples);
+
 	if (!apples) {
 		return <h1> Aún no hay manzanas</h1>;
 	}

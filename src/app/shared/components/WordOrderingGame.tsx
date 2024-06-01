@@ -1,36 +1,37 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import Image from 'next/image';
+import { LetterOrdering } from '@/app/shared/types/games.type';
 import { useRef, useState } from 'react';
-// @ts-ignore
-import useSound from 'use-sound';
+import Image from 'next/image';
 
-type Props = {
-	options: string[];
-	correctAnswer: string;
+interface Props extends LetterOrdering {
 	onWrongAnswer: () => void;
+	onCorrectAnswer: () => void;
 	handleNextButton: () => void;
-};
+}
 
-const WordOrderingGame = (props: Props) => {
-	const { options, correctAnswer, onWrongAnswer, handleNextButton } = props;
+const WordOrderingGame = (props: Props): JSX.Element => {
+	const {
+		options,
+		image,
+		correctAnswer,
+		onWrongAnswer,
+		onCorrectAnswer,
+		handleNextButton,
+	} = props;
 	const [orderedOptions, setOrderedOptions] = useState<string[]>(options);
 	const [isCorrect, setIsCorrect] = useState(false);
 	const [isIncorrect, setIsIncorrect] = useState(false);
-
-	const [playCorrectSound] = useSound('/sounds/success.mp3');
-	const [playWrongSound] = useSound('/sounds/wrong.mp3');
 
 	const handleCheck = () => {
 		setIsIncorrect(false);
 
 		if (orderedOptions.join('').toLowerCase() === correctAnswer.toLowerCase()) {
 			setIsCorrect(true);
-			playCorrectSound();
+			onCorrectAnswer();
 		} else {
 			setIsIncorrect(true);
-			playWrongSound();
 			onWrongAnswer();
 		}
 	};
@@ -49,15 +50,15 @@ const WordOrderingGame = (props: Props) => {
 	return (
 		<div className="max-w-md w-full bg-white rounded-lg shadow-lg p-6 mx-auto">
 			<h1 className="text-2xl font-bold mb-4 text-center text-gray-900">
-				Ordena la frase según el sonido
+				Ordena los elementos
 			</h1>
 			<div className="mb-6 text-center space-y-10">
 				<Image
-					src="/img/icons/play-icon.svg"
-					alt="play"
-					className="mx-auto bg-accent rounded-full p-4 cursor-pointer active:bg-sky active:scale-110 transition-all"
-					height={150}
-					width={150}
+					src={image!}
+					alt={correctAnswer}
+					className="object-cover mx-auto mb-6"
+					height={300}
+					width={200}
 				/>
 				<div className="flex justify-around">
 					{orderedOptions?.map((option, i) => {
@@ -65,13 +66,12 @@ const WordOrderingGame = (props: Props) => {
 							<Button
 								key={option + i}
 								variant={'secondary'}
-								size={'lg'}
 								draggable
 								onDragStart={() => (dragOption.current = i)}
 								onDragEnter={() => (draggedOverOption.current = i)}
 								onDragEnd={handleSort}
 								onDragOver={(e) => e.preventDefault()}
-								className="cursor-grab active:scale-110 active:cursor-grabbing transition-all"
+								className="cursor-grab active:scale-110 active:cursor-grabbing transition-all text-5xl"
 							>
 								{option}
 							</Button>
