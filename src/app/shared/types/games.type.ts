@@ -38,11 +38,11 @@ Vale por 3
 */
 export type ImageWriting = {
 	correctAnswer: string;
-	preSelectedLetters: preSelectedLetter[];
+	preSelectedLetters: PreSelectedLetter[];
 	image?: string;
 };
 
-type preSelectedLetter = {
+type PreSelectedLetter = {
 	letter: string;
 	index: number;
 };
@@ -60,7 +60,7 @@ export type video = {
 /*  
 Recibe la palabre, se lee por TTS y hay que grabar un audio repitiendo
 */
-export type audioRepeating = {
+export type AudioRepeating = {
 	correctAnswer: string;
 };
 
