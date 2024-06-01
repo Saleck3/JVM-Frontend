@@ -6,6 +6,7 @@ import { signIn } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
+import { Suspense } from 'react';
 
 export default function Login() {
 	const handleLogin = async (e: any) => {
@@ -21,7 +22,19 @@ export default function Login() {
 		});
 	};
 
-	const error = useSearchParams().get('error');
+	function Search() {
+		const error = useSearchParams().get('error');
+		if (error) {
+			return (
+				<div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-sm relative ">
+					<span className="block sm:inline">
+						Email o contraseña incorrecto
+					</span>
+				</div>
+			);
+		}
+	}
+
 
 	return (
 		<main className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -43,13 +56,9 @@ export default function Login() {
 
 			<div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
 				<form className="space-y-6" onSubmit={handleLogin} method="POST">
-					{error && (
-						<div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-sm relative ">
-							<span className="block sm:inline">
-								Email o contraseña incorrecto
-							</span>
-						</div>
-					)}
+					<Suspense>
+						<Search />
+					</Suspense>
 					<div>
 						<label
 							htmlFor="email"
