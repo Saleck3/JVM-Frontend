@@ -18,43 +18,43 @@ describe('NavbarButtons Component', () => {
 	});
 
 	it('should not render register and login button when signed in', () => {
-		useSession.mockReturnValue({
-			data: {
-				user: {
-					email: 'foo@bar.com',
-				},
-			},
-		});
+		const mockedUser = {
+			id: 1,
+			name: "mockedUser",
+			email: 'foo@bar.com',
+			players: null,
+			accessToken: "string"
+		};
 
-		render(<NavbarButtons />);
+		render(<NavbarButtons user={mockedUser} />);
 		checkSignedInNavbarButtons();
 	});
 
 	it('should display the logged user email when signed in', () => {
 		const userEmail = 'foo@bar.com';
-		useSession.mockReturnValue({
-			data: {
-				user: {
-					email: userEmail,
-				},
-			},
-		});
+		const mockedUser = {
+			id: 1,
+			name: "mockedUser",
+			email: userEmail,
+			players: null,
+			accessToken: "string"
+		};
 
-		render(<NavbarButtons />);
+		render(<NavbarButtons user={mockedUser} />);
 		checkLoggedUserEmailRender(userEmail);
 	});
 
 	it('should call signOut when sign out button is clicked', async () => {
 		const userEmail = 'foo@bar.com';
-		useSession.mockReturnValue({
-			data: {
-				user: {
-					email: userEmail,
-				},
-			},
-		});
+		const mockedUser = {
+			id: 1,
+			name: "mockedUser",
+			email: userEmail,
+			players: null,
+			accessToken: "string"
+		};
 
-		render(<NavbarButtons />);
+		render(<NavbarButtons user={mockedUser} />);
 
 		await openUserMenu();
 		await waitForSignOut();

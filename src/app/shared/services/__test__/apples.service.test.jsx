@@ -1,24 +1,26 @@
+import { start } from 'repl';
 import { getApples } from '../apples.service';
 
 beforeAll(() => {
 	global.fetch = jest.fn();
 });
 
-const mockResponse = [{ id: 1, name: 'apple1' }];
+const mockResponse = { data: { apples: [{ id: 1, name: 'A', crowns: 1 }] } };
+const formatterResponse = [{ id: 1, name: 'A', stars: 1 }];
 
 describe('Apples service', () => {
 	it('should make a request to apples internal api with playerId and moduleId', () => {
 		setFetchMockResponse();
 
 		const response = getApples(1, 2, 'token');
-		expect(response).resolves.toEqual(mockResponse);
+		expect(response).resolves.toEqual(formatterResponse);
 
 		checkIfFetchWasCalledWithCorrectParams();
 	});
 });
 
 const setFetchMockResponse = () => {
-	fetch.mockResolvedValueOnce({
+	fetch.mockResolvedValue({
 		json: async () => mockResponse,
 	});
 };
