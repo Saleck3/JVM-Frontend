@@ -1,13 +1,13 @@
-import { appleType } from '../types/apple.type';
+import { Apple } from '../types/apple.type';
 
-function adaptApples(datosBack: any): appleType[] {
-	const applesArray: appleType[] = datosBack.map((appleBack: any) =>
+function adaptApples(datosBack: any): Apple[] {
+	const applesArray: Apple[] = datosBack.map((appleBack: any) =>
 		adaptApple(appleBack)
 	);
 	return applesArray;
 }
 
-function adaptApple(unformattedApple: any): appleType {
+function adaptApple(unformattedApple: any): Apple {
 	const apple = {
 		id: unformattedApple.id,
 		name: unformattedApple.name,

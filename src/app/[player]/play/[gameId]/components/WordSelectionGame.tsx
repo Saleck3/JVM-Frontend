@@ -42,8 +42,8 @@ const WordSelectionGame = (props: Props) => {
 		return isCorrect && option.value === correctAnswer
 			? 'success'
 			: option.selected
-			? 'gray'
-			: 'secondary';
+				? 'gray'
+				: 'secondary';
 	};
 
 	return (
@@ -52,13 +52,13 @@ const WordSelectionGame = (props: Props) => {
 				Selecciona la palabra correcta
 			</h1>
 			<div className="mb-6">
-				<Image
+				{imgSrc && <Image
 					src={imgSrc}
 					alt={correctAnswer}
 					className="object-cover mx-auto"
 					height={300}
 					width={200}
-				/>
+				/>}
 			</div>
 			<div className="grid grid-cols-2 gap-4">
 				{gameOptions?.map((option) => {
