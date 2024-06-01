@@ -11,7 +11,7 @@ function adaptApple(unformattedApple: any): Apple {
 	const apple = {
 		id: unformattedApple.id,
 		name: unformattedApple.name,
-		stars: unformattedApple.stars,
+		stars: unformattedApple.crowns,
 	};
 	return apple;
 }

@@ -8,7 +8,7 @@ export async function GET(req: NextRequest) {
 	const token = headersList.get('Authorization')!;
 
 	const query = new URLSearchParams({ playerId });
-	const url = `${process.env.API_URL}/api/modules/?${query}`;
+	const url = `${process.env.API_URL}/api/modules?${query}`;
 
 	try {
 		const res = await fetch(url, {
