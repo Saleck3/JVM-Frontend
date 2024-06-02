@@ -1,7 +1,7 @@
 "use client";
 
 import { useFormState, useFormStatus } from "react-dom";
-import { addEntry } from "./registerService";
+import { addEntry } from "./register.service";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -11,7 +11,12 @@ export default function Form() {
 
   return (
     <section className="flex gap-6">
-      <form action={formAction} key={Math.random()}>
+      <form action={formAction}>
+      {state?.errorBack && (
+          <p className="text-sm font-semibold text-red-600 text-xs mt-1">
+            {state.errorBack}
+          </p>
+        )}
         <Label> Nombre </Label>
         {state?.error?.first_name?._errors[0] && (
           <p className="text-sm font-semibold text-red-600 text-xs mt-1">
@@ -75,7 +80,6 @@ function SubmitButton() {
 
   return (
     <Button type="submit" className="w-full mt-10 link" disabled={pending}>
-      console.log(data)
       {pending ? "Registrando..." : "Registrarse"}
     </Button>
     
