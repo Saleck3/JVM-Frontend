@@ -35,6 +35,8 @@ export default function Login() {
 		}
 	}
 
+	const error = useSearchParams().get('error');
+	const success = useSearchParams().get('success');
 
 	return (
 		<main className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -59,6 +61,18 @@ export default function Login() {
 					<Suspense>
 						<Search />
 					</Suspense>
+					{error && (
+						<div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-sm relative ">
+							<span className="block sm:inline">
+								Email o contraseña incorrecto
+							</span>
+						</div>
+					)}
+					{success && (
+						<div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-sm relative">
+							<span className="block sm:inline">Registro exitoso, reingresá tus datos.</span>
+						</div>
+					)}
 					<div>
 						<label
 							htmlFor="email"
