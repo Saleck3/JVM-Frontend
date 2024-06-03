@@ -9,8 +9,8 @@ type Props = {
 export default function WordWritingGameInputs(props: Props) {
 	const { word, preSelectedLetters, onKeyUp } = props;
 
-	const inputCommonClasses =
-		'm-2 uppercase text-center border-b-4 border-secondary bg-gray focus:outline-none focus:bg-gray-200 rounded-sm text-5xl w-[1.7ch] ';
+	const inputCommonClasses = `m-2 uppercase text-center border-b-4 border-secondary bg-gray focus:outline-none
+		focus:bg-gray-200 rounded-sm h-12 w-12 md:h-14 md:w-14 lg:h-16 lg:w-16 xl:h-20 xl:w-20 text-4xl lg:text-5xl`;
 
 	return (
 		<div className="flex justify-center flex-wrap">

@@ -1,4 +1,4 @@
-import WordOrderingGame from '@/app/shared/components/WordOrderingGame';
+import WordOrderingGame from '@/app/shared/components/WordOrderingGame/WordOrderingGame';
 import WordSelectionGame from '@/app/shared/components/WordSelectionGame';
 import WordWritingGame from '@/app/shared/components/WordWritingGame/WordWritingGame';
 
@@ -39,5 +39,3 @@ export default function GameRenderer(props: Props) {
 		/>
 	);
 }
-
-//TODO pasar el GAME layout a este componente

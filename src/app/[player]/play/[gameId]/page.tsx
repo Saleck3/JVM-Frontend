@@ -7,6 +7,7 @@ import useSound from 'use-sound';
 import { useParams } from 'next/navigation';
 import GamesResults from './components/GamesResults';
 import GameRenderer from './components/GameRenderer';
+import ProgressBar from './components/ProgressBar';
 
 const mockGetResults = (gameId, playerId, wrongCount) => ({ score: 3 });
 
@@ -56,15 +57,10 @@ export default function NonAiGames() {
 				<GamesResults score={gameScore} moduleUrl={moduleUrl} />
 			) : (
 				<>
-					<div className="w-full max-w-4xl flex items-center gap-4">
-						<span>✖️</span>
-						<div className="w-full h-5 rounded bg-gray-400">
-							<div
-								className="h-full bg-primary transition-all duration-1000 rounded w-[50%]"
-								style={{ width: `${completedPercentage}%` }}
-							></div>
-						</div>
-					</div>
+					<ProgressBar
+						completedPercentage={completedPercentage}
+						moduleUrl={moduleUrl}
+					/>
 					{currentGame && (
 						<GameRenderer
 							gameType={currentGame.exerciseType}
