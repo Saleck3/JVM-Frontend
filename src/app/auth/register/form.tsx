@@ -12,15 +12,16 @@ export default function Form() {
   return (
     <section className="flex gap-6">
       <form action={formAction}>
-      {state?.errorBack && (
+        
+      {state?.error?.general?._errors[0] && (
           <p className="text-sm font-semibold text-red-600 text-xs mt-1">
-            {state.errorBack}
+            {state.error.general._errors[0]}
           </p>
         )}
         <Label> Nombre </Label>
         {state?.error?.first_name?._errors[0] && (
           <p className="text-sm font-semibold text-red-600 text-xs mt-1">
-            {state.error.first_name._errors[0]}
+            {state.error?.first_name._errors[0]}
           </p>
         )}
         <Input name="name" placeholder="Escribí tu nombre" />
@@ -33,32 +34,34 @@ export default function Form() {
         )}
         <Input name="lastname" placeholder="Escribí tu apellido" />
 
+        <Label> Email </Label>
+
         {state?.error?.email?._errors[0] && (
           <p className="text-sm font-semibold text-red-600 text-xs mt-1">
             {state.error.email._errors[0]}
           </p>
         )}
-        <Label> Email </Label>
         <Input name="email" placeholder="email@domain.com" />
+
+        <Label> Clave </Label>
 
         {state?.error?.password?._errors[0] && (
           <p className="text-sm font-semibold text-red-600 text-xs mt-1">
             {state.error.password._errors[0]}
           </p>
         )}
-        <Label> Clave </Label>
         <Input
           name="password"
           placeholder="Escribí tu clave de 8 o más caracteres"
         />
 
+        <Label> Repita su clave </Label>
         {state?.error?.repeatPassword?._errors[0] && (
           <p className="text-sm font-semibold text-red-600 text-xs mt-1">
             {state.error.repeatPassword._errors[0]}
           </p>
         )}
-        <Label> Repita su clave </Label>
-        <Input name="repeatPassword" placeholder="Repetí tu clave"/>
+        <Input name="repeatPassword" placeholder="Repetí tu clave" />
 
         <Label>Aceptar términos y condiciones</Label>
         {state?.error?.terms?._errors[0] && (
@@ -67,9 +70,8 @@ export default function Form() {
           </p>
         )}
         <Input type="checkbox" name="terms" />
-       
+
         <SubmitButton></SubmitButton>
-        
       </form>
     </section>
   );
@@ -82,6 +84,5 @@ function SubmitButton() {
     <Button type="submit" className="w-full mt-10 link" disabled={pending}>
       {pending ? "Registrando..." : "Registrarse"}
     </Button>
-    
   );
 }
