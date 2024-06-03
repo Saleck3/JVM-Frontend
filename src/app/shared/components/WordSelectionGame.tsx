@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { ImageSelection } from '@/app/shared/types/games.type';
 import { useState } from 'react';
 import Image from 'next/image';
+import GameLayout from './GameLayout';
 
 interface Props extends ImageSelection {
 	onWrongAnswer: () => void;
@@ -21,14 +22,14 @@ const WordSelectionGame = (props: Props): JSX.Element => {
 		handleNextButton,
 	} = props;
 
-	const [isCorrect, setIsCorrect] = useState(false);
+	const [gameFinished, setGameFinished] = useState(false);
 	const [gameOptions, setGameOptions] = useState(
 		options.map((option: string) => ({ value: option, selected: false }))
 	);
 
-	const handleClick = (option: string) => {
+	const handleSelectOption = (option: string) => {
 		if (option === correctAnswer) {
-			setIsCorrect(true);
+			setGameFinished(true);
 			onCorrectAnswer();
 		} else {
 			setGameOptions((prev) =>
@@ -39,53 +40,46 @@ const WordSelectionGame = (props: Props): JSX.Element => {
 	};
 
 	const getVariant = (option: { value: string; selected: boolean }) => {
-		return isCorrect && option.value === correctAnswer
+		return gameFinished && option.value === correctAnswer
 			? 'success'
 			: option.selected
-				? 'gray'
-				: 'secondary';
+			? 'gray'
+			: 'secondary';
 	};
 
 	return (
-		<div className="max-w-md w-full bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
-			<h1 className="text-2xl font-bold mb-4 text-center text-gray-900 dark:text-gray-100">
-				Selecciona la palabra correcta
-			</h1>
-			<div className="mb-6">
-				{image && <Image
-					src={image}
-					alt={correctAnswer}
-					className="object-cover mx-auto"
-					height={300}
-					width={200}
-				/>}
-			</div>
-			<div className="grid grid-cols-2 gap-4">
-				{gameOptions?.map((option) => {
-					const variant = getVariant(option);
+		<GameLayout
+			gameFinished={gameFinished}
+			handleNextButton={handleNextButton}
+			title="Escribe la palabra"
+		>
+			<div className="mb-6 text-center flex-1 flex flex-col gap-8">
+				<div className="flex-1 relative">
+					<Image
+						src={image!}
+						alt={correctAnswer}
+						fill
+						className="object-contain"
+					/>
+				</div>
+				<div className="flex flex-wrap justify-around gap-4">
+					{gameOptions?.map((option) => {
+						const variant = getVariant(option);
 
-					return (
-						<Button
-							key={option.value}
-							variant={variant}
-							className="text-lg"
-							onClick={() => handleClick(option.value)}
-						>
-							{option.value}
-						</Button>
-					);
-				})}
+						return (
+							<Button
+								key={option.value}
+								variant={variant}
+								className="text-xl sm:text-2xl md:text-3xl py-4 md:py-6 lg:py-8"
+								onClick={() => handleSelectOption(option.value)}
+							>
+								{option.value}
+							</Button>
+						);
+					})}
+				</div>
 			</div>
-			{isCorrect && (
-				<>
-					<p className="text-green-500 text-center my-4">¡Correcto!</p>
-
-					<Button className="w-full" onClick={handleNextButton}>
-						Siguiente
-					</Button>
-				</>
-			)}
-		</div>
+		</GameLayout>
 	);
 };
 

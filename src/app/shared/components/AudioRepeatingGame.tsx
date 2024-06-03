@@ -1,10 +1,9 @@
-/*'use client';
+'use client';
 
 import { Button } from '@/components/ui/button';
 import { useRef, useState, useEffect } from 'react';
 import { AudioRepeating } from '@/app/shared/types/games.type';
 import Image from 'next/image';
-import { parse } from 'path';
 
 interface Props extends AudioRepeating {
 	onWrongAnswer: () => void;
@@ -18,7 +17,6 @@ const AudioRepeatingGame = (props: Props): JSX.Element => {
 	const [isCorrect, setIsCorrect] = useState(false);
 	const [isIncorrect, setIsIncorrect] = useState(false);
 
-	//estados grabadora
 	const [isRecording, setIsRecording] = useState(false);
 	const [stream, setStream] = useState(null);
 	const [audioChunks, setAudioChunks] = useState([]);
@@ -180,4 +178,3 @@ const AudioRepeatingGame = (props: Props): JSX.Element => {
 };
 
 export default AudioRepeatingGame;
-*/

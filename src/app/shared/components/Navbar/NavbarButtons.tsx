@@ -3,8 +3,8 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 
 import { signOut } from 'next-auth/react';
-import DropdownButton from './DropdownButton';
-import { User } from '../types/user.type';
+import DropdownButton from '../DropdownButton';
+import { User } from '../../types/user.type';
 
 type Props = {
 	user?: User;

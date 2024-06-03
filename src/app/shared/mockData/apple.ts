@@ -1,10 +1,16 @@
 const mockApple = {
 	moduleId: 1,
+	type: 'NON_AI',
 	exercises: [
 		{
-			id: 6,
-			exerciseType: 'audio_repeating',
-			params: { correctWord: 'MOMIA' },
+			id: 2,
+			exerciseType: 'imageSelection',
+			params: {
+				options: ['Perro', 'Gato', 'Conejo'],
+				label: 'Hace woof',
+				correctAnswer: 'Perro',
+				image: 'https://i.imgur.com/OPqM4w0.jpeg',
+			},
 		},
 		{
 			id: 3,
@@ -28,15 +34,17 @@ const mockApple = {
 				image: 'https://i.imgur.com/OPqM4w0.jpeg',
 			},
 		},
+	],
+};
+
+const mockVoiceApple = {
+	moduleId: 1,
+	type: 'VOICE',
+	exercises: [
 		{
-			id: 2,
-			exerciseType: 'imageSelection',
-			params: {
-				options: ['Perro', 'Gato', 'Conejo'],
-				label: 'Hace woof',
-				correctAnswer: 'Perro',
-				image: 'https://i.imgur.com/OPqM4w0.jpeg',
-			},
+			id: 6,
+			exerciseType: 'audio_repeating',
+			params: { correctWord: 'MOMIA' },
 		},
 	],
 };
