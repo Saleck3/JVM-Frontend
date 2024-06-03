@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import Debug from './Debug';
 
 export default function Footer() {
 	return (
@@ -22,7 +21,6 @@ export default function Footer() {
 					</div>
 				</div>
 			</div>
-			<Debug />
 		</footer>
 	);
 }
