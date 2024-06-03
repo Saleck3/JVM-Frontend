@@ -42,7 +42,7 @@ export type ImageWriting = {
 	image?: string;
 };
 
-type PreSelectedLetter = {
+export type PreSelectedLetter = {
 	letter: string;
 	index: number;
 };
@@ -67,7 +67,7 @@ export type AudioRepeating = {
 /*
 Se recibe solo la palabra, se muestra en pantalla y hay que grabar un audio leyendo
 */
-export type textRead = {
+export type TextRead = {
 	correctAnswer: string;
 };
 

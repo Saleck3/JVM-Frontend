@@ -1,16 +1,12 @@
 const mockApple = {
 	moduleId: 1,
+	type: 'NON_AI',
 	exercises: [
-		{
-			id: 6,
-			exerciseType: 'audio_repeating',
-			params: { correctWord: 'MOMIA' },
-		},
 		{
 			id: 3,
 			exerciseType: 'imageWriting',
 			params: {
-				correctAnswer: 'Perro',
+				correctAnswer: 'Perrosaurio',
 				preSelectedLetters: [
 					{ letter: 'P', index: 0 },
 					{ letter: 'R', index: 2 },
@@ -37,6 +33,18 @@ const mockApple = {
 				correctAnswer: 'Perro',
 				image: 'https://i.imgur.com/OPqM4w0.jpeg',
 			},
+		},
+	],
+};
+
+const mockVoiceApple = {
+	moduleId: 1,
+	type: 'VOICE',
+	exercises: [
+		{
+			id: 6,
+			exerciseType: 'audio_repeating',
+			params: { correctWord: 'MOMIA' },
 		},
 	],
 };
