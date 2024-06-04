@@ -5,6 +5,7 @@ import WordWritingGame from '@/app/shared/components/WordWritingGame/WordWriting
 type Props = {
 	gameType: string;
 	gameParams: any;
+	outOfRetries: boolean;
 	handleNextButton: () => void;
 	handleCorrectAnswer: () => void;
 	handleWrongAnswer: () => void;
@@ -23,6 +24,7 @@ export default function GameRenderer(props: Props) {
 		handleNextButton,
 		handleCorrectAnswer,
 		handleWrongAnswer,
+		outOfRetries,
 	} = props;
 
 	const GameComponent = gameComponents[gameType];
@@ -36,6 +38,7 @@ export default function GameRenderer(props: Props) {
 			handleNextButton={handleNextButton}
 			image={gameParams.image}
 			preSelectedLetters={gameParams.preSelectedLetters}
+			outOfRetries={outOfRetries}
 		/>
 	);
 }

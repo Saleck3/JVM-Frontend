@@ -5,12 +5,19 @@ type Props = {
 	title: string;
 	gameFinished: boolean;
 	wrongAttempt?: boolean;
+	outOfRetries?: boolean;
 	handleNextButton: () => void;
 };
 
 export default function GameLayout(props: Props) {
-	const { children, gameFinished, wrongAttempt, title, handleNextButton } =
-		props;
+	const {
+		children,
+		gameFinished,
+		wrongAttempt,
+		title,
+		handleNextButton,
+		outOfRetries,
+	} = props;
 
 	return (
 		<div className="w-full max-w-4xl h-full bg-white rounded-lg shadow-lg p-6 py-12 flex flex-col space-y-4">
@@ -20,13 +27,20 @@ export default function GameLayout(props: Props) {
 
 			{children}
 
-			{wrongAttempt && (
+			{wrongAttempt && !outOfRetries && (
 				<p className="text-red-500 text-center">Incorrecto :(</p>
 			)}
 
-			{gameFinished && (
+			{(gameFinished || outOfRetries) && (
 				<>
-					<p className="text-green-500 text-center">¡Correcto!</p>
+					{gameFinished && (
+						<p className="text-green-500 text-center">¡Correcto!</p>
+					)}
+					{outOfRetries && (
+						<p className="text-red-500 text-center">
+							Sos medio lerdo, continuemos con el próximo ejercicio
+						</p>
+					)}
 					<Button className="w-full" onClick={handleNextButton}>
 						Siguiente
 					</Button>
