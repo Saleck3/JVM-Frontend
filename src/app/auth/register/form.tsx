@@ -21,7 +21,7 @@ export default function Form() {
         <Label> Nombre </Label>
         {state?.error?.first_name?._errors[0] && (
           <p className="text-sm font-semibold text-red-600 text-xs mt-1">
-            {state.error?.first_name._errors[0]}
+            {state.error.first_name._errors[0]}
           </p>
         )}
         <Input name="name" placeholder="Escribí tu nombre" />
