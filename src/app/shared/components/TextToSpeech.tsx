@@ -1,11 +1,21 @@
 'use client';
 import Image from 'next/image';
+import { useEffect } from 'react';
 
 type Props = {
     texto: string;
 };
 
 export default function TextToSpeech({ texto }: Props) {
+    
+    //Esto previene que use el idioma por default cuando ingresa
+    useEffect(() => {
+        const synth = window.speechSynthesis;
+        return () => {
+            synth.cancel();
+        };
+    });
+
     const handlePlay = () => {
         const synth = window.speechSynthesis;
         const utterance = new SpeechSynthesisUtterance(texto);
@@ -13,7 +23,6 @@ export default function TextToSpeech({ texto }: Props) {
         //Filtro las voces en español
         var langRegex = /^es(-[a-z]{2})?$/i;
         var voices = synth.getVoices().filter((voice) => langRegex.test(voice.lang));
-        console.log(voices);
 
         //Se podria reemplazar con una variable que dependa del player
         var selectedVoice = voices.find((v) => v.name === "Google español");
