@@ -8,6 +8,7 @@ import WordWritingGameInputs from './WordWritingGameInputs';
 import GameLayout from '../GameLayout';
 
 interface Props extends ImageWriting {
+	outOfRetries?: boolean;
 	onWrongAnswer: () => void;
 	onCorrectAnswer: () => void;
 	handleNextButton: () => void;
@@ -21,6 +22,7 @@ const WordWritingGame = (props: Props): JSX.Element => {
 		onWrongAnswer,
 		onCorrectAnswer,
 		handleNextButton,
+		outOfRetries,
 	} = props;
 
 	const [gameFinished, setGameFinished] = useState<boolean>(false);
@@ -40,6 +42,7 @@ const WordWritingGame = (props: Props): JSX.Element => {
 			setGameFinished(true);
 			onCorrectAnswer();
 		} else {
+			setWrongAttempt(true);
 			onWrongAnswer();
 		}
 	};
@@ -87,6 +90,7 @@ const WordWritingGame = (props: Props): JSX.Element => {
 			gameFinished={gameFinished}
 			wrongAttempt={wrongAttempt}
 			handleNextButton={handleNextButton}
+			outOfRetries={outOfRetries}
 			title="Escribe la palabra"
 		>
 			<div className="mb-6 text-center flex-1 flex flex-col gap-8">
@@ -105,7 +109,7 @@ const WordWritingGame = (props: Props): JSX.Element => {
 						onKeyUp={handleKeyUp}
 					/>
 
-					{!gameFinished && (
+					{!gameFinished && !outOfRetries && (
 						<Button className="w-full mt-6" type="submit">
 							Comprobar
 						</Button>

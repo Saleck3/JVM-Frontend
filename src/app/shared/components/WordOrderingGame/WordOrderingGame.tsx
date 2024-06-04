@@ -11,6 +11,7 @@ interface Props extends LetterOrdering {
 	onWrongAnswer: () => void;
 	onCorrectAnswer: () => void;
 	handleNextButton: () => void;
+	outOfRetries?: boolean;
 }
 
 const WordOrderingGame = (props: Props): JSX.Element => {
@@ -21,6 +22,7 @@ const WordOrderingGame = (props: Props): JSX.Element => {
 		onWrongAnswer,
 		onCorrectAnswer,
 		handleNextButton,
+		outOfRetries,
 	} = props;
 	const [playerAnswer, setPlayerAnswer] = useState<string>('');
 	const [gameFinished, setGameFinished] = useState(false);
@@ -47,6 +49,7 @@ const WordOrderingGame = (props: Props): JSX.Element => {
 		<GameLayout
 			gameFinished={gameFinished}
 			wrongAttempt={wrongAttempt}
+			outOfRetries={outOfRetries}
 			handleNextButton={handleNextButton}
 			title="Ordena los elementos"
 		>
@@ -62,7 +65,7 @@ const WordOrderingGame = (props: Props): JSX.Element => {
 
 				<WordOrderingGameSortableOptions options={options} onSort={onSort} />
 
-				{!gameFinished && (
+				{!gameFinished && !outOfRetries && (
 					<Button className="w-full mt-6" onClick={handleCheck}>
 						Comprobar
 					</Button>
