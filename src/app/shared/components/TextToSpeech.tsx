@@ -1,23 +1,24 @@
 'use client';
 import Image from 'next/image';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+
 
 type Props = {
     texto: string;
 };
 
 export default function TextToSpeech({ texto }: Props) {
-    
+
+    const [synth, setSynth] = useState(window.speechSynthesis);
+
     //Esto previene que use el idioma por default cuando ingresa
     useEffect(() => {
-        const synth = window.speechSynthesis;
         return () => {
             synth.cancel();
         };
     });
 
     const handlePlay = () => {
-        const synth = window.speechSynthesis;
         const utterance = new SpeechSynthesisUtterance(texto);
 
         //Filtro las voces en español
