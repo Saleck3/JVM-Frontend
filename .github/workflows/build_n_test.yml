@@ -10,7 +10,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     environment:
-      name: production
+      name: test
     env: 
       NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET}}
       API_URL: ${{vars.API_URL}}
