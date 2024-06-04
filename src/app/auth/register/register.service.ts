@@ -34,24 +34,20 @@ export async function addEntry(state: any, data: FormData) {
       );
 
       if (!response.ok) {
-        console.log("camino malo proxy");
-        console.log("camino malo no pudo hacer .json");
-        if (response.statusText === "Email already in use") {
-          console.log("email en uso");
+        if (response.status === 400) {
           return {
             error: {
               email: { _errors: ["El correo electrónico ya existe"] },
             },
           };
         } else {
-          console.log("otro error");
           return {
-            error: { general: { _errors: ["Error en la solicitud"] } },
+            error: {
+              general: { _errors: ["Error en la solicitud"] },
+            },
           };
         }
       }
-      console.log("Se salto el response.ok");
-
       if (typeof window !== "undefined") {
         window.location.href = "/auth/login?success=registered";
       } else {
@@ -62,7 +58,6 @@ export async function addEntry(state: any, data: FormData) {
         );
       }
     } catch (errorBack: any) {
-      console.log("catch");
       console.error("Detailed error:", errorBack);
       return { errorBack: errorBack.message };
     }

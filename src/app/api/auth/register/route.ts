@@ -1,4 +1,4 @@
-import { NextResponse, NextRequest } from "next/server";
+import { NextRequest } from "next/server";
 
 export async function POST(req: NextRequest) {
   const url = `${process.env.API_URL}/api/auth/signup`;
@@ -13,10 +13,12 @@ export async function POST(req: NextRequest) {
     });
 
     if (!res.ok) {
-      return Response.json(
-        { status: res.status, body: res.statusText, url },
-        { status: res.status }
-      );
+      if (res.status === 400) {
+        return Response.json(
+          { status: res.status, body: res.json, url },
+          { status: res.status }
+        );
+      }
     }
 
     const data = await res.text();
