@@ -20,21 +20,34 @@ export default function TextToSpeech({ texto }: Props) {
 
     const handlePlay = () => {
         const utterance = new SpeechSynthesisUtterance(texto);
+        var selectedVoice;
 
-        //Filtro las voces en español
-        var langRegex = /^es(-[a-z]{2})?$/i;
-        var voices = synth.getVoices().filter((voice) => langRegex.test(voice.lang));
-
-        //Se podria reemplazar con una variable que dependa del player
-        var selectedVoice = voices.find((v) => v.name === "Google español");
+        //Edge
         if (!selectedVoice) {
-            //Si no encuentro la que busque, seteo la que tenga
+            selectedVoice = synth.getVoices().find((v) => v.name === "Microsoft Valentina Online (Natural) - Spanish (Uruguay)");
+            utterance.rate = 0.9;
+        }
+        if (!selectedVoice) {
+            selectedVoice = synth.getVoices().find((v) => v.name === "Microsoft Tomas Online (Natural) - Spanish (Argentina)");
+            utterance.rate = 0.9;
+        }
+
+        //Chrome
+        if (!selectedVoice) {
+            selectedVoice = synth.getVoices().find((v) => v.name === "Google español");
+            utterance.rate = 0.8;
+        }
+
+        if (!selectedVoice) {
+            //Si no encuentro ninguna elegida por nosotros, seteo la primera que sea de español
+            var langRegex = /^es(-[a-z]{2})?$/i;
+            var voices = synth.getVoices().filter((voice) => langRegex.test(voice.lang));
             selectedVoice = voices[0];
+            utterance.rate = 0.9;
         }
 
         utterance.voice = selectedVoice;
         utterance.pitch = 1.2; //Tono, lo hace mas o menos aflautado
-        utterance.rate = 0.9; //Velocidad de la voz
         utterance.volume = 1;
         synth.speak(utterance);
     };
