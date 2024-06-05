@@ -1,11 +1,24 @@
-import TextToSpeech from "@/app/shared/components/TextToSpeech";
+'use client'
+
+import Image from 'next/image';
+import useTextToSpeech from "@/app/shared/components/useTextToSpeech";
 
 export default function TTS() {
+
+    const play = useTextToSpeech('Para complepletar con la letra "A" en tu teclado');
+
     return (
         <div className=" w-full bg-white rounded-lg p-6">
-            <TextToSpeech
-                texto='Para completar este juego, tenés que completar con la letra "A" en tu teclado'
-            />
+            <div className="mb-6 text-center">
+                <Image
+                    src="/img/icons/play-icon.svg"
+                    alt="Play button"
+                    className="object-cover mx-auto mb-6"
+                    height={300}
+                    width={200}
+                    onClick={play}
+                />
+            </div>
         </div>
     );
 }
