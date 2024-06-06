@@ -1,11 +1,11 @@
 'use client'
 
 import Image from 'next/image';
-import useTextToSpeech from "@/app/shared/components/useTextToSpeech";
+import useTextToSpeech from "@/app/shared/hooks/useTextToSpeech";
 
 export default function TTS() {
 
-    const play = useTextToSpeech('Para complepletar con la letra "A" en tu teclado');
+    const [play] = useTextToSpeech('Para complepletar complepletar con la letra "A" en tu teclado')
 
     return (
         <div className=" w-full bg-white rounded-lg p-6">
