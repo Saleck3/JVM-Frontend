@@ -104,7 +104,7 @@ export default function Login() {
 				</form>
 				<div className="text-sm mt-4">
 					<Link href="/auth/register" className="font-semibold text-primary">
-						¿No tenes cuenta? Registrate!
+						¿No tenés cuenta? Regístrate!
 					</Link>
 				</div>
 			</div>
