@@ -6,7 +6,7 @@ const nextConfig = {
 	reactStrictMode: true,
 	distDir: 'dist',
 	images: {
-		domains: ['th.bing.com', 'i.imgur.com'],
+		domains: ['th.bing.com', 'i.imgur.com', 'imgur.com'],
 	},
 };
 

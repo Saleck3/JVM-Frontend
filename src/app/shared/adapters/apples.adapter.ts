@@ -1,10 +1,11 @@
 import { Apple } from '../types/apple.type';
 
-function adaptApples(datosBack: any): Apple[] {
-	const applesArray: Apple[] = datosBack.map((appleBack: any) =>
+function adaptApples(apples: any): Apple[] {
+	const formattedApples: Apple[] = apples.map((appleBack: any) =>
 		adaptApple(appleBack)
 	);
-	return applesArray;
+
+	return formattedApples;
 }
 
 function adaptApple(unformattedApple: any): Apple {
@@ -12,6 +13,7 @@ function adaptApple(unformattedApple: any): Apple {
 		id: unformattedApple.id,
 		name: unformattedApple.name,
 		stars: unformattedApple.crowns,
+		type: unformattedApple.appleType,
 	};
 	return apple;
 }

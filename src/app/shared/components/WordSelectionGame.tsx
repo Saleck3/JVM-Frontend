@@ -17,6 +17,7 @@ const WordSelectionGame = (props: Props): JSX.Element => {
 		options,
 		correctAnswer,
 		image,
+		label,
 		onWrongAnswer,
 		onCorrectAnswer,
 		handleNextButton,
@@ -51,7 +52,7 @@ const WordSelectionGame = (props: Props): JSX.Element => {
 		<GameLayout
 			gameFinished={gameFinished}
 			handleNextButton={handleNextButton}
-			title="Escribe la palabra"
+			title="Selecciona la palabra"
 		>
 			<div className="mb-6 text-center flex-1 flex flex-col gap-8">
 				<div className="flex-1 relative">
@@ -61,6 +62,11 @@ const WordSelectionGame = (props: Props): JSX.Element => {
 						fill
 						className="object-contain"
 					/>
+				</div>
+				<div>
+					<p className="text-2xl sm:text-3xl md:text-4xl font-bold">
+						💡 {label}
+					</p>
 				</div>
 				<div className="flex flex-wrap justify-around gap-4">
 					{gameOptions?.map((option) => {
