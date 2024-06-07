@@ -8,10 +8,11 @@ type Props = {
 	appleId: number;
 	stars: number;
 	index: number;
+	type: string;
 };
 
 export default function ButtonApple(props: Props): JSX.Element {
-	const { name, playerAlias, appleId, stars, index } = props;
+	const { name, playerAlias, appleId, stars, index, type } = props;
 
 	const horizontalPosition = index % 2 === 0 ? 25 : 55;
 	const verticalPosition = index * 200;
@@ -33,6 +34,7 @@ export default function ButtonApple(props: Props): JSX.Element {
 				<div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white text-[calc(3vw+3vh+2vmin)] font-bold ">
 					{name}
 				</div>
+				<div className="text-sm text-accent">{type}</div>
 			</li>
 			<div className="flex justify-center text-2xl mt-4">
 				{'⭐'.repeat(stars)}

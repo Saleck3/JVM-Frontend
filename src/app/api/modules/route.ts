@@ -28,7 +28,10 @@ export async function GET(req: NextRequest) {
 		const data = await res.json();
 		return Response.json({ data });
 	} catch (e: any) {
-		console.error(e.message);
-		return Response.json({ status: 500, message: e.message }, { status: 500 });
+		console.error('proxy error: ', e.message);
+		return Response.json(
+			{ status: 500, message: `proxy error: ${e.message}` },
+			{ status: 500 }
+		);
 	}
 }

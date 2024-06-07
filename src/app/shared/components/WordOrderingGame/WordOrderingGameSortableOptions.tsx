@@ -33,7 +33,6 @@ export default function WordOrderingGameSortableOptions({
 					<Button
 						key={option + i}
 						variant={'secondary'}
-						size={'draggableLetter'}
 						draggable
 						onDragStart={() => (dragOption.current = i)}
 						onDragEnter={() => (draggedOverOption.current = i)}

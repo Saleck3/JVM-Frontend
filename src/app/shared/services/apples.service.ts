@@ -16,11 +16,19 @@ export const getApples = async (
 				Authorization: `Bearer ${token}`,
 			},
 		});
-		const data = await res.json();
-		console.log('data', data);
 
-		return adaptApples(data.data.apples);
+		if (!res.ok) {
+			const data = res.headers.get('content-type') ? await res.json() : null;
+
+			console.error('getApples error: ', data);
+			throw new Error(
+				`getApples res not ok error: ${data.status}, ${data.message}, ${data.url}`
+			);
+		}
+
+		const apples = await res.json();
+		return adaptApples(apples);
 	} catch (e: any) {
-		console.error('modules service error', e.message);
+		console.error('apples service error', e.message);
 	}
 };

@@ -43,7 +43,6 @@ export const options: NextAuthOptions = {
 						accessToken: token,
 					};
 				} catch (e: any) {
-					console.log('------------------');
 					console.error(e);
 					return null;
 				}

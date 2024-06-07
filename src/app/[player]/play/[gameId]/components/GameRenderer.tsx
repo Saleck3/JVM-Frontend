@@ -12,9 +12,9 @@ type Props = {
 };
 
 const gameComponents: any = {
-	letterOrdering: WordOrderingGame,
-	imageSelection: WordSelectionGame,
-	imageWriting: WordWritingGame,
+	letter_ordering: WordOrderingGame,
+	image_selection: WordSelectionGame,
+	image_writing: WordWritingGame,
 };
 
 export default function GameRenderer(props: Props) {
@@ -38,6 +38,7 @@ export default function GameRenderer(props: Props) {
 			handleNextButton={handleNextButton}
 			image={gameParams.image}
 			preSelectedLetters={gameParams.preSelectedLetters}
+			label={gameParams.label}
 			outOfRetries={outOfRetries}
 		/>
 	);
