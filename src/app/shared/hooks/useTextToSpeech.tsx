@@ -7,27 +7,23 @@ const VOICES_LIST = [
     "Microsoft Tomas Online (Natural) - Spanish (Argentina)",
     "Google español"
 ]
-let foundVoice: SpeechSynthesisVoice | undefined;
-
 export default function useTextToSpeech(texto: string) {
 
     const [synth, setSynth] = useState<SpeechSynthesis | null>(null);
-    const [isPaused, setisPaused] = useState(false);
+    const [foundVoice, setVoice] = useState<SpeechSynthesisVoice | null>(null);
 
     //Esto previene que use el idioma por default cuando ingresa
     useEffect(() => {
         setSynth(window.speechSynthesis);
 
-        for (const preferredName of VOICES_LIST) {
-            foundVoice = synth?.getVoices().find(voice => voice.name === preferredName);
-            if (foundVoice) { break; }
-        }
+        const prefferedVoice = synth?.getVoices().find(voice => voice.name === "Microsoft Valentina Online (Natural) - Spanish (Uruguay)") || null;
 
-        if (!foundVoice) {
-            //Si no encuentro ninguna elegida por nosotros, seteo la primera que sea de español
-            const langRegex = /^es(-[a-z]{2})?$/i;
-            foundVoice = synth?.getVoices().find((voice) => langRegex.test(voice.lang));
-        }
+        const backupVoice = synth?.getVoices().find(voice => VOICES_LIST.includes(voice.name)) || null;
+        //Si no encuentro ninguna elegida por nosotros, seteo la primera que sea de español
+        const langRegex = /^es(-[a-z]{2})?$/i;
+        const defaultVoice = synth?.getVoices().find((voice) => langRegex.test(voice.lang)) || null;
+
+        setVoice(prefferedVoice || backupVoice || defaultVoice);
 
         return () => {
             synth?.cancel();
@@ -35,7 +31,7 @@ export default function useTextToSpeech(texto: string) {
     });
 
     const handlePlay = () => {
-        if(synth?.speaking){
+        if (synth?.speaking) {
             synth?.cancel();
             return;
         }
