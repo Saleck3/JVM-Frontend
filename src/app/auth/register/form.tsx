@@ -12,8 +12,7 @@ export default function Form() {
   return (
     <section className="flex gap-6">
       <form action={formAction}>
-        
-      {state?.error?.general?._errors[0] && (
+        {state?.error?.general?._errors[0] && (
           <p className="text-sm font-semibold text-red-600 text-xs mt-1">
             {state.error.general._errors[0]}
           </p>
@@ -24,7 +23,7 @@ export default function Form() {
             {state.error.first_name._errors[0]}
           </p>
         )}
-        <Input name="name" placeholder="Escribí tu nombre" />
+        <Input name="name" placeholder="Nombre del adulto" />
 
         <Label> Apellido </Label>
         {state?.error?.last_name?._errors[0] && (
@@ -32,16 +31,23 @@ export default function Form() {
             {state.error.last_name._errors[0]}
           </p>
         )}
-        <Input name="lastname" placeholder="Escribí tu apellido" />
+        <Input name="lastname" placeholder="Apellido del adulto" />
 
         <Label> Email </Label>
-
         {state?.error?.email?._errors[0] && (
           <p className="text-sm font-semibold text-red-600 text-xs mt-1">
             {state.error.email._errors[0]}
           </p>
         )}
         <Input name="email" placeholder="email@domain.com" />
+
+        <Label> Nombre del jugador </Label>
+        {state?.error?.player_name?._errors[0] && (
+          <p className="text-sm font-semibold text-red-600 text-xs mt-1">
+            {state.error.player_name._errors[0]}
+          </p>
+        )}
+        <Input name="player" placeholder="Nombre del jugador" />
 
         <Label> Clave </Label>
 

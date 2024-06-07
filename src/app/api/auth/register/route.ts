@@ -13,7 +13,7 @@ export async function POST(req: NextRequest) {
     });
 
     if (!res.ok) {
-      if (res.status === 400) {
+      if (res.status === 409) {
         return Response.json(
           { status: res.status, body: res.json, url },
           { status: res.status }

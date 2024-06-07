@@ -6,6 +6,7 @@ export async function addEntry(state: any, data: FormData) {
     first_name: data.get("name"),
     last_name: data.get("lastname"),
     email: data.get("email"),
+    player_name: data.get("player"),
     password: data.get("password"),
     repeatPassword: data.get("repeatPassword"),
     terms: data.get("terms"),
@@ -29,12 +30,23 @@ export async function addEntry(state: any, data: FormData) {
             email: result.data.email,
             password: result.data.password,
             lastName: result.data.last_name,
+            playerName: result.data.player_name,
           }),
         }
       );
 
+      if (typeof window !== "undefined") {
+        window.location.href = "/auth/login?success=registered";
+      } else {
+        NextResponse.redirect(
+          new URL(
+            `${process.env.NEXT_PUBLIC_FRONTEND_URL}/auth/login?success=registered`
+          )
+        );
+      }
+
       if (!response.ok) {
-        if (response.status === 400) {
+        if (response.status === 409) {
           return {
             error: {
               email: { _errors: ["El correo electrónico ya existe"] },
@@ -47,15 +59,6 @@ export async function addEntry(state: any, data: FormData) {
             },
           };
         }
-      }
-      if (typeof window !== "undefined") {
-        window.location.href = "/auth/login?success=registered";
-      } else {
-        NextResponse.redirect(
-          new URL(
-            `${process.env.NEXT_PUBLIC_FRONTEND_URL}/auth/login?success=registered`
-          )
-        );
       }
     } catch (errorBack: any) {
       console.error("Detailed error:", errorBack);
