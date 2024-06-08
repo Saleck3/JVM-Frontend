@@ -1,4 +1,4 @@
-import { adaptExercises, adaptScore } from "../adapters/exercises.adapter";
+import { adaptExercises, adaptScore } from '../adapters/exercises.adapter';
 
 export const getExercises = async (
 	playerId: string,
@@ -66,5 +66,40 @@ export const scoreExercises = async (
 		return adaptScore(data);
 	} catch (e: any) {
 		console.error('score service error', e.message);
+	}
+};
+
+export const scoreVoice = async (
+	audio: Blob,
+	exerciseId: string,
+	token: string
+): Promise<any> => {
+	const query = new URLSearchParams({ exerciseId }).toString();
+	const url = `${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/exercises/voice/score?${query}`;
+
+	try {
+		const res = await fetch(url, {
+			method: 'POST',
+			body: audio,
+			headers: {
+				'Content-Type': 'audio/mp3',
+				Authorization: `Bearer ${token}`,
+			},
+		});
+
+		if (!res.ok) {
+			const data = res.headers.get('content-type') ? await res.json() : null;
+
+			console.error('scoreExercises error: ', data);
+			throw new Error(
+				`scoreVoice res not ok error: ${data.status}, ${data.message}, ${data.url}`
+			);
+		}
+		const data = await res.json();
+
+		console.log('data', data);
+		return data;
+	} catch (e: any) {
+		console.error('score voice service error', e.message);
 	}
 };

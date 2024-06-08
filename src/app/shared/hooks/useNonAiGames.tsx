@@ -21,7 +21,6 @@ const useNonAiGames = (playerId: string, appleId: string, token: string) => {
 	useEffect(() => {
 		const fetchExercises = async () => {
 			const apple = await getExercises(playerId, appleId, token);
-
 			setApple(apple);
 		};
 

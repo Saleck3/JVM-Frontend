@@ -20,7 +20,7 @@ export async function GET(req: NextRequest) {
 
 		if (!res.ok) {
 			return Response.json(
-				{ status: res.status, body: res.statusText, url },
+				{ status: res.status, message: res.statusText, url },
 				{ status: res.status }
 			);
 		}

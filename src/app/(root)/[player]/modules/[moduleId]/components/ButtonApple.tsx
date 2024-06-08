@@ -17,10 +17,15 @@ export default function ButtonApple(props: Props): JSX.Element {
 	const horizontalPosition = index % 2 === 0 ? 25 : 55;
 	const verticalPosition = index * 200;
 
+	//todo refactor como entrar a voice
+	const href = `/${playerAlias}/play/${appleId}${
+		type === 'VOICE_IA' ? '/voice' : ''
+	}`;
+
 	return (
 		<Link
 			className="absolute"
-			href={`/${playerAlias}/play/${appleId}`}
+			href={href}
 			style={{ top: `${verticalPosition}px`, left: `${horizontalPosition}%` }}
 		>
 			<li className="relative w-40 sm:w-60 md:w-80 overflow-hidden">

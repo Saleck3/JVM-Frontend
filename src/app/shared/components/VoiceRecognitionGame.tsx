@@ -3,8 +3,17 @@
 import { Button } from '@/components/ui/button';
 import { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
+import { useSession } from 'next-auth/react';
+import { scoreVoice } from '../services/exercises.service';
+import useNonAiGames from '../hooks/useNonAiGames';
+import useTextToSpeech from '../hooks/useTextToSpeech';
 
-const VoiceRecognitionGame = (): JSX.Element => {
+type Props = {
+	gameId: string;
+	playerId: string;
+};
+
+const VoiceRecognitionGame = ({ gameId, playerId }: Props): JSX.Element => {
 	const [isRecording, setIsRecording] = useState(false);
 	const [stream, setStream] = useState(null);
 	const [audioChunks, setAudioChunks] = useState([]);
@@ -12,6 +21,28 @@ const VoiceRecognitionGame = (): JSX.Element => {
 	const [audioBlob, setAudioBlob] = useState(null);
 	const mediaRecorder = useRef(null);
 	const [hasAudioPermissions, setHasAudioPermissions] = useState(false);
+
+	const session = useSession();
+
+	const {
+		apple,
+		errorCounter,
+		currentGame,
+		completedPercentage,
+		outOfRetries,
+		setNextGame,
+		isLastGame,
+		handleCorrectAnswer,
+		handleWrongAnswer,
+	} = useNonAiGames(
+		playerId,
+		gameId as string,
+		session.data?.user.accessToken as string
+	);
+
+	const correctAnswer = apple?.exercises[0].params?.correctAnswer;
+
+	const [playCorrectAnswer] = useTextToSpeech(correctAnswer);
 
 	const createMediaStream = async () => {
 		if ('MediaRecorder' in window) {
@@ -98,6 +129,13 @@ const VoiceRecognitionGame = (): JSX.Element => {
 			const blob = new Blob(audioChunks, { type: 'audio/mp3' });
 			const audioURL = URL.createObjectURL(blob);
 
+			const reader = new FileReader();
+			reader.readAsDataURL(blob);
+			reader.onloadend = () => {
+				const base64data = reader.result;
+				setBaseAudio(base64data);
+			};
+
 			setAudio(audioURL);
 			setAudioBlob(blob);
 			setAudioChunks([]);
@@ -128,6 +166,19 @@ const VoiceRecognitionGame = (): JSX.Element => {
 		);
 	}
 
+	const getScore = async () => {
+		try {
+			const score = await scoreVoice(
+				audioBlob,
+				gameId,
+				session.data?.user.accessToken
+			);
+			console.log('data', score);
+		} catch (e: any) {
+			console.error('modules service error', e.message);
+		}
+	};
+
 	return (
 		<div className="bg-white rounded-sm shadow-lg p-8 space-y-8">
 			<h1 className="text-3xl md:text-5xl font-boldtext-center text-gray-700">
@@ -140,6 +191,7 @@ const VoiceRecognitionGame = (): JSX.Element => {
 					className={`relative bg-accent rounded-3xl p-4 cursor-pointer active:bg-sky active:scale-105 transition-all`}
 					height={150}
 					width={150}
+					onClick={playCorrectAnswer}
 				/>
 				<div className="flex flex-col gap-2">
 					<Button
@@ -163,10 +215,7 @@ const VoiceRecognitionGame = (): JSX.Element => {
 			{audio && (
 				<audio src={audio} ref={audioPlayerRef} className="hidden"></audio>
 			)}
-			<Button
-				className="w-full"
-				onClick={() => console.log('Êl síla erin lû e-govaned vîn.')}
-			>
+			<Button className="w-full" onClick={getScore}>
 				Obtener resultados
 			</Button>
 		</div>

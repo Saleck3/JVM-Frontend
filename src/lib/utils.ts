@@ -8,18 +8,6 @@ export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
 }
 
-export const getPlayerByAliasSsr = async (
-	alias: string
-): Promise<Player | undefined> => {
-	const session = await getServerSession(options);
-	return session?.user.players.find((player) => player.alias === alias);
-};
-
-export const getAccessTokenSsr = async () => {
-	const session = await getServerSession(options);
-	return session!.user.accessToken;
-};
-
 export const getSsrUtils = async () => {
 	const session = await getServerSession(options);
 

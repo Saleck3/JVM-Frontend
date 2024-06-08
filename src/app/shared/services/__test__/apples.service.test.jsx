@@ -6,14 +6,14 @@ beforeAll(() => {
 });
 
 const mockResponse = { data: { apples: [{ id: 1, name: 'A', crowns: 1 }] } };
-const formatterResponse = [{ id: 1, name: 'A', stars: 1 }];
+const formattedResponse = [{ id: 1, name: 'A', stars: 1 }];
 
 describe('Apples service', () => {
 	it('should make a request to apples internal api with playerId and moduleId', () => {
 		setFetchMockResponse();
 
 		const response = getApples(1, 2, 'token');
-		expect(response).resolves.toEqual(formatterResponse);
+		expect(response).resolves.toEqual(formattedResponse);
 
 		checkIfFetchWasCalledWithCorrectParams();
 	});

@@ -8,8 +8,6 @@ export default async function Modules({ params }: any) {
 	const token = ssrUtils.getAccessTokenSsr();
 	const player = ssrUtils.getPlayerByAliasSsr(params.player);
 
-	//todo if (!player) devolver 403
-
 	const modules = await getModules(player!.id, token);
 
 	return (

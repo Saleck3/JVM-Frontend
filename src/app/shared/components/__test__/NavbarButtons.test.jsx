@@ -1,5 +1,5 @@
 import { signOut, useSession } from 'next-auth/react';
-import NavbarButtons from '../NavbarButtons';
+import NavbarButtons from '../../components/Navbar/NavbarButtons';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
@@ -20,10 +20,10 @@ describe('NavbarButtons Component', () => {
 	it('should not render register and login button when signed in', () => {
 		const mockedUser = {
 			id: 1,
-			name: "mockedUser",
+			name: 'mockedUser',
 			email: 'foo@bar.com',
 			players: null,
-			accessToken: "string"
+			accessToken: 'string',
 		};
 
 		render(<NavbarButtons user={mockedUser} />);
@@ -34,10 +34,10 @@ describe('NavbarButtons Component', () => {
 		const userEmail = 'foo@bar.com';
 		const mockedUser = {
 			id: 1,
-			name: "mockedUser",
+			name: 'mockedUser',
 			email: userEmail,
 			players: null,
-			accessToken: "string"
+			accessToken: 'string',
 		};
 
 		render(<NavbarButtons user={mockedUser} />);
@@ -48,10 +48,10 @@ describe('NavbarButtons Component', () => {
 		const userEmail = 'foo@bar.com';
 		const mockedUser = {
 			id: 1,
-			name: "mockedUser",
+			name: 'mockedUser',
 			email: userEmail,
 			players: null,
-			accessToken: "string"
+			accessToken: 'string',
 		};
 
 		render(<NavbarButtons user={mockedUser} />);
