@@ -1,3 +1,5 @@
+import adaptModules from "../adapters/modules.adapter";
+
 export const getModules = async (playerId: string, token: string) => {
 	const query = new URLSearchParams({ playerId }).toString();
 	const url = `${process.env.FRONTEND_URL}/api/modules?${query}`;
@@ -12,8 +14,9 @@ export const getModules = async (playerId: string, token: string) => {
 		});
 		const { data } = await res.json();
 
-		return data.modules;
+		return adaptModules(data);
 	} catch (e: any) {
 		console.error('modules service error', e.message);
 	}
 };
+
