@@ -1,3 +1,5 @@
+import adaptExercises from "../adapters/exercises.adapter";
+
 export const getExercises = async (
 	playerId: string,
 	appleId: string,
@@ -26,18 +28,7 @@ export const getExercises = async (
 
 		const data = await res.json();
 
-		//TODO hacer adapter copado
-		const exercises = data.exercises.map((exercise: any) => {
-			const { id, exerciseType, parameters } = exercise;
-
-			const parsedParameters = JSON.parse(parameters);
-			return {
-				id,
-				exerciseType,
-				params: parsedParameters,
-			};
-		});
-
+		const exercises = adaptExercises(data);
 		return { moduleId: data.moduleId!, exercises };
 	} catch (e: any) {
 		console.error('exercises service error', e.message);
