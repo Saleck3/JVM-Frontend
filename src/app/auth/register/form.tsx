@@ -1,13 +1,13 @@
 "use client";
 
 import { useFormState, useFormStatus } from "react-dom";
-import { addEntry } from "./register.service";
+import { registerUser } from "./register.service";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 export default function Form() {
-  const [state, formAction] = useFormState(addEntry, null);
+  const [state, formAction] = useFormState(registerUser, null);
 
   return (
     <section className="flex gap-6">
@@ -77,13 +77,19 @@ export default function Form() {
         )}
         <Input type="checkbox" name="terms" />
 
-        <SubmitButton></SubmitButton>
+        <Input
+          type="hidden"
+          name="recommendedModule"
+          value={localStorage.getItem("recommendedModule") || ""}
+        />
+
+        <OnSubmit />
       </form>
     </section>
   );
 }
 
-function SubmitButton() {
+function OnSubmit() {
   const { pending } = useFormStatus();
 
   return (

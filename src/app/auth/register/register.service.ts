@@ -1,7 +1,6 @@
-import { NextRequest, NextResponse } from "next/server";
-import { FormDataSchema } from "@/lib/schema";
+import { FormDataSchema } from "../../shared/schemas/register.schema";
 
-export async function addEntry(state: any, data: FormData) {
+export async function registerUser(state: any, data: FormData) {
   const result = FormDataSchema.safeParse({
     first_name: data.get("name"),
     last_name: data.get("lastname"),
@@ -10,6 +9,7 @@ export async function addEntry(state: any, data: FormData) {
     password: data.get("password"),
     repeatPassword: data.get("repeatPassword"),
     terms: data.get("terms"),
+    recommendedModule: data.get("recommendedModule"),
   });
 
   if (result.error) {
@@ -31,35 +31,28 @@ export async function addEntry(state: any, data: FormData) {
             password: result.data.password,
             lastName: result.data.last_name,
             playerName: result.data.player_name,
+            recommendedModule: result.data.recommendedModule,
           }),
         }
       );
 
-      if (typeof window !== "undefined") {
+      if (response.status === 200) {
         window.location.href = "/auth/login?success=registered";
-      } else {
-        NextResponse.redirect(
-          new URL(
-            `${process.env.NEXT_PUBLIC_FRONTEND_URL}/auth/login?success=registered`
-          )
-        );
+        return;
       }
 
-      if (!response.ok) {
-        if (response.status === 409) {
-          return {
-            error: {
-              email: { _errors: ["El correo electrónico ya existe"] },
-            },
-          };
-        } else {
-          return {
-            error: {
-              general: { _errors: ["Error en la solicitud"] },
-            },
-          };
-        }
+      if (response.status === 409) {
+        return {
+          error: {
+            email: { _errors: ["El correo electrónico ya existe"] },
+          },
+        };
       }
+      return {
+        error: {
+          general: { _errors: ["Error en la solicitud"] },
+        },
+      };
     } catch (errorBack: any) {
       console.error("Detailed error:", errorBack);
       return { errorBack: errorBack.message };
