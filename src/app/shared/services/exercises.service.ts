@@ -1,4 +1,4 @@
-import adaptExercises from "../adapters/exercises.adapter";
+import { adaptExercises, adaptScore } from "../adapters/exercises.adapter";
 
 export const getExercises = async (
 	playerId: string,
@@ -62,8 +62,8 @@ export const scoreExercises = async (
 				`scoreExercises res not ok error: ${data.status}, ${data.message}, ${data.url}`
 			);
 		}
-
-		return await res.json();
+		const data = await res.json();
+		return adaptScore(data);
 	} catch (e: any) {
 		console.error('score service error', e.message);
 	}
