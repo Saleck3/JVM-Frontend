@@ -1,115 +1,56 @@
 'use client';
-import { useEffect, useMemo, useState } from 'react';
-
-// @ts-ignore
-import useSound from 'use-sound';
+import { scoreExercises } from '@/app/shared/services/exercises.service';
+import { useMemo, useState } from 'react';
 import { useParams } from 'next/navigation';
-import GamesResults from './components/GamesResults';
-import GameRenderer from './components/GameRenderer';
-import ProgressBar from './components/ProgressBar';
-import { useSession } from 'next-auth/react';
-import {
-	getExercises,
-	scoreExercises,
-} from '@/app/shared/services/exercises.service';
 import FetchingScore from './components/FetchingScore';
-
-const MAX_ERRORS = 5;
+import GameRenderer from './components/GameRenderer';
+import GamesResults from './components/GamesResults';
+import ProgressBar from './components/ProgressBar';
+import useNonAiGames from '@/app/shared/hooks/useNonAiGames';
+import useUserData from '@/app/shared/hooks/useUserData';
 
 export default function NonAiGames() {
-	const user = useSession().data?.user;
-
-	const { player: playerAlias, gameId } = useParams();
-
-	const [exercises, setExercises] = useState<any>([]);
-	const [moduleId, setModuleId] = useState<number | null>(null);
-	const [currentGameIndex, setCurrentGameIndex] = useState<number>(0);
-	const [errorCounter, setErrorCounter] = useState<number[]>([]);
+	const { user, token } = useUserData();
 	const [gameScore, setGameScore] = useState<number | null>(null);
 	const [isFetchingScore, setIsFetchingScore] = useState(false);
 
-	const [playCorrectSound] = useSound('/sounds/success.mp3');
-	const [playWrongSound] = useSound('/sounds/wrong.mp3');
+	const { player: playerAlias, gameId } = useParams();
 
-	const playerId = useMemo(() => {
-		return user?.players.find((player) => player.alias === playerAlias)!.id;
-	}, [user, playerAlias]);
+	const playerId = useMemo(
+		() => user?.players.find((player) => player.alias === playerAlias)?.id,
+		[user, playerAlias]
+	);
 
-	useEffect(() => {
-		const fetchExercises = async () => {
-			const { accessToken } = user!;
+	const {
+		apple,
+		errorCounter,
+		currentGame,
+		completedPercentage,
+		outOfRetries,
+		setNextGame,
+		isLastGame,
+		handleCorrectAnswer,
+		handleWrongAnswer,
+	} = useNonAiGames(playerId!, gameId as string, token!);
 
-			const apple = await getExercises(
-				playerId!,
-				gameId as string,
-				accessToken
-			);
-
-			setModuleId(apple?.moduleId);
-			setExercises(apple?.exercises);
-		};
-
-		user && fetchExercises();
-	}, [user]);
-
-	const sumErrorToCurrentGame = () => {
-		setErrorCounter((prevValue) => {
-			const updatedErrorCounter = [...prevValue];
-			updatedErrorCounter[currentGameIndex] = updatedErrorCounter[
-				currentGameIndex
-			]
-				? updatedErrorCounter[currentGameIndex] + 1
-				: 1;
-			return updatedErrorCounter;
-		});
-	};
-
-	const setZeroErrorsToCurrentGame = () => {
-		setErrorCounter((prevValue) => {
-			const updatedErrorCounter = [...prevValue];
-
-			if (!updatedErrorCounter[currentGameIndex]) {
-				updatedErrorCounter[currentGameIndex] = 0;
-			}
-
-			return updatedErrorCounter;
-		});
-	};
-
-	const handleWrongAnswer = () => {
-		playWrongSound();
-		sumErrorToCurrentGame();
-	};
-
-	const handleCorrectAnswer = () => {
-		playCorrectSound();
-		setZeroErrorsToCurrentGame();
-	};
+	const moduleUrl = `/${playerAlias}/modules/${apple?.moduleId}`;
 
 	const handleNextButton = async () => {
-		if (currentGameIndex < exercises.length - 1) {
-			setCurrentGameIndex((prevValue) => prevValue + 1);
+		if (!isLastGame) {
+			setNextGame();
 		} else {
 			setIsFetchingScore(true);
-			const { accessToken } = user!;
 			const score = await scoreExercises(
 				playerId!,
 				gameId as string,
 				errorCounter,
-				accessToken
+				token!
 			);
 
 			setGameScore(score);
 			setIsFetchingScore(false);
 		}
 	};
-
-	const currentGame = exercises?.[currentGameIndex];
-	const completedPercentage = Math.trunc(
-		(currentGameIndex / exercises?.length) * 100
-	);
-	const moduleUrl = `/${playerAlias}/modules/${moduleId}`;
-	const outOfRetries = errorCounter[currentGameIndex] === MAX_ERRORS;
 
 	if (isFetchingScore) {
 		return <FetchingScore />;

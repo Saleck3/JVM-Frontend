@@ -1,19 +1,16 @@
 import LeadTitle from '@/app/shared/components/LeadTitle';
 import ModuleCard from './components/ModuleCard';
-import { getServerSession } from 'next-auth';
-import { options } from '@/app/api/auth/[...nextauth]/options';
 import { getModules } from '@/app/shared/services/modules.service';
+import { getSsrUtils } from '../../../../lib/utils';
 
 export default async function Modules({ params }: any) {
-	const session = await getServerSession(options);
+	const ssrUtils = await getSsrUtils();
+	const token = ssrUtils.getAccessTokenSsr();
+	const player = ssrUtils.getPlayerByAliasSsr(params.player);
 
-	const player = session?.user.players.find(
-		(player) => player.alias === params.player
-	)!;
+	//todo if (!player) devolver 403
 
-	// if (!player) devolver 403
-
-	const modules = await getModules(player.id, session?.user?.accessToken!);
+	const modules = await getModules(player!.id, token);
 
 	return (
 		<main className="container py-16 md:px-12 xl:px-32 space-y-12">
@@ -26,8 +23,8 @@ export default async function Modules({ params }: any) {
 					<ModuleCard
 						key={module.id}
 						{...module}
-						recommended={player.recommendedModule === module.id}
-						playerAlias={player.alias}
+						recommended={player?.recommendedModule === module.id}
+						playerAlias={player?.alias}
 					/>
 				))}
 			</div>

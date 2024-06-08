@@ -1,20 +1,15 @@
-import { options } from '@/app/api/auth/[...nextauth]/options';
-import { getServerSession } from 'next-auth';
 import { getApples } from '@/app/shared/services/apples.service';
 import ButtonApple from './components/ButtonApple';
-import { getPlayerByAliasSsr } from '@/lib/utils';
+import { getSsrUtils } from '@/lib/utils';
 
 export default async function ApplePath({ params }: any) {
-	const session = await getServerSession(options);
-	const playerAlias = params.player;
-	const player = await getPlayerByAliasSsr(playerAlias);
+	const ssrUtils = await getSsrUtils();
+	const token = ssrUtils.getAccessTokenSsr();
+	const player = ssrUtils.getPlayerByAliasSsr(params.player);
 
-	const apples = await getApples(
-		player!.id,
-		params.moduleId,
-		session?.user?.accessToken!
-	);
+	const apples = await getApples(player!.id, params.moduleId, token);
 
+	//todo if (!apples) devolver 403
 	if (!apples) {
 		return <h1> Aún no hay manzanas</h1>;
 	}
@@ -26,7 +21,7 @@ export default async function ApplePath({ params }: any) {
 					<ButtonApple
 						key={'apple_' + apple.id}
 						name={apple.name}
-						playerAlias={playerAlias}
+						playerAlias={params.player}
 						appleId={apple.id}
 						stars={apple.stars}
 						index={index}
