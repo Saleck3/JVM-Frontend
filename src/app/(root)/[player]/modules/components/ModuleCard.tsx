@@ -1,4 +1,3 @@
-import { Button } from '@/components/ui/button';
 import {
 	Card,
 	CardContent,
@@ -7,8 +6,11 @@ import {
 	CardHeader,
 	CardTitle,
 } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { FaGamepad } from 'react-icons/fa6';
 import Image from 'next/image';
 import Link from 'next/link';
+import ProgressBar from '../../../../shared/components/ProgressBar';
 
 type Props = {
 	description: string;
@@ -35,10 +37,15 @@ export default function ModuleCard({
 					{recommended && <span>⭐</span>}
 					{description.toUpperCase()}
 				</CardTitle>
-				<CardDescription className="text-yellow-400 font-bold">
-					<span className="text-sm">{progress.toFixed(2)}%</span>
-					<br />
-					{recommended ? 'Módulo recomendado' : '\u00A0'}
+				<CardDescription>
+					<ProgressBar completedPercentage={progress} />
+					{recommended ? (
+						<span className="text-purple-400 font-semibold">
+							Módulo recomendado
+						</span>
+					) : (
+						'\u00A0'
+					)}
 				</CardDescription>
 			</CardHeader>
 			<CardContent>
@@ -52,7 +59,10 @@ export default function ModuleCard({
 			</CardContent>
 			<CardFooter>
 				<Link href={`/${playerAlias}/modules/${id}`} className="w-full">
-					<Button className="w-full">Ver módulo</Button>
+					<Button className="w-full text-md" variant={'defaultWithIcon'}>
+						<FaGamepad className="text-2xl" />
+						JUGAR
+					</Button>
 				</Link>
 			</CardFooter>
 		</Card>

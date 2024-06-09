@@ -77,3 +77,9 @@ Ficha caligrafica, solo descarga
 export type worksheets = {
 	image: string;
 };
+
+export type GameData = {
+	gameType: string;
+	params: any;
+	id: string;
+};

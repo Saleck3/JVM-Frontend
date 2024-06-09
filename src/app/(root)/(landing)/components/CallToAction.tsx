@@ -4,7 +4,10 @@ import Link from 'next/link';
 
 export default function CallToAction() {
 	return (
-		<section className="flex flex-col items-center justify-center text-center lg:text-left lg:flex-row bg-secondary h-screen">
+		<section
+			className="flex flex-col items-center justify-center text-center lg:text-left lg:flex-row bg-secondary h-screen"
+			id="test"
+		>
 			<Image
 				src={`/img/test-now.svg`}
 				alt="lombriz haciendo un examen"

@@ -14,7 +14,7 @@ export default async function Modules({ params }: any) {
 		<main className="container py-16 md:px-12 xl:px-32 space-y-12">
 			<LeadTitle
 				title="Selección de Módulo"
-				subtitle="Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente fugit sunt itaque a voluptate voluptatum."
+				subtitle="¡Elegí tu camino! Podés volver y elegir otro cuando quieras."
 			/>
 			<div className="flex gap-8 justify-around flex-wrap">
 				{modules.map((module: any) => (
