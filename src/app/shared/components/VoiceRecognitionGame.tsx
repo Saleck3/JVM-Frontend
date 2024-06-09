@@ -27,17 +27,17 @@ const VoiceRecognitionGame = (props: Props): JSX.Element => {
 		handleNextButton,
 	} = props;
 
-	const [isRecording, setIsRecording] = useState(false);
-	const [stream, setStream] = useState(null);
-	const [audioChunks, setAudioChunks] = useState([]);
-	const [audio, setAudio] = useState(null);
-	const [audioBlob, setAudioBlob] = useState(null);
-	const mediaRecorder = useRef(null);
-	const [hasAudioPermissions, setHasAudioPermissions] = useState(false);
+	const [isRecording, setIsRecording] = useState<any>(false);
+	const [stream, setStream] = useState<any>(null);
+	const [audioChunks, setAudioChunks] = useState<any>([]);
+	const [audio, setAudio] = useState<any>(null);
+	const [audioBlob, setAudioBlob] = useState<any>(null);
+	const mediaRecorder = useRef<any>(null);
+	const [hasAudioPermissions, setHasAudioPermissions] = useState<any>(false);
 
-	const [isFetchingScore, setIsFetchingScore] = useState(false);
+	const [isFetchingScore, setIsFetchingScore] = useState<any>(false);
 	//TODO type de correction
-	const [audioCorrection, setAudioCorrection] = useState(null);
+	const [audioCorrection, setAudioCorrection] = useState<any>(null);
 
 	const { token } = useUserData();
 
@@ -63,16 +63,16 @@ const VoiceRecognitionGame = (props: Props): JSX.Element => {
 	const startRecording = async () => {
 		const mediaStream = stream || (await createMediaStream());
 
-		const media = new MediaRecorder(mediaStream, { type: 'audio/mp3' });
+		const media = new MediaRecorder(mediaStream, { type: 'audio/mp3' } as any);
 		mediaRecorder.current = media;
 
 		setIsRecording(true);
 
 		mediaRecorder.current.start();
 
-		let localAudioChunks = [];
+		let localAudioChunks: any = [];
 
-		mediaRecorder.current.ondataavailable = (e) => {
+		mediaRecorder.current.ondataavailable = (e: any) => {
 			if (typeof e.data === 'undefined') return;
 			if (e.data.size === 0) return;
 
@@ -103,7 +103,7 @@ const VoiceRecognitionGame = (props: Props): JSX.Element => {
 
 		const checkPermissions = async () => {
 			const permissions = await navigator.permissions.query({
-				name: 'microphone',
+				name: 'microphone' as any,
 			});
 
 			setPermissions(permissions);
@@ -138,7 +138,7 @@ const VoiceRecognitionGame = (props: Props): JSX.Element => {
 		isRecording ? stopRecording() : startRecording();
 	};
 
-	const audioPlayerRef = useRef(null);
+	const audioPlayerRef = useRef<any>(null);
 
 	if (!hasAudioPermissions) {
 		return (
@@ -161,7 +161,7 @@ const VoiceRecognitionGame = (props: Props): JSX.Element => {
 	const getAudioCorrection = async () => {
 		setIsFetchingScore(true);
 		try {
-			const correction = await scoreVoice(audioBlob, gameId, token);
+			const correction = await scoreVoice(audioBlob, gameId, token!);
 
 			correction.correct ? onCorrectAnswer() : onWrongAnswer();
 
