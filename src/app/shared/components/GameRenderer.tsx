@@ -2,6 +2,7 @@ import VoiceRecognitionGame from '@/app/shared/components/VoiceRecognitionGame';
 import WordOrderingGame from '@/app/shared/components/WordOrderingGame/WordOrderingGame';
 import WordSelectionGame from '@/app/shared/components/WordSelectionGame';
 import WordWritingGame from '@/app/shared/components/WordWritingGame/WordWritingGame';
+import { GameData } from '../types/games.type';
 
 type Props = {
 	gameData: GameData;
@@ -9,13 +10,6 @@ type Props = {
 	handleNextButton: () => void;
 	handleCorrectAnswer: () => void;
 	handleWrongAnswer: () => void;
-};
-
-//TODO exportar type
-type GameData = {
-	gameType: string;
-	params: any;
-	id: string;
 };
 
 const gameComponents: any = {

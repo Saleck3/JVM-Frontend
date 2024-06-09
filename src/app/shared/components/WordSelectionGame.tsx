@@ -11,6 +11,7 @@ interface Props extends ImageSelection {
 	onWrongAnswer: () => void;
 	onCorrectAnswer: () => void;
 	handleNextButton: () => void;
+	outOfRetries: boolean;
 }
 
 const WordSelectionGame = (props: Props): JSX.Element => {
@@ -22,6 +23,7 @@ const WordSelectionGame = (props: Props): JSX.Element => {
 		onWrongAnswer,
 		onCorrectAnswer,
 		handleNextButton,
+		outOfRetries,
 	} = props;
 
 	const [gameFinished, setGameFinished] = useState(false);
@@ -52,9 +54,11 @@ const WordSelectionGame = (props: Props): JSX.Element => {
 	return (
 		<GameLayout
 			gameFinished={gameFinished}
+			outOfRetries={outOfRetries}
 			handleNextButton={handleNextButton}
 			title="Selecciona la palabra"
 			gameInstructions={gameInstructions['WordSelectionGame']}
+			hasOwnCheckButton
 		>
 			<div className="mb-6 text-center flex-1 flex flex-col gap-8">
 				<div className="flex-1 relative">

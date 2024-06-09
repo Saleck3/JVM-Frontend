@@ -2,10 +2,10 @@
 import { scoreExercises } from '@/app/shared/services/exercises.service';
 import { useMemo, useState } from 'react';
 import { useParams } from 'next/navigation';
-import FetchingScore from './components/FetchingScore';
-import GameRenderer from './components/GameRenderer';
-import GamesResults from './components/GamesResults';
-import ProgressBar from './components/ProgressBar';
+import FetchingScore from '../../../shared/components/FetchingScore';
+import GameRenderer from '../../../shared/components/GameRenderer';
+import GamesResults from '../../../shared/components/GamesResults';
+import ProgressBar from '../../../shared/components/ProgressBar';
 import useGames from '@/app/shared/hooks/useGames';
 import useUserData from '@/app/shared/hooks/useUserData';
 
@@ -53,7 +53,6 @@ export default function NonAiGames() {
 		}
 	};
 
-	//TODO exportar type
 	const gameData = {
 		gameType: currentGame?.exerciseType,
 		params: currentGame?.params,

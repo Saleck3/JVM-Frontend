@@ -7,7 +7,7 @@ type Props = {
 
 export default function GameInstructionsButton({ onclick }: Props) {
 	return (
-		<Button onClick={onclick} className="shrink-0">
+		<Button onClick={onclick} className="shrink-0" variant={'secondary'}>
 			<Image
 				src="/img/icons/play-icon-mini.svg"
 				alt="tts-instructions"

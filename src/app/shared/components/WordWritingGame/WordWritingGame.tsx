@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { FormEvent, useState } from 'react';
+import { FormEvent, useRef, useState } from 'react';
 import { ImageWriting } from '@/app/shared/types/games.type';
 import Image from 'next/image';
 import WordWritingGameInputs from './WordWritingGameInputs';
@@ -89,16 +89,27 @@ const WordWritingGame = (props: Props): JSX.Element => {
 		return null;
 	};
 
+	const formRef = useRef<HTMLFormElement>(null);
+	const submitForm = () => {
+		if (formRef.current) {
+			formRef.current.dispatchEvent(
+				new Event('submit', { bubbles: true, cancelable: true })
+			);
+		}
+	};
+
 	return (
 		<GameLayout
 			gameFinished={gameFinished}
 			wrongAttempt={wrongAttempt}
-			handleNextButton={handleNextButton}
 			outOfRetries={outOfRetries}
+			handleNextButton={handleNextButton}
 			title="Escribe la palabra"
 			gameInstructions={gameInstructions['WordWritingGame']}
+			checkGame={submitForm}
 		>
 			<div className="mb-6 text-center flex-1 flex flex-col gap-8">
+				<button onClick={submitForm}>asd</button>
 				<div className="flex-1 relative">
 					<Image
 						src={image!}
@@ -107,18 +118,12 @@ const WordWritingGame = (props: Props): JSX.Element => {
 						className="object-contain"
 					/>
 				</div>
-				<form onSubmit={handleSubmit}>
+				<form onSubmit={handleSubmit} ref={formRef}>
 					<WordWritingGameInputs
 						word={correctAnswer}
 						preSelectedLetters={preSelectedLetters}
 						onKeyUp={handleKeyUp}
 					/>
-
-					{!gameFinished && !outOfRetries && (
-						<Button className="w-full mt-6" type="submit">
-							Comprobar
-						</Button>
-					)}
 				</form>
 			</div>
 		</GameLayout>

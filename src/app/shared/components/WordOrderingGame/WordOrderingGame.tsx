@@ -1,18 +1,20 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
+import { FaPen } from 'react-icons/fa';
+import { FaRedoAlt } from 'react-icons/fa';
+import { gameInstructions } from '@/app/[player]/play/[appleId]/data/gameInstructions';
 import { LetterOrdering } from '@/app/shared/types/games.type';
 import { useState } from 'react';
-import Image from 'next/image';
 import GameLayout from '../GameLayout';
+import Image from 'next/image';
 import WordOrderingGameSortableOptions from './WordOrderingGameSortableOptions';
-import { gameInstructions } from '@/app/[player]/play/[appleId]/data/gameInstructions';
 
 interface Props extends LetterOrdering {
 	onWrongAnswer: () => void;
 	onCorrectAnswer: () => void;
 	handleNextButton: () => void;
-	outOfRetries?: boolean;
+	outOfRetries: boolean;
 }
 
 const WordOrderingGame = (props: Props): JSX.Element => {
@@ -54,6 +56,7 @@ const WordOrderingGame = (props: Props): JSX.Element => {
 			handleNextButton={handleNextButton}
 			title="Ordena los elementos"
 			gameInstructions={gameInstructions['WordOrderingGame']}
+			checkGame={handleCheck}
 		>
 			<div className="mb-6 text-center flex-1 flex flex-col gap-8">
 				<div className="flex-1 relative">
@@ -67,11 +70,23 @@ const WordOrderingGame = (props: Props): JSX.Element => {
 
 				<WordOrderingGameSortableOptions options={options} onSort={onSort} />
 
-				{!gameFinished && !outOfRetries && (
-					<Button className="w-full mt-6" onClick={handleCheck}>
-						Comprobar
+				{/* {!gameFinished && !outOfRetries && (
+					<Button
+						className="w-full mt-6 text-md"
+						onClick={handleCheck}
+						variant={'defaultWithIcon'}
+					>
+						{wrongAttempt ? (
+							<>
+								<FaRedoAlt /> Reintentar
+							</>
+						) : (
+							<>
+								<FaPen /> Comprobar
+							</>
+						)}
 					</Button>
-				)}
+				)} */}
 			</div>
 		</GameLayout>
 	);

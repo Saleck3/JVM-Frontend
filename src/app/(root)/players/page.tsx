@@ -1,6 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { getServerSession } from 'next-auth';
-import { options } from '../../api/auth/[...nextauth]/options';
+import { MdOutlineAddReaction } from 'react-icons/md';
 import Players from './components/Players';
 import LeadTitle from '@/app/shared/components/LeadTitle';
 import { getSsrUtils } from '@/lib/utils';
@@ -17,7 +16,10 @@ export default async function PlayerSelection() {
 			/>
 			<Players playerList={players} />
 			<div className="flex justify-center">
-				<Button size="lg">+ Agregar jugador</Button>
+				<Button size="lg" variant={'defaultWithIcon'}>
+					<MdOutlineAddReaction className="text-2xl" />
+					Agregar jugador
+				</Button>
 			</div>
 		</main>
 	);

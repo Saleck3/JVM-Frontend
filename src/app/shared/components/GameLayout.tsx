@@ -1,7 +1,6 @@
-import { Button } from '@/components/ui/button';
-import Image from 'next/image';
 import useTextToSpeech from '../hooks/useTextToSpeech';
 import GameInstructionsButton from './GameInstructionsButton';
+import GameCheckButton from './GameCheckButton';
 
 type Props = {
 	children: React.ReactNode;
@@ -11,20 +10,27 @@ type Props = {
 	outOfRetries?: boolean;
 	handleNextButton: () => void;
 	gameInstructions: string;
+	checkGame?: any;
+	hasOwnCheckButton?: boolean;
 };
 
 export default function GameLayout(props: Props) {
 	const {
 		children,
 		gameFinished,
-		wrongAttempt,
+		wrongAttempt = false,
 		title,
 		handleNextButton,
 		outOfRetries,
 		gameInstructions,
+		checkGame,
+		hasOwnCheckButton,
 	} = props;
 
 	const [playInstructions] = useTextToSpeech(gameInstructions || '');
+
+	const onCheckButtonClick =
+		outOfRetries || gameFinished ? handleNextButton : checkGame;
 
 	return (
 		<div className="w-full max-w-4xl h-full bg-white rounded-lg shadow-lg p-6 py-12 flex flex-col space-y-4">
@@ -38,25 +44,13 @@ export default function GameLayout(props: Props) {
 			</div>
 			{children}
 
-			{wrongAttempt && !outOfRetries && (
-				<p className="text-red-500 text-center">Incorrecto :(</p>
-			)}
-
-			{(gameFinished || outOfRetries) && (
-				<>
-					{gameFinished && (
-						<p className="text-green-500 text-center">¡Correcto!</p>
-					)}
-					{outOfRetries && (
-						<p className="text-red-500 text-center">
-							Sos medio lerdo, continuemos con el próximo ejercicio
-						</p>
-					)}
-					<Button className="w-full" onClick={handleNextButton}>
-						Siguiente
-					</Button>
-				</>
-			)}
+			<GameCheckButton
+				onClick={onCheckButtonClick}
+				wrongAttempt={wrongAttempt}
+				outOfRetries={outOfRetries!}
+				gameFinished={gameFinished}
+				hasOwnCheckButton={hasOwnCheckButton}
+			/>
 		</div>
 	);
 }
