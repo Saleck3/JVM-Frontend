@@ -29,6 +29,7 @@ const buttonVariants = cva(
 				icon: 'h-10 w-10',
 				draggableLetter:
 					'h-12 w-12 md:h-14 md:w-14 lg:h-16 lg:w-16 xl:h-20 xl:w-20',
+				playButton: 'h-16 w-16 rounded-full p-2',
 			},
 		},
 		defaultVariants: {

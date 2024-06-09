@@ -6,7 +6,7 @@ import { ImageWriting } from '@/app/shared/types/games.type';
 import Image from 'next/image';
 import WordWritingGameInputs from './WordWritingGameInputs';
 import GameLayout from '../GameLayout';
-import useTextToSpeech from '../../hooks/useTextToSpeech';
+import { gameInstructions } from '@/app/[player]/play/[appleId]/data/gameInstructions';
 
 interface Props extends ImageWriting {
 	outOfRetries?: boolean;
@@ -14,6 +14,9 @@ interface Props extends ImageWriting {
 	onCorrectAnswer: () => void;
 	handleNextButton: () => void;
 }
+
+const GAME_INSTRUCTIONS =
+	'Para completar el juego, escribi la palabra con tu teclado. Luego, clickeá comprobar';
 
 const WordWritingGame = (props: Props): JSX.Element => {
 	const {
@@ -28,8 +31,6 @@ const WordWritingGame = (props: Props): JSX.Element => {
 
 	const [gameFinished, setGameFinished] = useState<boolean>(false);
 	const [wrongAttempt, setWrongAttempt] = useState<boolean>(false);
-
-	const [playInstructions] = useTextToSpeech("Para completar el juego, escribi la palabra con tu teclado. Luego, clickeá comprobar.");
 
 	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -95,7 +96,7 @@ const WordWritingGame = (props: Props): JSX.Element => {
 			handleNextButton={handleNextButton}
 			outOfRetries={outOfRetries}
 			title="Escribe la palabra"
-			instructionsTTS={playInstructions}
+			gameInstructions={gameInstructions['WordWritingGame']}
 		>
 			<div className="mb-6 text-center flex-1 flex flex-col gap-8">
 				<div className="flex-1 relative">

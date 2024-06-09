@@ -5,7 +5,7 @@ import { ImageSelection } from '@/app/shared/types/games.type';
 import { useState } from 'react';
 import Image from 'next/image';
 import GameLayout from './GameLayout';
-import useTextToSpeech from '../hooks/useTextToSpeech';
+import { gameInstructions } from '@/app/[player]/play/[appleId]/data/gameInstructions';
 
 interface Props extends ImageSelection {
 	onWrongAnswer: () => void;
@@ -48,14 +48,13 @@ const WordSelectionGame = (props: Props): JSX.Element => {
 			? 'gray'
 			: 'secondary';
 	};
-	const [playInstructions] = useTextToSpeech("Para completar el juego, seleccioná con el mouse lo que falte en la palabra.");
 
 	return (
 		<GameLayout
 			gameFinished={gameFinished}
 			handleNextButton={handleNextButton}
 			title="Selecciona la palabra"
-			instructionsTTS={playInstructions}
+			gameInstructions={gameInstructions['WordSelectionGame']}
 		>
 			<div className="mb-6 text-center flex-1 flex flex-col gap-8">
 				<div className="flex-1 relative">

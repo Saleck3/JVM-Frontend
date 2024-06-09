@@ -1,5 +1,7 @@
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
+import useTextToSpeech from '../hooks/useTextToSpeech';
+import GameInstructionsButton from './GameInstructionsButton';
 
 type Props = {
 	children: React.ReactNode;
@@ -8,7 +10,7 @@ type Props = {
 	wrongAttempt?: boolean;
 	outOfRetries?: boolean;
 	handleNextButton: () => void;
-	instructionsTTS?: () => void | undefined;
+	gameInstructions: string;
 };
 
 export default function GameLayout(props: Props) {
@@ -19,20 +21,18 @@ export default function GameLayout(props: Props) {
 		title,
 		handleNextButton,
 		outOfRetries,
-		instructionsTTS,
+		gameInstructions,
 	} = props;
+
+	const [playInstructions] = useTextToSpeech(gameInstructions || '');
 
 	return (
 		<div className="w-full max-w-4xl h-full bg-white rounded-lg shadow-lg p-6 py-12 flex flex-col space-y-4">
-			<div className="flex flex-row space-y-4 text-center justify-center">
-				{instructionsTTS && <Image src="/img/icons/play-icon.svg"
-					alt="tts-instructions"
-					height={50}
-					width={50}
-					className="object-contain"
-					onClick={instructionsTTS}
-				/>}
-				<h1 className="text-3xl md:text-5xl font-bold mb-4  text-gray-700">
+			<div className="flex items-center justify-center flex-wrap gap-2 md:gap-4">
+				{gameInstructions && (
+					<GameInstructionsButton onclick={playInstructions} />
+				)}
+				<h1 className="text-3xl md:text-5xl font-bold text-gray-700 text-center">
 					{title}
 				</h1>
 			</div>
