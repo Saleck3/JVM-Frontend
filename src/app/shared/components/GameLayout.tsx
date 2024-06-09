@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/button';
+import Image from 'next/image';
 
 type Props = {
 	children: React.ReactNode;
@@ -7,6 +8,7 @@ type Props = {
 	wrongAttempt?: boolean;
 	outOfRetries?: boolean;
 	handleNextButton: () => void;
+	instructionsTTS?: () => void | undefined;
 };
 
 export default function GameLayout(props: Props) {
@@ -17,14 +19,23 @@ export default function GameLayout(props: Props) {
 		title,
 		handleNextButton,
 		outOfRetries,
+		instructionsTTS,
 	} = props;
 
 	return (
 		<div className="w-full max-w-4xl h-full bg-white rounded-lg shadow-lg p-6 py-12 flex flex-col space-y-4">
-			<h1 className="text-3xl md:text-5xl font-bold mb-4 text-center text-gray-700">
-				{title}
-			</h1>
-
+			<div className="flex flex-row space-y-4 text-center justify-center">
+				{instructionsTTS && <Image src="/img/icons/play-icon.svg"
+					alt="tts-instructions"
+					height={50}
+					width={50}
+					className="object-contain"
+					onClick={instructionsTTS}
+				/>}
+				<h1 className="text-3xl md:text-5xl font-bold mb-4  text-gray-700">
+					{title}
+				</h1>
+			</div>
 			{children}
 
 			{wrongAttempt && !outOfRetries && (

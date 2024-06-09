@@ -6,6 +6,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import GameLayout from '../GameLayout';
 import WordOrderingGameSortableOptions from './WordOrderingGameSortableOptions';
+import useTextToSpeech from '../../hooks/useTextToSpeech';
 
 interface Props extends LetterOrdering {
 	onWrongAnswer: () => void;
@@ -45,6 +46,8 @@ const WordOrderingGame = (props: Props): JSX.Element => {
 		setPlayerAnswer(joinedOptions);
 	};
 
+	const [playInstructions] = useTextToSpeech("Para completar el juego, arrastrá con el mouse las palabras en el orden correcto. Luego, clickeá continuar.");
+
 	return (
 		<GameLayout
 			gameFinished={gameFinished}
@@ -52,6 +55,7 @@ const WordOrderingGame = (props: Props): JSX.Element => {
 			outOfRetries={outOfRetries}
 			handleNextButton={handleNextButton}
 			title="Ordena los elementos"
+			instructionsTTS={playInstructions}
 		>
 			<div className="mb-6 text-center flex-1 flex flex-col gap-8">
 				<div className="flex-1 relative">
