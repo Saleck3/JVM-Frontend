@@ -5,15 +5,28 @@ import { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 import { scoreVoice } from '../services/exercises.service';
-import useNonAiGames from '../hooks/useNonAiGames';
 import useTextToSpeech from '../hooks/useTextToSpeech';
+import useUserData from '../hooks/useUserData';
 
 type Props = {
 	gameId: string;
 	playerId: string;
+	correctAnswer: string;
+	onWrongAnswer: () => void;
+	onCorrectAnswer: () => void;
+	handleNextButton: () => void;
+	outOfRetries: boolean;
 };
 
-const VoiceRecognitionGame = ({ gameId, playerId }: Props): JSX.Element => {
+const VoiceRecognitionGame = (props: Props): JSX.Element => {
+	const {
+		gameId,
+		correctAnswer,
+		onCorrectAnswer,
+		onWrongAnswer,
+		handleNextButton,
+	} = props;
+
 	const [isRecording, setIsRecording] = useState(false);
 	const [stream, setStream] = useState(null);
 	const [audioChunks, setAudioChunks] = useState([]);
@@ -22,27 +35,13 @@ const VoiceRecognitionGame = ({ gameId, playerId }: Props): JSX.Element => {
 	const mediaRecorder = useRef(null);
 	const [hasAudioPermissions, setHasAudioPermissions] = useState(false);
 
-	const session = useSession();
+	const [isFetchingScore, setIsFetchingScore] = useState(false);
+	//TODO type de correction
+	const [audioCorrection, setAudioCorrection] = useState(null);
 
-	const {
-		apple,
-		errorCounter,
-		currentGame,
-		completedPercentage,
-		outOfRetries,
-		setNextGame,
-		isLastGame,
-		handleCorrectAnswer,
-		handleWrongAnswer,
-	} = useNonAiGames(
-		playerId,
-		gameId as string,
-		session.data?.user.accessToken as string
-	);
+	const { token } = useUserData();
 
-	const correctAnswer = apple?.exercises[0].params?.correctAnswer;
-
-	const [playCorrectAnswer] = useTextToSpeech(correctAnswer);
+	const [playCorrectAnswerTTS] = useTextToSpeech(correctAnswer);
 
 	const createMediaStream = async () => {
 		if ('MediaRecorder' in window) {
@@ -129,13 +128,6 @@ const VoiceRecognitionGame = ({ gameId, playerId }: Props): JSX.Element => {
 			const blob = new Blob(audioChunks, { type: 'audio/mp3' });
 			const audioURL = URL.createObjectURL(blob);
 
-			const reader = new FileReader();
-			reader.readAsDataURL(blob);
-			reader.onloadend = () => {
-				const base64data = reader.result;
-				setBaseAudio(base64data);
-			};
-
 			setAudio(audioURL);
 			setAudioBlob(blob);
 			setAudioChunks([]);
@@ -166,16 +158,18 @@ const VoiceRecognitionGame = ({ gameId, playerId }: Props): JSX.Element => {
 		);
 	}
 
-	const getScore = async () => {
+	const getAudioCorrection = async () => {
+		setIsFetchingScore(true);
 		try {
-			const score = await scoreVoice(
-				audioBlob,
-				gameId,
-				session.data?.user.accessToken
-			);
-			console.log('data', score);
+			const correction = await scoreVoice(audioBlob, gameId, token);
+
+			correction.correct ? onCorrectAnswer() : onWrongAnswer();
+
+			setAudioCorrection(correction);
 		} catch (e: any) {
 			console.error('modules service error', e.message);
+		} finally {
+			setIsFetchingScore(false);
 		}
 	};
 
@@ -191,7 +185,7 @@ const VoiceRecognitionGame = ({ gameId, playerId }: Props): JSX.Element => {
 					className={`relative bg-accent rounded-3xl p-4 cursor-pointer active:bg-sky active:scale-105 transition-all`}
 					height={150}
 					width={150}
-					onClick={playCorrectAnswer}
+					onClick={playCorrectAnswerTTS}
 				/>
 				<div className="flex flex-col gap-2">
 					<Button
@@ -215,9 +209,32 @@ const VoiceRecognitionGame = ({ gameId, playerId }: Props): JSX.Element => {
 			{audio && (
 				<audio src={audio} ref={audioPlayerRef} className="hidden"></audio>
 			)}
-			<Button className="w-full" onClick={getScore}>
-				Obtener resultados
-			</Button>
+			{audioCorrection && (
+				<p className="text-xl text-center text-gray-700 bg-accent rounded-lg p-2">
+					📒 {audioCorrection.corrections}
+				</p>
+			)}
+			{audioCorrection?.correct ? (
+				<Button
+					className="w-full"
+					variant={'success'}
+					onClick={handleNextButton}
+				>
+					Siguiente
+				</Button>
+			) : (
+				<Button
+					className="w-full"
+					onClick={getAudioCorrection}
+					disabled={!audioBlob || isFetchingScore}
+				>
+					{isFetchingScore ? (
+						<span className="animate-spin">🚬</span>
+					) : (
+						'Evaluar'
+					)}
+				</Button>
+			)}
 		</div>
 	);
 };

@@ -4,7 +4,7 @@ import useGameSounds from './useGameSounds';
 
 const MAX_ERRORS = 5;
 
-const useNonAiGames = (playerId: string, appleId: string, token: string) => {
+const useGames = (playerId: string, appleId: string, token: string) => {
 	const { playCorrectSound, playWrongSound } = useGameSounds();
 
 	const [apple, setApple] = useState<any>();
@@ -78,4 +78,4 @@ const useNonAiGames = (playerId: string, appleId: string, token: string) => {
 	};
 };
 
-export default useNonAiGames;
+export default useGames;

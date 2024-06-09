@@ -6,7 +6,7 @@ import FetchingScore from './components/FetchingScore';
 import GameRenderer from './components/GameRenderer';
 import GamesResults from './components/GamesResults';
 import ProgressBar from './components/ProgressBar';
-import useNonAiGames from '@/app/shared/hooks/useNonAiGames';
+import useGames from '@/app/shared/hooks/useGames';
 import useUserData from '@/app/shared/hooks/useUserData';
 
 export default function NonAiGames() {
@@ -14,7 +14,7 @@ export default function NonAiGames() {
 	const [gameScore, setGameScore] = useState<number | null>(null);
 	const [isFetchingScore, setIsFetchingScore] = useState(false);
 
-	const { player: playerAlias, gameId } = useParams();
+	const { player: playerAlias, appleId } = useParams();
 
 	const playerId = useMemo(
 		() => user?.players.find((player) => player.alias === playerAlias)?.id,
@@ -31,7 +31,7 @@ export default function NonAiGames() {
 		isLastGame,
 		handleCorrectAnswer,
 		handleWrongAnswer,
-	} = useNonAiGames(playerId!, gameId as string, token!);
+	} = useGames(playerId!, appleId as string, token!);
 
 	const moduleUrl = `/${playerAlias}/modules/${apple?.moduleId}`;
 
@@ -40,9 +40,10 @@ export default function NonAiGames() {
 			setNextGame();
 		} else {
 			setIsFetchingScore(true);
+
 			const score = await scoreExercises(
 				playerId!,
-				gameId as string,
+				appleId as string,
 				errorCounter,
 				token!
 			);
@@ -50,6 +51,13 @@ export default function NonAiGames() {
 			setGameScore(score);
 			setIsFetchingScore(false);
 		}
+	};
+
+	//TODO exportar type
+	const gameData = {
+		gameType: currentGame?.exerciseType,
+		params: currentGame?.params,
+		id: currentGame?.id,
 	};
 
 	if (isFetchingScore) {
@@ -68,8 +76,7 @@ export default function NonAiGames() {
 					/>
 					{currentGame && (
 						<GameRenderer
-							gameType={currentGame.exerciseType}
-							gameParams={currentGame.params}
+							gameData={gameData}
 							outOfRetries={outOfRetries}
 							handleNextButton={handleNextButton}
 							handleCorrectAnswer={handleCorrectAnswer}

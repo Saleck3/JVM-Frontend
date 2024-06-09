@@ -20,7 +20,6 @@ export default async function ApplePath({ params }: any) {
 						appleId={apple.id}
 						stars={apple.stars}
 						index={index}
-						type={apple.type}
 					/>
 				))}
 			</ul>
