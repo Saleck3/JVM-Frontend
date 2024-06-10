@@ -1,16 +1,18 @@
 import { Button } from '@/components/ui/button';
+import { FaSpinner } from 'react-icons/fa6';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import { FaSpinner } from 'react-icons/fa6';
 
 type Props = {
 	handleLogin: (e: React.FormEvent<HTMLFormElement>) => void;
-	error?: string;
 	isFetching: boolean;
 };
 
-export default function LoginForm({ handleLogin, error, isFetching }: Props) {
+export default function LoginForm({ handleLogin, isFetching }: Props) {
+	const error = useSearchParams().get('error');
+
 	return (
 		<form className="space-y-6" onSubmit={handleLogin} method="POST">
 			<div>
@@ -40,7 +42,7 @@ export default function LoginForm({ handleLogin, error, isFetching }: Props) {
 			</Button>
 			{error && (
 				<div className="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded-sm">
-					{error}
+					Email o Password incorrecto
 				</div>
 			)}
 			<Link

@@ -3,17 +3,11 @@
 import { signIn } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 import LoginForm from './components/LoginForm';
 
 export default function Login() {
 	const [isFetching, setIsFetching] = useState<boolean>(false);
-	const error = useSearchParams().get('error');
-	let errorMessage =
-		error === 'CredentialsSignin' ? 'Email o Password incorrecto' : '';
-
-	//errorMessage = null;
 
 	const handleLogin = async (e: any) => {
 		e.preventDefault();
@@ -51,11 +45,9 @@ export default function Login() {
 						Ingresá a tu cuenta
 					</h2>
 				</div>
-				<LoginForm
-					handleLogin={handleLogin}
-					error={errorMessage}
-					isFetching={isFetching}
-				/>
+				<Suspense>
+					<LoginForm handleLogin={handleLogin} isFetching={isFetching} />
+				</Suspense>
 			</main>
 		</div>
 	);
