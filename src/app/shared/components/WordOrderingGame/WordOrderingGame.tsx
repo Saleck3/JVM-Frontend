@@ -34,7 +34,10 @@ const WordOrderingGame = (props: Props): JSX.Element => {
 	const handleCheck = () => {
 		setWrongAttempt(false);
 
-		if (playerAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
+		if (
+			playerAnswer.toLowerCase() ===
+			correctAnswer.toLowerCase().replace(/ /g, '')
+		) {
 			setGameFinished(true);
 			onCorrectAnswer();
 		} else {
@@ -68,25 +71,11 @@ const WordOrderingGame = (props: Props): JSX.Element => {
 					/>
 				</div>
 
-				<WordOrderingGameSortableOptions options={options} onSort={onSort} />
-
-				{/* {!gameFinished && !outOfRetries && (
-					<Button
-						className="w-full mt-6 text-md"
-						onClick={handleCheck}
-						variant={'defaultWithIcon'}
-					>
-						{wrongAttempt ? (
-							<>
-								<FaRedoAlt /> Reintentar
-							</>
-						) : (
-							<>
-								<FaPen /> Comprobar
-							</>
-						)}
-					</Button>
-				)} */}
+				<WordOrderingGameSortableOptions
+					options={options}
+					onSort={onSort}
+					disableDrag={gameFinished || outOfRetries}
+				/>
 			</div>
 		</GameLayout>
 	);

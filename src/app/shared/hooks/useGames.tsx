@@ -1,30 +1,41 @@
 import { useEffect, useState } from 'react';
-import { getExercises } from '../services/exercises.service';
+import { getExercises, getTest } from '../services/exercises.service';
 import useGameSounds from './useGameSounds';
 
-const MAX_ERRORS = 2;
+const MAX_ERRORS = 5;
 
-const useGames = (playerId: string, appleId: string, token: string) => {
+const useGames = (
+	isTest: boolean,
+	playerId?: string,
+	appleId?: string,
+	token?: string
+) => {
 	const { playCorrectSound, playWrongSound } = useGameSounds();
 
 	const [apple, setApple] = useState<any>();
 	const [currentGameIndex, setCurrentGameIndex] = useState<number>(0);
 	const [errorCounter, setErrorCounter] = useState<number[]>([]);
 
-	const currentGame = apple?.exercises[currentGameIndex];
+	const currentGame = apple?.exercises?.[currentGameIndex];
 	const completedPercentage = Math.trunc(
 		(currentGameIndex / apple?.exercises?.length) * 100
 	);
 	const outOfRetries = errorCounter[currentGameIndex] === MAX_ERRORS;
-	const isLastGame = currentGameIndex === apple?.exercises.length - 1;
+	const isLastGame = currentGameIndex === apple?.exercises?.length - 1;
 
 	useEffect(() => {
 		const fetchExercises = async () => {
-			const apple = await getExercises(playerId, appleId, token);
+			const apple = await getExercises(playerId!, appleId!, token!);
 			setApple(apple);
 		};
 
-		token && fetchExercises();
+		const fetchtest = async () => {
+			const apple = await getTest();
+			setApple(apple);
+		};
+
+		!isTest && token && fetchExercises();
+		isTest && fetchtest();
 	}, [appleId, playerId, token]);
 
 	const sumErrorToCurrentGame = () => {

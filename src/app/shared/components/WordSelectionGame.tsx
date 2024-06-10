@@ -84,6 +84,7 @@ const WordSelectionGame = (props: Props): JSX.Element => {
 								variant={variant}
 								className="text-xl sm:text-2xl md:text-3xl py-4 md:py-6 lg:py-8"
 								onClick={() => handleSelectOption(option.value)}
+								disabled={gameFinished || option.selected || outOfRetries}
 							>
 								{option.value}
 							</Button>

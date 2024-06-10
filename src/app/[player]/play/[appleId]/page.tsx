@@ -31,7 +31,7 @@ export default function NonAiGames() {
 		isLastGame,
 		handleCorrectAnswer,
 		handleWrongAnswer,
-	} = useGames(playerId!, appleId as string, token!);
+	} = useGames(false, playerId!, appleId as string, token!);
 
 	const moduleUrl = `/${playerAlias}/modules/${apple?.moduleId}`;
 

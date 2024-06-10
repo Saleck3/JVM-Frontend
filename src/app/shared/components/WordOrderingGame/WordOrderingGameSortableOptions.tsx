@@ -3,12 +3,14 @@ import { useRef, useState } from 'react';
 
 interface Props {
 	options: string[];
+	disableDrag?: boolean;
 	onSort: (options: string[]) => void;
 }
 
 export default function WordOrderingGameSortableOptions({
 	options,
 	onSort,
+	disableDrag,
 }: Props) {
 	const [orderedOptions, setOrderedOptions] = useState<string[]>(options);
 
@@ -33,7 +35,7 @@ export default function WordOrderingGameSortableOptions({
 					<Button
 						key={option + i}
 						variant={'secondary'}
-						draggable
+						draggable={!disableDrag}
 						onDragStart={() => (dragOption.current = i)}
 						onDragEnter={() => (draggedOverOption.current = i)}
 						onDragEnd={handleSort}

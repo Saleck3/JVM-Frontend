@@ -32,7 +32,7 @@ export default function GameCheckButton(props: Props) {
 				return (
 					<>
 						<MdWatchLater className="text-2xl" />
-						<span>¡Reintenemoslo luego!</span>
+						<span>¡Reintentemoslo luego!</span>
 					</>
 				);
 			case gameFinished:

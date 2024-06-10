@@ -122,6 +122,7 @@ const WordWritingGame = (props: Props): JSX.Element => {
 						word={correctAnswer}
 						preSelectedLetters={preSelectedLetters}
 						onKeyUp={handleKeyUp}
+						disableInputs={gameFinished || outOfRetries}
 					/>
 				</form>
 			</div>
