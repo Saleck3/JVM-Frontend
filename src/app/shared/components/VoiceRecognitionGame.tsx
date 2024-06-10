@@ -154,7 +154,7 @@ const VoiceRecognitionGame = (props: Props): JSX.Element => {
 		} finally {
 			setIsFetchingScore(false);
 			setAudioBlob(null);
-			setAudioBlob(null);
+			setAudio(null);
 			setAudioChunks([]);
 		}
 	};
@@ -232,7 +232,7 @@ const VoiceRecognitionGame = (props: Props): JSX.Element => {
 				outOfRetries={outOfRetries}
 				gameFinished={audioCorrection?.correct}
 				loading={isFetchingScore}
-				disabled={!audio}
+				disabled={!audio && !outOfRetries}
 			/>
 		</div>
 	);
