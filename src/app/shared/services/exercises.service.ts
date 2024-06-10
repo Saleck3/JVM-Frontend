@@ -27,9 +27,38 @@ export const getExercises = async (
 		}
 
 		const data = await res.json();
-
 		const exercises = adaptExercises(data);
-		return { moduleId: data.moduleId!, exercises };
+
+		return exercises;
+	} catch (e: any) {
+		console.error('exercises service error', e.message);
+	}
+};
+
+export const getTest = async () => {
+	const url = `${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/test`;
+
+	try {
+		const res = await fetch(url, {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		});
+
+		if (!res.ok) {
+			const data = res.headers.get('content-type') ? await res.json() : null;
+
+			console.error('getExercises error: ', data);
+			throw new Error(
+				`getTest res not ok error: ${data.status}, ${data.message}, ${data.url}`
+			);
+		}
+
+		const data = await res.json();
+		const exercises = adaptExercises(data);
+
+		return exercises;
 	} catch (e: any) {
 		console.error('exercises service error', e.message);
 	}
@@ -38,16 +67,16 @@ export const getExercises = async (
 export const scoreExercises = async (
 	playerId: string,
 	appleId: string,
-	exercises: number[],
+	gameErrors: number[],
 	token: string
-): number => {
+): Promise<any> => {
 	const query = new URLSearchParams({ playerId, appleId }).toString();
 	const url = `${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/exercises/score?${query}`;
 
 	try {
 		const res = await fetch(url, {
 			method: 'POST',
-			body: JSON.stringify({ gameErrors: exercises }),
+			body: JSON.stringify({ gameErrors }),
 			headers: {
 				'Content-Type': 'application/json',
 				Authorization: `Bearer ${token}`,
@@ -101,5 +130,30 @@ export const scoreVoice = async (
 		return data;
 	} catch (e: any) {
 		console.error('score voice service error', e.message);
+	}
+};
+
+export const scoreTest = async (gameErrors: boolean[]): Promise<any> => {
+	const url = `${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/test/score`;
+
+	try {
+		const res = await fetch(url, {
+			method: 'POST',
+			body: JSON.stringify({ gameErrors }),
+			headers: { 'Content-Type': 'application/json' },
+		});
+
+		if (!res.ok) {
+			const data = res.headers.get('content-type') ? await res.json() : null;
+
+			console.error('scoreTest error: ', data);
+			throw new Error(
+				`scoreTest res not ok error: ${data.status}, ${data.message}, ${data.url}`
+			);
+		}
+		const data = await res.json();
+		return data;
+	} catch (e: any) {
+		console.error('score service error', e.message);
 	}
 };
