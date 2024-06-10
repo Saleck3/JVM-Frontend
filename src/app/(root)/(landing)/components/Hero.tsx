@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 export default function Hero() {
 	return (
-		<div className="container px-4 md:px-6 mx-auto py-12 md:py-24 lg:py-32 xl:py-48 mb-32">
+		<div className="container xl:px-20 px-4 md:px-6 mx-auto py-12 md:py-24 lg:py-32 xl:py-48a lg:mb-0 bg-gradient-to-b from-white from-70% to-pink-200">
 			<div className="grid gap-6 lg:grid-cols-[1fr_500px] lg:gap-12 xl:grid-cols-[1fr_550px]">
 				<div className="flex flex-col items-center justify-center space-y-4 text-center order-last lg:order-first">
 					<div className="space-y-2">
@@ -17,10 +17,13 @@ export default function Hero() {
 						</p>
 					</div>
 					<div className="w-full">
-						<Button className="w-full lg:w-1/3 mx-2 mb-4 lg:mb-0">
+						<Button className="w-full lg:w-1/3 mx-2 mb-4 lg:mb-0 text-md">
 							<Link href="#">Empezá ahora</Link>
 						</Button>
-						<Button variant={'gray'} className="w-full lg:w-1/3 mx-2">
+						<Button
+							variant={'secondary'}
+							className="w-full lg:w-1/3 mx-2 text-md"
+						>
 							<Link href="#test">Test de nivelación</Link>
 						</Button>
 					</div>
@@ -28,7 +31,7 @@ export default function Hero() {
 				<Image
 					alt="Hero"
 					height="550"
-					src={`/img/hero_img.png`}
+					src={`/img/hero-bgless.svg`}
 					width="550"
 					className="justify-self-center"
 				/>

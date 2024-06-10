@@ -31,8 +31,6 @@ export default function GameRenderer(props: Props) {
 	const { params: gameParams, gameType, id: gameId } = gameData;
 	const GameComponent = gameComponents[gameType];
 
-	console.log('gameData', gameData);
-
 	return (
 		<GameComponent
 			options={gameParams.options}

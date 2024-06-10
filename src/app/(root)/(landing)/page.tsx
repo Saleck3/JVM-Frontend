@@ -6,10 +6,8 @@ import Hero from './components/Hero';
 export default function Landing() {
 	return (
 		<>
-			<div className="container py-16 xl:px-20">
-				<Hero />
-				<Features />
-			</div>
+			<Hero />
+			<Features />
 			<CallToAction />
 			<Faq />
 		</>
