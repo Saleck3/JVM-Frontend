@@ -1,25 +1,17 @@
 'use client';
-import {
-	scoreExercises,
-	scoreTest,
-} from '@/app/shared/services/exercises.service';
-import { useMemo, useState } from 'react';
-import { useParams } from 'next/navigation';
-
-import useGames from '@/app/shared/hooks/useGames';
-import useUserData from '@/app/shared/hooks/useUserData';
+import { scoreTest } from '@/app/shared/services/exercises.service';
+import { useState } from 'react';
 import FetchingScore from '../shared/components/FetchingScore';
-import ProgressBar from '../shared/components/ProgressBar';
 import GameRenderer from '../shared/components/GameRenderer';
+import ProgressBar from '../shared/components/ProgressBar';
 import TestResults from './components/TestResults';
+import useGames from '@/app/shared/hooks/useGames';
 
 export default function NonAiGames() {
-	const [gameScore, setGameScore] = useState<number | null>(null);
 	const [isFetchingScore, setIsFetchingScore] = useState(false);
-	const [recommendedModule, setRecommendedModule] = useState<any>(null);
+	const [recommendedModule, setRecommendedModule] = useState<string>();
 
 	const {
-		apple,
 		errorCounter,
 		currentGame,
 		completedPercentage,
@@ -35,19 +27,19 @@ export default function NonAiGames() {
 			setNextGame();
 		} else {
 			setIsFetchingScore(true);
-			const booleanErrors = errorCounter.map((error) => Boolean(error));
-			const recommendedModule = scoreTest(booleanErrors);
+			const booleanErrors = errorCounter.map((error) => error === 0);
+			const recommendedModule = await scoreTest(booleanErrors);
 
-			console.log('recommendedModule', recommendedModule);
+			const lectiLocalStorageObj = {
+				recommendedModule,
+			};
 
-			// const score = await scoreExercises(
-			// 	playerId!,
-			// 	appleId as string,
-			// 	errorCounter,
-			// 	token!
-			// );
+			window.localStorage.setItem(
+				'lecti',
+				JSON.stringify(lectiLocalStorageObj)
+			);
 
-			// setGameScore(score);
+			setRecommendedModule(recommendedModule);
 			setIsFetchingScore(false);
 		}
 	};
@@ -62,10 +54,9 @@ export default function NonAiGames() {
 		return <FetchingScore />;
 	}
 
-	console.log('currentGame', currentGame);
 	return (
 		<div className="bg-gray h-screen flex flex-col items-center justify-center gap-8 p-10">
-			{gameScore ? (
+			{recommendedModule ? (
 				<TestResults recommendedModule={recommendedModule} />
 			) : (
 				<>

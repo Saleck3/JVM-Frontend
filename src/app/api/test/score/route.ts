@@ -23,9 +23,9 @@ export async function POST(req: NextRequest) {
 			);
 		}
 
-		const data = await res.json();
-		console.log('data', data);
-		return Response.json(data);
+		const { recommendedModule } = await res.json();
+
+		return Response.json(recommendedModule);
 	} catch (e: any) {
 		console.error('proxy error: ', e.message);
 		return Response.json(

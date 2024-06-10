@@ -25,8 +25,8 @@ export default function ProgressBar({ completedPercentage, moduleUrl }: Props) {
 					className="h-full bg-primary transition-all duration-1000 rounded w-[50%]"
 					style={{ width: `${completedPercentage}%` }}
 				></div>
-				<span className="absolute left-0 right-0 text-white font-semibold">
-					{completedPercentage} %
+				<span className="absolute m-auto left-1/2 right-1/2 text-white font-semibold">
+					{completedPercentage}%
 				</span>
 			</div>
 		</div>
