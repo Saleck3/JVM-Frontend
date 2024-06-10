@@ -36,7 +36,7 @@ const useGames = (
 
 		!isTest && token && fetchExercises();
 		isTest && fetchtest();
-	}, [appleId, playerId, token]);
+	}, [appleId, playerId, token, isTest]);
 
 	const sumErrorToCurrentGame = () => {
 		setErrorCounter((prevValue) => {
