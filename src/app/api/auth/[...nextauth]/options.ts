@@ -28,7 +28,10 @@ export const options: NextAuthOptions = {
 
 					if (!res.ok) {
 						const error = await res.json();
-						console.error(res.status, error.message);
+						console.error(
+							`login res not ok: status ${res.status}`,
+							error.message
+						);
 						return null;
 					}
 
@@ -43,7 +46,7 @@ export const options: NextAuthOptions = {
 						accessToken: token,
 					};
 				} catch (e: any) {
-					console.error(e);
+					console.error(`login error: status ${e.message}`);
 					return null;
 				}
 			},
