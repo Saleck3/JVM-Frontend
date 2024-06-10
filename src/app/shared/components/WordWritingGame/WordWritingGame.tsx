@@ -109,7 +109,6 @@ const WordWritingGame = (props: Props): JSX.Element => {
 			checkGame={submitForm}
 		>
 			<div className="mb-6 text-center flex-1 flex flex-col gap-8">
-				<button onClick={submitForm}>asd</button>
 				<div className="flex-1 relative">
 					<Image
 						src={image!}

@@ -8,8 +8,7 @@ import useTextToSpeech from '../hooks/useTextToSpeech';
 import useUserData from '../hooks/useUserData';
 import { FaMicrophone } from 'react-icons/fa';
 import { HiSpeakerWave } from 'react-icons/hi2';
-import { MdHearing } from 'react-icons/md';
-import { FaSpinner } from 'react-icons/fa';
+import GameCheckButton from './GameCheckButton';
 
 type Props = {
 	gameId: string;
@@ -28,6 +27,7 @@ const VoiceRecognitionGame = (props: Props): JSX.Element => {
 		onCorrectAnswer,
 		onWrongAnswer,
 		handleNextButton,
+		outOfRetries,
 	} = props;
 
 	const [isRecording, setIsRecording] = useState<any>(false);
@@ -141,6 +141,24 @@ const VoiceRecognitionGame = (props: Props): JSX.Element => {
 		isRecording ? stopRecording() : startRecording();
 	};
 
+	const getAudioCorrection = async () => {
+		setIsFetchingScore(true);
+		try {
+			const correction = await scoreVoice(audioBlob, gameId, token!);
+
+			correction.correct ? onCorrectAnswer() : onWrongAnswer();
+
+			setAudioCorrection(correction);
+		} catch (e: any) {
+			console.error('modules service error', e.message);
+		} finally {
+			setIsFetchingScore(false);
+			setAudioBlob(null);
+			setAudioBlob(null);
+			setAudioChunks([]);
+		}
+	};
+
 	const audioPlayerRef = useRef<any>(null);
 
 	if (!hasAudioPermissions) {
@@ -160,21 +178,6 @@ const VoiceRecognitionGame = (props: Props): JSX.Element => {
 			</>
 		);
 	}
-
-	const getAudioCorrection = async () => {
-		setIsFetchingScore(true);
-		try {
-			const correction = await scoreVoice(audioBlob, gameId, token!);
-
-			correction.correct ? onCorrectAnswer() : onWrongAnswer();
-
-			setAudioCorrection(correction);
-		} catch (e: any) {
-			console.error('modules service error', e.message);
-		} finally {
-			setIsFetchingScore(false);
-		}
-	};
 
 	return (
 		<div className="bg-white rounded-sm shadow-lg p-8 space-y-8">
@@ -197,7 +200,9 @@ const VoiceRecognitionGame = (props: Props): JSX.Element => {
 							isRecording ? 'animate-pulse bg-destructive' : ''
 						} `}
 					>
-						<FaMicrophone className="text-3xl" />
+						<FaMicrophone
+							className={`text-3xl ${isRecording ? 'animate-ping' : ''}`}
+						/>
 					</Button>
 					<Button
 						className="w-[70px] h-[70px] active:scale-105 transition-all"
@@ -212,35 +217,23 @@ const VoiceRecognitionGame = (props: Props): JSX.Element => {
 			{audio && (
 				<audio src={audio} ref={audioPlayerRef} className="hidden"></audio>
 			)}
-			{audioCorrection && (
+			{audioCorrection?.correct === false && (
 				<p className="text-xl text-center text-gray-700 bg-accent rounded-lg p-2">
 					📒 {audioCorrection.corrections}
 				</p>
 			)}
-			{audioCorrection?.correct ? (
-				<Button
-					className="w-full"
-					variant={'success'}
-					onClick={handleNextButton}
-				>
-					Siguiente
-				</Button>
-			) : (
-				<Button
-					className="w-full text-md"
-					onClick={getAudioCorrection}
-					disabled={!audioBlob || isFetchingScore}
-					variant={'defaultWithIcon'}
-				>
-					{isFetchingScore ? (
-						<FaSpinner className="animate-spin text-xl" />
-					) : (
-						<>
-							<MdHearing className="text-xl" /> Comprobar
-						</>
-					)}
-				</Button>
-			)}
+			<GameCheckButton
+				onClick={
+					audioCorrection?.correct || outOfRetries
+						? handleNextButton
+						: getAudioCorrection
+				}
+				wrongAttempt={audioCorrection?.correct === false}
+				outOfRetries={outOfRetries}
+				gameFinished={audioCorrection?.correct}
+				loading={isFetchingScore}
+				disabled={!audio}
+			/>
 		</div>
 	);
 };

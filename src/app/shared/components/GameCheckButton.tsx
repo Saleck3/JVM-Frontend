@@ -3,6 +3,7 @@ import { FaPen } from 'react-icons/fa';
 import { FaRedoAlt } from 'react-icons/fa';
 import { FaCheck } from 'react-icons/fa';
 import { MdWatchLater } from 'react-icons/md';
+import { FaSpinner } from 'react-icons/fa';
 
 type Props = {
 	onClick: () => void;
@@ -10,6 +11,8 @@ type Props = {
 	outOfRetries: boolean;
 	gameFinished: boolean;
 	hasOwnCheckButton?: boolean;
+	loading?: boolean;
+	disabled?: boolean;
 };
 
 export default function GameCheckButton(props: Props) {
@@ -19,6 +22,8 @@ export default function GameCheckButton(props: Props) {
 		outOfRetries,
 		gameFinished,
 		hasOwnCheckButton,
+		loading,
+		disabled,
 	} = props;
 
 	const getButtonContent = () => {
@@ -35,6 +40,12 @@ export default function GameCheckButton(props: Props) {
 					<>
 						<FaCheck className="text-2xl" />
 						<span>Siguiente</span>
+					</>
+				);
+			case loading:
+				return (
+					<>
+						<FaSpinner className="animate-spin text-xl" />
 					</>
 				);
 			case wrongAttempt:
@@ -67,6 +78,7 @@ export default function GameCheckButton(props: Props) {
 				className="w-full mt-6 text-md"
 				onClick={onClick}
 				variant={buttonVariant}
+				disabled={disabled || loading}
 			>
 				{getButtonContent()}
 			</Button>

@@ -45,6 +45,7 @@ export default function GameRenderer(props: Props) {
 			label={gameParams.label}
 			outOfRetries={outOfRetries}
 			gameId={gameId}
+			key={gameId}
 		/>
 	);
 }

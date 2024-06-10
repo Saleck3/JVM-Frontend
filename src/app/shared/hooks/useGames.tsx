@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { getExercises } from '../services/exercises.service';
 import useGameSounds from './useGameSounds';
 
-const MAX_ERRORS = 5;
+const MAX_ERRORS = 2;
 
 const useGames = (playerId: string, appleId: string, token: string) => {
 	const { playCorrectSound, playWrongSound } = useGameSounds();
