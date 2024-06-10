@@ -80,7 +80,7 @@ export default function Form() {
         <Input
           type="hidden"
           name="recommendedModule"
-          value={typeof window !== 'undefined' && localStorage!.getItem("recommendedModule") || ""}
+          value={typeof window !== 'undefined' && localStorage!.getItem("lecti") && JSON.parse(localStorage!.getItem("lecti")!).recommendedModule || ""}
         />
 
         <OnSubmit />
