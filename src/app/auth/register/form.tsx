@@ -58,6 +58,7 @@ export default function Form() {
         )}
         <Input
           name="password"
+          type="password"
           placeholder="Escribí tu clave de 8 o más caracteres"
         />
 
@@ -67,7 +68,7 @@ export default function Form() {
             {state.error.repeatPassword._errors[0]}
           </p>
         )}
-        <Input name="repeatPassword" placeholder="Repetí tu clave" />
+        <Input type="password" name="repeatPassword" placeholder="Repetí tu clave" />
 
         <Label>Aceptar términos y condiciones</Label>
         {state?.error?.terms?._errors[0] && (

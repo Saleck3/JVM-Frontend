@@ -9,6 +9,7 @@ import useUserData from '../hooks/useUserData';
 import { FaMicrophone } from 'react-icons/fa';
 import { HiSpeakerWave } from 'react-icons/hi2';
 import GameCheckButton from './GameCheckButton';
+import GameInstructionsButton from './GameInstructionsButton';
 
 type Props = {
 	gameId: string;
@@ -43,8 +44,10 @@ const VoiceRecognitionGame = (props: Props): JSX.Element => {
 	const [audioCorrection, setAudioCorrection] = useState<any>(null);
 
 	const { token } = useUserData();
+	const gameInstructions = "Para completar el ejercicio, primero escuchá la palabra haciendo clic en el botón azul. Luego, presioná el botón de micrófono para comenzar a grabar tu voz, presioná nuevamente para detener y guardar la grabación. Después, usá el botón 'comprobar' para enviar tu grabación. Si querés escuchar lo que grabaste, usá el botón amarillo.";
 
 	const [playCorrectAnswerTTS] = useTextToSpeech(correctAnswer);
+	const [playInstructions] = useTextToSpeech(gameInstructions || '');
 
 	const createMediaStream = async () => {
 		if ('MediaRecorder' in window) {
@@ -181,9 +184,14 @@ const VoiceRecognitionGame = (props: Props): JSX.Element => {
 
 	return (
 		<div className="bg-white rounded-sm shadow-lg p-8 space-y-8">
-			<h1 className="text-3xl md:text-5xl font-boldtext-center text-gray-700">
-				Repite la palabra
-			</h1>
+			<div className="flex items-center justify-center flex-wrap gap-2 md:gap-4">
+				{gameInstructions && (
+					<GameInstructionsButton onclick={playInstructions} />
+				)}
+				<h1 className="text-3xl md:text-5xl font-bold text-gray-700 text-center">
+					Repetí la palabra
+				</h1>
+			</div>
 			<div className="flex gap-4 gap-x-8 justify-center">
 				<Image
 					src="/img/icons/play-icon.svg"
@@ -196,9 +204,8 @@ const VoiceRecognitionGame = (props: Props): JSX.Element => {
 				<div className="flex flex-col gap-2">
 					<Button
 						onClick={handleRecordButton}
-						className={`w-[70px] h-[70px] active:scale-110 transition-all ${
-							isRecording ? 'animate-pulse bg-destructive' : ''
-						} `}
+						className={`w-[70px] h-[70px] active:scale-110 transition-all ${isRecording ? 'animate-pulse bg-destructive' : ''
+							} `}
 					>
 						<FaMicrophone
 							className={`text-3xl ${isRecording ? 'animate-ping' : ''}`}
