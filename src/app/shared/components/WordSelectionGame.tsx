@@ -56,7 +56,7 @@ const WordSelectionGame = (props: Props): JSX.Element => {
 			gameFinished={gameFinished}
 			outOfRetries={outOfRetries}
 			handleNextButton={handleNextButton}
-			title="Selecciona la palabra"
+			title="Seleccioná la palabra"
 			gameInstructions={gameInstructions['WordSelectionGame']}
 			hasOwnCheckButton
 		>

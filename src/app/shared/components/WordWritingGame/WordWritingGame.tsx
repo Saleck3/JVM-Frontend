@@ -104,7 +104,7 @@ const WordWritingGame = (props: Props): JSX.Element => {
 			wrongAttempt={wrongAttempt}
 			outOfRetries={outOfRetries}
 			handleNextButton={handleNextButton}
-			title="Escribe la palabra"
+			title="Escribí la palabra"
 			gameInstructions={gameInstructions['WordWritingGame']}
 			checkGame={submitForm}
 		>
