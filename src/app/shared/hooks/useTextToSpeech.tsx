@@ -16,27 +16,25 @@ export default function useTextToSpeech(text: string) {
 		const _synth = window.speechSynthesis;
 		setSynth(_synth);
 
-		_synth.onvoiceschanged = () => {
-			const prefferedVoice =
-				_synth
-					?.getVoices()
-					.find(
-						(voice) =>
-							voice.name ===
-							'Microsoft Valentina Online (Natural) - Spanish (Uruguay)'
-					) || null;
+		const prefferedVoice =
+			_synth
+				?.getVoices()
+				.find(
+					(voice) =>
+						voice.name ===
+						'Microsoft Valentina Online (Natural) - Spanish (Uruguay)'
+				) || null;
 
-			const backupVoice =
-				_synth
-					?.getVoices()
-					.find((voice) => PREFERRED_VOICES.includes(voice.name)) || null;
+		const backupVoice =
+			_synth
+				?.getVoices()
+				.find((voice) => PREFERRED_VOICES.includes(voice.name)) || null;
 
-			const langRegex = /^es(-[a-z]{2})?$/i;
-			const defaultVoice =
-				_synth?.getVoices().find((voice) => langRegex.test(voice.lang)) || null;
+		const langRegex = /^es(-[a-z]{2})?$/i;
+		const defaultVoice =
+			_synth?.getVoices().find((voice) => langRegex.test(voice.lang)) || null;
 
-			setVoice(prefferedVoice || backupVoice || defaultVoice);
-		};
+		setVoice(prefferedVoice || backupVoice || defaultVoice);
 
 		return () => {
 			_synth.cancel();
