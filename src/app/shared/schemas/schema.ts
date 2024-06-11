@@ -17,6 +17,7 @@ export const FormDataSchema = z
         message: "Debes aceptar los términos y condiciones",
       }),
     recommendedModule: z.string(),
+    general: z.void()
   })
   .refine((data) => data.password === data.repeatPassword, {
     path: ["repeatPassword"],
@@ -46,4 +47,5 @@ export const FormAddPlayerSchema = z.object({
         "La fecha de nacimiento debe estar entre 1900 y 5 años antes de la fecha actual.",
     }
   ),
+  general: z.void()
 });

@@ -2,12 +2,12 @@ import { headers } from "next/headers";
 import { NextRequest } from "next/server";
 
 export async function POST(req: NextRequest) {
-   
-	 const headersList = headers();
+
+  const headersList = headers();
   const token = headersList.get('Authorization')!;
   const url = `${process.env.API_URL}/api/player/addPlayer`;
   const body = await req.json();
-  
+
   try {
     const res = await fetch(url, {
       method: 'POST',
@@ -19,11 +19,11 @@ export async function POST(req: NextRequest) {
     });
 
     if (!res.ok) {
-        console.log("soy un 400 del proxi");
-        return Response.json(
-          { status: res.status, body: res.json, url },
-          { status: res.status }
-        );
+      console.log("soy un 400 del proxi");
+      return Response.json(
+        { status: res.status, body: res.json, url },
+        { status: res.status }
+      );
     }
 
     const data = await res.json();

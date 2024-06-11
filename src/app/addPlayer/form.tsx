@@ -1,13 +1,14 @@
 "use client";
 
 import { useFormState, useFormStatus } from "react-dom";
-import { addEntry } from './addPlayer.service';
+import { addPlayer } from '../shared/services/addPlayer.service';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 export default function Form() {
-  const [state, formAction] = useFormState(addEntry, null);
+
+  const [state, formAction] = useFormState(addPlayer, null);
 
   return (
     <section className="flex gap-6">
@@ -17,7 +18,7 @@ export default function Form() {
             {state.error.general._errors[0]}
           </p>
         )}
-       
+
         <Label> Nombre del jugador </Label>
         {state?.error?.player_name?._errors[0] && (
           <p className="text-sm font-semibold text-red-600 text-xs mt-1 mb-1">
