@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 export default function Form() {
-  const [state, formAction] = useFormState(addEntry, null);
+  const [state, formAction] = useFormState(registerUser, null);
 
   return (
     <section className="flex gap-6">
@@ -57,7 +57,6 @@ export default function Form() {
           </p>
         )}
         <Input
-          type="password"
           name="password"
           placeholder="Escribí tu clave de 8 o más caracteres"
         />
@@ -68,11 +67,7 @@ export default function Form() {
             {state.error.repeatPassword._errors[0]}
           </p>
         )}
-        <Input
-          type="password"
-          name="repeatPassword"
-          placeholder="Repetí tu clave"
-        />
+        <Input name="repeatPassword" placeholder="Repetí tu clave" />
 
         <Label>Aceptar términos y condiciones</Label>
         {state?.error?.terms?._errors[0] && (
@@ -85,21 +80,16 @@ export default function Form() {
         <Input
           type="hidden"
           name="recommendedModule"
-          value={
-            (typeof window !== "undefined" &&
-              localStorage!.getItem("lecti") &&
-              JSON.parse(localStorage!.getItem("lecti")!).recommendedModule) ||
-            ""
-          }
+          value={typeof window !== 'undefined' && localStorage!.getItem("lecti") && JSON.parse(localStorage!.getItem("lecti")!).recommendedModule || ""}
         />
 
-        <SubmitButton></SubmitButton>
+        <OnSubmit />
       </form>
     </section>
   );
 }
 
-function SubmitButton() {
+function OnSubmit() {
   const { pending } = useFormStatus();
 
   return (
