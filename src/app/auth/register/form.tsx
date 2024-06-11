@@ -1,7 +1,7 @@
 "use client";
 
 import { useFormState, useFormStatus } from "react-dom";
-import { addEntry } from "../../shared/services/register.service";
+import { registerUser } from "@/app/shared/services/register.service";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
