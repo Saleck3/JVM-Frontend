@@ -14,17 +14,20 @@ export async function POST(req: NextRequest) {
 
     if (!res.ok) {
       if (res.status === 409) {
-        return Response.json(
-          { status: res.status, body: res.json, url },
+        return new Response(
+          JSON.stringify({ status: res.status, body: await res.json(), url }),
           { status: res.status }
         );
       }
     }
 
     const data = await res.text();
-    return Response.json({ data });
+    return new Response(JSON.stringify({ data }));
   } catch (e: any) {
     console.error("register routes error", e.message);
-    return Response.json({ status: 500, message: e.message }, { status: 500 });
+    return new Response(
+      JSON.stringify({ status: 500, message: e.message }),
+      { status: 500 }
+    );
   }
 }
