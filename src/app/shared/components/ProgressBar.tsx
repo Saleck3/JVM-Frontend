@@ -11,7 +11,7 @@ export default function ProgressBar({ completedPercentage, moduleUrl }: Props) {
 	return (
 		<div className="w-full max-w-4xl flex items-center gap-4">
 			{moduleUrl && (
-				<Modal triggerButton={<button>✖️</button>} title="¿Volver al modulo?">
+				<Modal triggerButton={<button>✖️</button>} title="¿Volver al módulo?">
 					<div className="flex flex-col gap-8 text-center">
 						<p>¡Vas a perder tu progreso!</p>
 						<Link href={moduleUrl}>

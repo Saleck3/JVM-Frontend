@@ -57,7 +57,7 @@ const WordOrderingGame = (props: Props): JSX.Element => {
 			wrongAttempt={wrongAttempt}
 			outOfRetries={outOfRetries}
 			handleNextButton={handleNextButton}
-			title="Ordena los elementos"
+			title="Ordená los elementos"
 			gameInstructions={gameInstructions['WordOrderingGame']}
 			checkGame={handleCheck}
 		>

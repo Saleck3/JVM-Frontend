@@ -12,7 +12,7 @@ export default async function PlayerSelection() {
 		<main className="container py-32 md:px-12 lg:px-32 space-y-12">
 			<LeadTitle
 				title="Selección de jugador"
-				subtitle="Selecciona un jugador para continuar"
+				subtitle="Seleccioná un jugador para continuar"
 			/>
 			<Players playerList={players} />
 			<div className="flex justify-center">

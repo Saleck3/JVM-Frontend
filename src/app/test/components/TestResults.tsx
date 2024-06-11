@@ -19,7 +19,7 @@ export default function TestResults({ recommendedModule }: Props) {
 				alt="felicitaciones"
 			/>
 			<p className="text-2xl font-bold text-conden text-center text-primary tracking-tighter">
-				¡Tu modulo recomendado es el numero {recommendedModule}!
+				¡Tu módulo recomendado es el número {recommendedModule}!
 			</p>
 			<Button>
 				<Link href="/auth/register">Registrarse</Link>
