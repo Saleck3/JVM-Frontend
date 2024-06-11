@@ -232,7 +232,7 @@ const VoiceRecognitionGame = (props: Props): JSX.Element => {
 				outOfRetries={outOfRetries}
 				gameFinished={audioCorrection?.correct}
 				loading={isFetchingScore}
-				disabled={!audio && !outOfRetries}
+				disabled={!audio && !outOfRetries && !audioCorrection?.correct}
 			/>
 		</div>
 	);
