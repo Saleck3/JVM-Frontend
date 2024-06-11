@@ -1,4 +1,4 @@
-name: Build and deploy to Azure Web App - lecti-front
+name: NO TESTS Build and deploy to Azure Web App - lecti-front
 
 on:
   push:
