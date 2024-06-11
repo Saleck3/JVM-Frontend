@@ -11,7 +11,7 @@ export default function PlayerCard({ playerName, alias, totalCrowns }: Player) {
 		>
 			<div className="flex items-center justify-center">
 				<Avatar className="h-16 w-16">
-					<AvatarImage alt={playerName} src="/placeholder-avatar.jpg" />
+					<AvatarImage alt={playerName} src="/img/placeholder-avatar.jpg" />
 					<AvatarFallback>
 						{playerName ? (playerName[0] + playerName[1]).toUpperCase() : ''}
 					</AvatarFallback>
