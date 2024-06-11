@@ -13,13 +13,13 @@ export default function Form() {
     <section className="flex gap-6">
       <form action={formAction}>
         {state?.error?.general?._errors[0] && (
-          <p className="text-sm font-semibold text-red-600 text-xs mt-1">
+          <p className="text-sm font-semibold text-red-600  mt-1">
             {state.error.general._errors[0]}
           </p>
         )}
         <Label> Nombre </Label>
         {state?.error?.first_name?._errors[0] && (
-          <p className="text-sm font-semibold text-red-600 text-xs mt-1">
+          <p className="text-sm font-semibold text-red-600  mt-1">
             {state.error.first_name._errors[0]}
           </p>
         )}
@@ -27,7 +27,7 @@ export default function Form() {
 
         <Label> Apellido </Label>
         {state?.error?.last_name?._errors[0] && (
-          <p className="text-sm font-semibold text-red-600 text-xs mt-1">
+          <p className="text-sm font-semibold text-red-600  mt-1">
             {state.error.last_name._errors[0]}
           </p>
         )}
@@ -35,7 +35,7 @@ export default function Form() {
 
         <Label> Email </Label>
         {state?.error?.email?._errors[0] && (
-          <p className="text-sm font-semibold text-red-600 text-xs mt-1">
+          <p className="text-sm font-semibold text-red-600  mt-1">
             {state.error.email._errors[0]}
           </p>
         )}
@@ -43,7 +43,7 @@ export default function Form() {
 
         <Label> Nombre del jugador </Label>
         {state?.error?.player_name?._errors[0] && (
-          <p className="text-sm font-semibold text-red-600 text-xs mt-1">
+          <p className="text-sm font-semibold text-red-600  mt-1">
             {state.error.player_name._errors[0]}
           </p>
         )}
@@ -52,7 +52,7 @@ export default function Form() {
         <Label> Clave </Label>
 
         {state?.error?.password?._errors[0] && (
-          <p className="text-sm font-semibold text-red-600 text-xs mt-1">
+          <p className="text-sm font-semibold text-red-600  mt-1">
             {state.error.password._errors[0]}
           </p>
         )}
@@ -64,7 +64,7 @@ export default function Form() {
 
         <Label> Repita su clave </Label>
         {state?.error?.repeatPassword?._errors[0] && (
-          <p className="text-sm font-semibold text-red-600 text-xs mt-1">
+          <p className="text-sm font-semibold text-red-600  mt-1">
             {state.error.repeatPassword._errors[0]}
           </p>
         )}
@@ -76,7 +76,7 @@ export default function Form() {
 
         <Label>Aceptar términos y condiciones</Label>
         {state?.error?.terms?._errors[0] && (
-          <p className="text-sm font-semibold text-red-600 text-xs mt-1">
+          <p className="text-sm font-semibold text-red-600  mt-1">
             {state.error.terms._errors}
           </p>
         )}
