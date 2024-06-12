@@ -17,13 +17,22 @@ export default function NavbarButtons({ user }: Props) {
 		});
 	};
 
+	const redirectToPlayers = () => {
+		window.location.href = ("/players");
+	};
+
 	const navbarItems = [
+		{
+			label: 'Jugadores',
+			onClick: redirectToPlayers
+		},
 		{
 			label: 'Logout',
 			onClick: handleSignOut,
 			className: 'text-red-600',
 			hasSeparatorStart: true,
 		},
+
 	];
 
 	if (user) {
