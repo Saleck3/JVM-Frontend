@@ -5,12 +5,15 @@ import Link from 'next/link';
 import { signOut } from 'next-auth/react';
 import DropdownButton from '../DropdownButton';
 import { User } from '../../types/user.type';
+import { useRouter } from 'next/navigation';
 
 type Props = {
 	user?: User;
 };
 
 export default function NavbarButtons({ user }: Props) {
+	const router = useRouter();
+
 	const handleSignOut = () => {
 		signOut({
 			callbackUrl: '/logout',
@@ -19,10 +22,13 @@ export default function NavbarButtons({ user }: Props) {
 
 	const navbarItems = [
 		{
+			label: 'Jugadores',
+			onClick: () => router.push('/players'),
+		},
+		{
 			label: 'Logout',
 			onClick: handleSignOut,
 			className: 'text-red-600',
-			hasSeparatorStart: true,
 		},
 	];
 
