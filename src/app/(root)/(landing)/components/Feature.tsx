@@ -28,7 +28,7 @@ export default function Feature(props: Props): JSX.Element {
 				<h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none text-primary">
 					{title}
 				</h2>
-				<p className="mx-auto text-gray-500 text-pretty">{description}</p>
+				<p className="mx-auto text-gray-600 text-pretty text-xl">{description}</p>
 			</div>
 		</div>
 	);

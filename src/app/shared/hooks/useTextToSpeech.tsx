@@ -49,6 +49,7 @@ export default function useTextToSpeech(text: string) {
 		}
 		const utterance = new SpeechSynthesisUtterance(text);
 		utterance.voice = foundVoice!;
+		utterance.rate = 0.9;
 		utterance.pitch = 1.2;
 		utterance.volume = 1;
 
