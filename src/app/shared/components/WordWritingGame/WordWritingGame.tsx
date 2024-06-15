@@ -16,7 +16,7 @@ interface Props extends ImageWriting {
 }
 
 const GAME_INSTRUCTIONS =
-	'Para completar el juego, escribi la palabra con tu teclado. Luego, clickeá comprobar';
+	'Escribi la palabra y apretá comprobar';
 
 const WordWritingGame = (props: Props): JSX.Element => {
 	const {

@@ -44,7 +44,7 @@ const VoiceRecognitionGame = (props: Props): JSX.Element => {
 	const [audioCorrection, setAudioCorrection] = useState<any>(null);
 
 	const { token } = useUserData();
-	const gameInstructions = "Para completar el ejercicio, primero escuchá la palabra haciendo clic en el botón azul. Luego, presioná el botón de micrófono para comenzar a grabar tu voz, presioná nuevamente para detener y guardar la grabación. Después, usá el botón 'comprobar' para enviar tu grabación. Si querés escuchar lo que grabaste, usá el botón amarillo.";
+	const gameInstructions = "Escuchá la palabra con el botón azul. Repetila en el micrófono. Cuando termines, volvé a presionar el micrófono. Comprobá tu respuesta";
 
 	const [playCorrectAnswerTTS] = useTextToSpeech(correctAnswer);
 	const [playInstructions] = useTextToSpeech(gameInstructions || '');
