@@ -11,7 +11,7 @@ export default function Hero() {
 						<h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
 							Unite a las aventuras
 						</h1>
-						<p className="mx-auto max-w-[700px] text-gray-500 md:text-xl">
+						<p className="mx-auto max-w-[700px] text-gray-600 md:text-xl">
 							¡Hace del aprendizaje de la lecto escritura una experiencia mucho
 							más divertida!
 						</p>

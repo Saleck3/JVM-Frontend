@@ -49,7 +49,7 @@ export default function LoginForm({ handleLogin, isFetching }: Props) {
 				href="/auth/register"
 				className="font-semibold text-primary inline-block"
 			>
-				¿No tenes cuenta? Registrate!
+				¿No tenés cuenta? Registrate!
 			</Link>
 		</form>
 	);

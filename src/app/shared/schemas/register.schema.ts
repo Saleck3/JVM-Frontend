@@ -17,7 +17,7 @@ export const FormDataSchema = z
         message: "Debes aceptar los términos y condiciones",
       }),
     recommendedModule: z.string(),
-    general: z.void(),
+    general: z.void()
   })
   .refine((data) => data.password === data.repeatPassword, {
     path: ["repeatPassword"],

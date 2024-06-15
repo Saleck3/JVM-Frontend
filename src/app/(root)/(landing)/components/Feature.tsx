@@ -13,9 +13,7 @@ export default function Feature(props: Props): JSX.Element {
 
 	return (
 		<div
-			className={`gap-20 px-8 flex flex-col items-center justify-center text-center lg:text-left ${
-				reverseRow ? 'lg:flex-row-reverse' : 'lg:flex-row'
-			}`}
+			className={`gap-20 px-8 flex flex-col items-center justify-center text-center lg:text-left ${reverseRow ? 'lg:flex-row-reverse' : 'lg:flex-row'}`}
 		>
 			<Image
 				alt={imageAlt}
@@ -28,7 +26,7 @@ export default function Feature(props: Props): JSX.Element {
 				<h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none text-primary">
 					{title}
 				</h2>
-				<p className="mx-auto text-gray-500 text-pretty">{description}</p>
+				<p className="mx-auto text-gray-600 text-pretty text-xl">{description}</p>
 			</div>
 		</div>
 	);

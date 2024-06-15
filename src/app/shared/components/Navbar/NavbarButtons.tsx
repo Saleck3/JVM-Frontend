@@ -20,6 +20,10 @@ export default function NavbarButtons({ user }: Props) {
 		});
 	};
 
+	const redirectToPlayers = () => {
+		window.location.href = ("/players");
+	};
+
 	const navbarItems = [
 		{
 			label: 'Jugadores',
@@ -30,6 +34,7 @@ export default function NavbarButtons({ user }: Props) {
 			onClick: handleSignOut,
 			className: 'text-red-600',
 		},
+
 	];
 
 	if (user) {
