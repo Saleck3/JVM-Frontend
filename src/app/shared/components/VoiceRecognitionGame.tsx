@@ -19,6 +19,7 @@ type Props = {
 	onCorrectAnswer: () => void;
 	handleNextButton: () => void;
 	outOfRetries: boolean;
+	onlyText?: Boolean
 };
 
 const VoiceRecognitionGame = (props: Props): JSX.Element => {
@@ -29,6 +30,7 @@ const VoiceRecognitionGame = (props: Props): JSX.Element => {
 		onWrongAnswer,
 		handleNextButton,
 		outOfRetries,
+		onlyText,
 	} = props;
 
 	const [isRecording, setIsRecording] = useState<any>(false);
@@ -44,7 +46,7 @@ const VoiceRecognitionGame = (props: Props): JSX.Element => {
 	const [audioCorrection, setAudioCorrection] = useState<any>(null);
 
 	const { token } = useUserData();
-	const gameInstructions = "Para completar el ejercicio, primero escuchá la palabra haciendo clic en el botón azul. Luego, presioná el botón de micrófono para comenzar a grabar tu voz, presioná nuevamente para detener y guardar la grabación. Después, usá el botón 'comprobar' para enviar tu grabación. Si querés escuchar lo que grabaste, usá el botón amarillo.";
+	const gameInstructions = "Escuchá la palabra con el botón azul. Repetila en el micrófono. Cuando termines, volvé a presionar el micrófono. Comprobá tu respuesta";
 
 	const [playCorrectAnswerTTS] = useTextToSpeech(correctAnswer);
 	const [playInstructions] = useTextToSpeech(gameInstructions || '');
@@ -192,16 +194,20 @@ const VoiceRecognitionGame = (props: Props): JSX.Element => {
 					Repetí la palabra
 				</h1>
 			</div>
-			<div className="flex gap-4 gap-x-8 justify-center">
-				<Image
+			{onlyText && <h1 className="text-3xl md:text-5xl font-bold text-gray-700 text-center">
+				{correctAnswer}
+			</h1>}
+			<div className="flex row gap-4 gap-x-8 justify-center">
+				{!onlyText && <Image
 					src="/img/icons/play-icon.svg"
 					alt="play"
 					className={`relative bg-accent rounded-3xl p-4 cursor-pointer active:bg-sky active:scale-105 transition-all`}
 					height={150}
 					width={150}
 					onClick={playCorrectAnswerTTS}
-				/>
-				<div className="flex flex-col gap-2">
+				/>}
+
+				<div className={onlyText ? "flex gap-2 " : " flex-col flex gap-2 "}>
 					<Button
 						onClick={handleRecordButton}
 						className={`w-[70px] h-[70px] active:scale-110 transition-all ${isRecording ? 'animate-pulse bg-destructive' : ''

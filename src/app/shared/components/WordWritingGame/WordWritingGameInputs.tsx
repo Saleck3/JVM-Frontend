@@ -16,9 +16,13 @@ export default function WordWritingGameInputs(props: Props) {
 	return (
 		<div className="flex justify-center flex-wrap">
 			{word.split('').map((letter, i) => {
-				const preselectedLetter = preSelectedLetters.find(
-					(pl) => pl.index === i
-				);
+				let preselectedLetter = undefined;
+
+				if (preSelectedLetters) {
+					preselectedLetter = preSelectedLetters.find(
+						(pl) => pl.index === i
+					);
+				}
 
 				if (preselectedLetter) {
 					return (

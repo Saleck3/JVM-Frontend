@@ -1,12 +1,11 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
 import { FormEvent, useRef, useState } from 'react';
 import { ImageWriting } from '@/app/shared/types/games.type';
-import Image from 'next/image';
 import WordWritingGameInputs from './WordWritingGameInputs';
 import GameLayout from '../GameLayout';
 import { gameInstructions } from '@/app/[player]/play/[appleId]/data/gameInstructions';
+import GameImage from '../GameImage';
 
 interface Props extends ImageWriting {
 	outOfRetries?: boolean;
@@ -14,9 +13,6 @@ interface Props extends ImageWriting {
 	onCorrectAnswer: () => void;
 	handleNextButton: () => void;
 }
-
-const GAME_INSTRUCTIONS =
-	'Para completar el juego, escribi la palabra con tu teclado. Luego, clickeá comprobar';
 
 const WordWritingGame = (props: Props): JSX.Element => {
 	const {
@@ -27,6 +23,7 @@ const WordWritingGame = (props: Props): JSX.Element => {
 		onCorrectAnswer,
 		handleNextButton,
 		outOfRetries,
+		tts,
 	} = props;
 
 	const [gameFinished, setGameFinished] = useState<boolean>(false);
@@ -110,12 +107,7 @@ const WordWritingGame = (props: Props): JSX.Element => {
 		>
 			<div className="mb-6 text-center flex-1 flex flex-col gap-8">
 				<div className="flex-1 relative">
-					<Image
-						src={image!}
-						alt={correctAnswer}
-						fill
-						className="object-contain"
-					/>
+					<GameImage image={image} tts={tts || correctAnswer} />
 				</div>
 				<form onSubmit={handleSubmit} ref={formRef}>
 					<WordWritingGameInputs
