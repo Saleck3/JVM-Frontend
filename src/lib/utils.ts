@@ -1,8 +1,10 @@
 import { options } from '@/app/api/auth/[...nextauth]/options';
+import { FieldErrors, FormErrors } from '@/app/shared/types/form.type';
 import { Player } from '@/app/shared/types/user.type';
 import { type ClassValue, clsx } from 'clsx';
 import { getServerSession } from 'next-auth';
 import { twMerge } from 'tailwind-merge';
+import { ZodObject } from 'zod';
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
@@ -28,4 +30,20 @@ export const getSsrUtils = async () => {
 		getAccessTokenSsr,
 		getPlayers,
 	};
+};
+
+export const parseFormData = (
+	formData: FormData,
+	schema: ZodObject<any>
+): FieldErrors | any => {
+	const data = Object.fromEntries(formData.entries());
+	const parsedData = schema.safeParse(data);
+
+	if (parsedData.error) {
+		return {
+			fieldErrors: parsedData.error.flatten().fieldErrors,
+		};
+	}
+
+	return parsedData.data;
 };
