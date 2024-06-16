@@ -10,6 +10,7 @@ export type LetterOrdering = {
 	options: string[];
 	correctAnswer: string;
 	image?: string;
+	tts?: string;
 };
 
 /*
@@ -24,6 +25,7 @@ export type ImageSelection = {
 	label?: string; //Pista
 	correctAnswer: string;
 	image?: string;
+	tts?: string;
 };
 
 /*
@@ -40,11 +42,13 @@ export type ImageWriting = {
 	correctAnswer: string;
 	preSelectedLetters: PreSelectedLetter[];
 	image?: string;
+	tts?: string;
 };
 
 export type PreSelectedLetter = {
 	letter: string;
 	index: number;
+	tts?: string;
 };
 
 /*
@@ -62,6 +66,8 @@ Recibe la palabre, se lee por TTS y hay que grabar un audio repitiendo
 */
 export type AudioRepeating = {
 	correctAnswer: string;
+	tts?: string;
+	onlyText?: boolean;
 };
 
 /*
@@ -69,6 +75,7 @@ Se recibe solo la palabra, se muestra en pantalla y hay que grabar un audio leye
 */
 export type TextRead = {
 	correctAnswer: string;
+	tts?: string;
 };
 
 /*

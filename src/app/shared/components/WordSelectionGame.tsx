@@ -3,9 +3,9 @@
 import { Button } from '@/components/ui/button';
 import { ImageSelection } from '@/app/shared/types/games.type';
 import { useState } from 'react';
-import Image from 'next/image';
 import GameLayout from './GameLayout';
 import { gameInstructions } from '@/app/[player]/play/[appleId]/data/gameInstructions';
+import GameImage from './GameImage';
 
 interface Props extends ImageSelection {
 	onWrongAnswer: () => void;
@@ -24,6 +24,7 @@ const WordSelectionGame = (props: Props): JSX.Element => {
 		onCorrectAnswer,
 		handleNextButton,
 		outOfRetries,
+		tts,
 	} = props;
 
 	const [gameFinished, setGameFinished] = useState(false);
@@ -47,8 +48,8 @@ const WordSelectionGame = (props: Props): JSX.Element => {
 		return gameFinished && option.value === correctAnswer
 			? 'success'
 			: option.selected
-			? 'gray'
-			: 'secondary';
+				? 'gray'
+				: 'secondary';
 	};
 
 	return (
@@ -62,12 +63,7 @@ const WordSelectionGame = (props: Props): JSX.Element => {
 		>
 			<div className="mb-6 text-center flex-1 flex flex-col gap-8">
 				<div className="flex-1 relative">
-					<Image
-						src={image!}
-						alt={correctAnswer}
-						fill
-						className="object-contain"
-					/>
+					<GameImage image={image} tts={tts || correctAnswer} />
 				</div>
 				<div>
 					<p className="text-2xl sm:text-3xl md:text-4xl font-bold">

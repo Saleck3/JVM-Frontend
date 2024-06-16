@@ -1,14 +1,11 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
-import { FaPen } from 'react-icons/fa';
-import { FaRedoAlt } from 'react-icons/fa';
 import { gameInstructions } from '@/app/[player]/play/[appleId]/data/gameInstructions';
 import { LetterOrdering } from '@/app/shared/types/games.type';
 import { useState } from 'react';
 import GameLayout from '../GameLayout';
-import Image from 'next/image';
 import WordOrderingGameSortableOptions from './WordOrderingGameSortableOptions';
+import GameImage from '../GameImage';
 
 interface Props extends LetterOrdering {
 	onWrongAnswer: () => void;
@@ -26,6 +23,7 @@ const WordOrderingGame = (props: Props): JSX.Element => {
 		onCorrectAnswer,
 		handleNextButton,
 		outOfRetries,
+		tts,
 	} = props;
 	const [playerAnswer, setPlayerAnswer] = useState<string>('');
 	const [gameFinished, setGameFinished] = useState(false);
@@ -50,7 +48,7 @@ const WordOrderingGame = (props: Props): JSX.Element => {
 		const joinedOptions = options.join('');
 		setPlayerAnswer(joinedOptions);
 	};
-
+	
 	return (
 		<GameLayout
 			gameFinished={gameFinished}
@@ -63,12 +61,7 @@ const WordOrderingGame = (props: Props): JSX.Element => {
 		>
 			<div className="mb-6 text-center flex-1 flex flex-col gap-8">
 				<div className="flex-1 relative">
-					<Image
-						src={image!}
-						alt={correctAnswer}
-						fill
-						className="object-contain"
-					/>
+					<GameImage image={image} tts={tts || correctAnswer} />
 				</div>
 
 				<WordOrderingGameSortableOptions
