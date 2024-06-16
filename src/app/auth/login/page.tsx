@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Suspense, useState } from 'react';
 import LoginForm from './components/LoginForm';
+import { Card } from '@/components/ui/card';
 
 export default function Login() {
 	const [isFetching, setIsFetching] = useState<boolean>(false);
@@ -29,7 +30,7 @@ export default function Login() {
 			className="h-screen flex items-center justify-center 
 				bg-[url('/img/login-bg.jpg')] bg-cover bg-no-repeat bg-center"
 		>
-			<main className="bg-white rounded-lg shadow-lg sm:w-full sm:max-w-sm p-8">
+			<Card className="shadow-lg sm:w-full sm:max-w-sm p-8">
 				<div className="sm:mx-auto sm:w-full sm:max-w-sm">
 					<Link href="/">
 						<Image
@@ -48,7 +49,7 @@ export default function Login() {
 				<Suspense>
 					<LoginForm handleLogin={handleLogin} isFetching={isFetching} />
 				</Suspense>
-			</main>
+			</Card>
 		</div>
 	);
 }
