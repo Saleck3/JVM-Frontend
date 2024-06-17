@@ -1,7 +1,7 @@
 'use server';
 
 import { AddPlayerSchema } from '../schemas/players.schema';
-import { FormErrors } from '../types/form.type';
+import { FormState } from '../types/form.type';
 import { parseFormData } from '@/lib/utils';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
@@ -9,11 +9,11 @@ import { redirect } from 'next/navigation';
 export async function createPlayer(
 	state: any,
 	data: FormData
-): Promise<FormErrors | void> {
+): Promise<FormState> {
 	const parsedData = parseFormData(data, AddPlayerSchema);
-	if (parsedData.fieldErrors) return parsedData as FormErrors;
+	if (parsedData.fieldErrors) return parsedData as FormState;
 
-	const url = new URL(`${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/addPlayer`);
+	const url = new URL(`${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/players`);
 	const token = data.get('token');
 
 	const { playerName, birthDate } = parsedData;
@@ -32,16 +32,15 @@ export async function createPlayer(
 		});
 
 		if (!res.ok) {
-			return { reqError: 'Error inesperado, por favor intenta de nuevo' };
+			return {
+				reqError: 'Error inesperado, por favor intenta de nuevo',
+				fieldValues: { playerName, birthDate },
+			};
 		}
-
-		const revalidateUrl = new URL(
-			`${process.env.NEXT_PUBLIC_FRONTEND_URL}/players`
-		);
-		revalidatePath(revalidateUrl.toString());
 	} catch (e: any) {
-		return { reqError: e.message };
-	} finally {
-		redirect('/players');
+		return { reqError: e.message, fieldValues: { playerName, birthDate } };
 	}
+
+	revalidatePath('/players');
+	redirect('/players');
 }

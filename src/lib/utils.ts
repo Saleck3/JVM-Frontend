@@ -1,5 +1,5 @@
 import { options } from '@/app/api/auth/[...nextauth]/options';
-import { FieldErrors, FormErrors } from '@/app/shared/types/form.type';
+import { ParsedFormData } from '@/app/shared/types/form.type';
 import { Player } from '@/app/shared/types/user.type';
 import { type ClassValue, clsx } from 'clsx';
 import { getServerSession } from 'next-auth';
@@ -35,15 +35,16 @@ export const getSsrUtils = async () => {
 export const parseFormData = (
 	formData: FormData,
 	schema: ZodObject<any>
-): FieldErrors | any => {
+): ParsedFormData | any => {
 	const data = Object.fromEntries(formData.entries());
 	const parsedData = schema.safeParse(data);
 
 	if (parsedData.error) {
 		return {
+			fieldValues: data,
 			fieldErrors: parsedData.error.flatten().fieldErrors,
 		};
 	}
 
-	return parsedData.data;
+	return { fieldValues: parsedData.data };
 };

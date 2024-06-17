@@ -6,13 +6,17 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import FormSubmitButton from '../../../../shared/components/FormSubmitButton';
 
+const initialState = {
+	fieldValues: { playerName: '', birthDate: '' },
+};
+
 export default function AddPlayerForm() {
 	const { token } = useUserData();
-	const [formState, formAction] = useFormState(createPlayer, null);
+	const [formState, formAction] = useFormState(createPlayer, initialState);
 
 	return (
 		<form action={formAction} className="space-y-6">
-			<input type="hidden" name="token" value={token} />
+			<input type="hidden" name="token" defaultValue={token} />
 
 			{formState?.reqError && (
 				<ErrorMessage message={formState.reqError} key={formState.reqError} />
@@ -24,6 +28,7 @@ export default function AddPlayerForm() {
 					id="playerName"
 					name="playerName"
 					placeholder="Nombre del jugador"
+					defaultValue={formState.fieldValues?.playerName}
 				/>
 				{formState?.fieldErrors?.playerName &&
 					formState.fieldErrors.playerName.map((error) => (
@@ -38,6 +43,7 @@ export default function AddPlayerForm() {
 					type="date"
 					name="birthDate"
 					placeholder="Fecha de nacimiento"
+					defaultValue={formState.fieldValues?.birthDate}
 				/>
 				{formState?.fieldErrors?.birthDate &&
 					formState.fieldErrors.birthDate.map((error) => (
