@@ -56,7 +56,7 @@ Reproduce un video
 Sin puntaje
 */
 export type video = {
-	image: string;
+	src: string;
 };
 
 /** IA **/
