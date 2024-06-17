@@ -3,6 +3,7 @@ import { MdOutlineAddReaction } from 'react-icons/md';
 import Players from './components/Players';
 import LeadTitle from '@/app/shared/components/LeadTitle';
 import { getSsrUtils } from '@/lib/utils';
+import Link from 'next/link';
 
 export default async function PlayerSelection() {
 	const ssrUtils = await getSsrUtils();
@@ -16,10 +17,12 @@ export default async function PlayerSelection() {
 			/>
 			<Players playerList={players} />
 			<div className="flex justify-center">
-				<Button size="lg" variant={'defaultWithIcon'}>
-					<MdOutlineAddReaction className="text-2xl" />
-					Agregar jugador
-				</Button>
+				<Link href="/players/create">
+					<Button size="lg" variant={'defaultWithIcon'}>
+						<MdOutlineAddReaction className="text-2xl" />
+						Agregar jugador
+					</Button>
+				</Link>
 			</div>
 		</main>
 	);
