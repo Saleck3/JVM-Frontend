@@ -18,6 +18,7 @@ const gameComponents: any = {
 	image_selection: WordSelectionGame,
 	image_writing: WordWritingGame,
 	audio_repeating: VoiceRecognitionGame,
+	text_read: VoiceRecognitionGame,
 	video: VideoGame,
 };
 
@@ -47,7 +48,7 @@ export default function GameRenderer(props: Props) {
 			gameId={gameId}
 			key={gameId}
 			tts={gameParams.tts}
-			onlyText={gameParams.onlyText}
+			onlyText={gameParams.onlyText || gameType == "text_read"}
 			src={gameParams.src}
 		/>
 	);

@@ -26,6 +26,7 @@ export type ImageSelection = {
 	correctAnswer: string;
 	image?: string;
 	tts?: string;
+	onlyText?: boolean;
 };
 
 /*
