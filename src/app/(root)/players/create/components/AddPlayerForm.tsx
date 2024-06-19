@@ -1,5 +1,4 @@
 'use client';
-import useUserData from '@/app/shared/hooks/useUserData';
 import { useFormState } from 'react-dom';
 import { createPlayer } from '../../../../shared/actions/players';
 import { Input } from '@/components/ui/input';
@@ -11,13 +10,10 @@ const initialState = {
 };
 
 export default function AddPlayerForm() {
-	const { token } = useUserData();
 	const [formState, formAction] = useFormState(createPlayer, initialState);
 
 	return (
 		<form action={formAction} className="space-y-6">
-			<input type="hidden" name="token" defaultValue={token} />
-
 			{formState?.reqError && (
 				<ErrorMessage message={formState.reqError} key={formState.reqError} />
 			)}

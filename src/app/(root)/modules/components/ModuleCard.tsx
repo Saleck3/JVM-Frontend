@@ -10,13 +10,12 @@ import { Button } from '@/components/ui/button';
 import { FaGamepad } from 'react-icons/fa6';
 import Image from 'next/image';
 import Link from 'next/link';
-import ProgressBar from '../../../../shared/components/ProgressBar';
+import ProgressBar from '@/app/shared/components/ProgressBar';
 
 type Props = {
 	description: string;
 	recommended?: boolean;
 	id: number;
-	playerAlias: string;
 	progress: number;
 };
 
@@ -24,7 +23,6 @@ export default function ModuleCard({
 	description,
 	recommended = false,
 	id,
-	playerAlias,
 	progress,
 }: Props): JSX.Element {
 	const dropShadow = recommended
@@ -58,7 +56,7 @@ export default function ModuleCard({
 				/>
 			</CardContent>
 			<CardFooter>
-				<Link href={`/${playerAlias}/modules/${id}`} className="w-full">
+				<Link href={`/modules/${id}`} className="w-full">
 					<Button className="w-full text-md" variant={'defaultWithIcon'}>
 						<FaGamepad className="text-2xl" />
 						JUGAR

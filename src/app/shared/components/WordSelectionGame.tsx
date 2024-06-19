@@ -4,8 +4,8 @@ import { Button } from '@/components/ui/button';
 import { ImageSelection } from '@/app/shared/types/games.type';
 import { useState } from 'react';
 import GameLayout from './GameLayout';
-import { gameInstructions } from '@/app/[player]/play/[appleId]/data/gameInstructions';
 import GameImage from './GameImage';
+import { gameInstructions } from '@/app/play/[appleId]/data/gameInstructions';
 
 interface Props extends ImageSelection {
 	onWrongAnswer: () => void;
@@ -48,8 +48,8 @@ const WordSelectionGame = (props: Props): JSX.Element => {
 		return gameFinished && option.value === correctAnswer
 			? 'success'
 			: option.selected
-				? 'gray'
-				: 'secondary';
+			? 'gray'
+			: 'secondary';
 	};
 
 	return (

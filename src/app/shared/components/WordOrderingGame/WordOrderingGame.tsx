@@ -1,11 +1,11 @@
 'use client';
 
-import { gameInstructions } from '@/app/[player]/play/[appleId]/data/gameInstructions';
 import { LetterOrdering } from '@/app/shared/types/games.type';
 import { useState } from 'react';
 import GameLayout from '../GameLayout';
 import WordOrderingGameSortableOptions from './WordOrderingGameSortableOptions';
 import GameImage from '../GameImage';
+import { gameInstructions } from '@/app/play/[appleId]/data/gameInstructions';
 
 interface Props extends LetterOrdering {
 	onWrongAnswer: () => void;
@@ -48,7 +48,7 @@ const WordOrderingGame = (props: Props): JSX.Element => {
 		const joinedOptions = options.join('');
 		setPlayerAnswer(joinedOptions);
 	};
-	
+
 	return (
 		<GameLayout
 			gameFinished={gameFinished}

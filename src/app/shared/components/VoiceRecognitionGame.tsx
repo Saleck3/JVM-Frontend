@@ -1,11 +1,12 @@
 'use client';
 
+//TODO refactor con hooks
+
 import { Button } from '@/components/ui/button';
 import { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
 import { scoreVoice } from '../services/exercises.service';
 import useTextToSpeech from '../hooks/useTextToSpeech';
-import useUserData from '../hooks/useUserData';
 import { FaMicrophone } from 'react-icons/fa';
 import { HiSpeakerWave } from 'react-icons/hi2';
 import GameCheckButton from './GameCheckButton';
@@ -19,7 +20,7 @@ type Props = {
 	onCorrectAnswer: () => void;
 	handleNextButton: () => void;
 	outOfRetries: boolean;
-	onlyText?: Boolean
+	onlyText?: Boolean;
 };
 
 const VoiceRecognitionGame = (props: Props): JSX.Element => {
@@ -45,8 +46,8 @@ const VoiceRecognitionGame = (props: Props): JSX.Element => {
 	//TODO type de correction
 	const [audioCorrection, setAudioCorrection] = useState<any>(null);
 
-	const { token } = useUserData();
-	const gameInstructions = "Escuchá la palabra con el botón azul. Repetila en el micrófono. Cuando termines, volvé a presionar el micrófono. Comprobá tu respuesta";
+	const gameInstructions =
+		'Escuchá la palabra con el botón azul. Repetila en el micrófono. Cuando termines, volvé a presionar el micrófono. Comprobá tu respuesta';
 
 	const [playCorrectAnswerTTS] = useTextToSpeech(correctAnswer);
 	const [playInstructions] = useTextToSpeech(gameInstructions || '');
@@ -149,7 +150,7 @@ const VoiceRecognitionGame = (props: Props): JSX.Element => {
 	const getAudioCorrection = async () => {
 		setIsFetchingScore(true);
 		try {
-			const correction = await scoreVoice(audioBlob, gameId, token!);
+			const correction = await scoreVoice(audioBlob, gameId);
 
 			correction.correct ? onCorrectAnswer() : onWrongAnswer();
 
@@ -194,24 +195,29 @@ const VoiceRecognitionGame = (props: Props): JSX.Element => {
 					Repetí la palabra
 				</h1>
 			</div>
-			{onlyText && <h1 className="text-3xl md:text-5xl font-bold text-gray-700 text-center">
-				{correctAnswer}
-			</h1>}
+			{onlyText && (
+				<h1 className="text-3xl md:text-5xl font-bold text-gray-700 text-center">
+					{correctAnswer}
+				</h1>
+			)}
 			<div className="flex row gap-4 gap-x-8 justify-center">
-				{!onlyText && <Image
-					src="/img/icons/play-icon.svg"
-					alt="play"
-					className={`relative bg-accent rounded-3xl p-4 cursor-pointer active:bg-sky active:scale-105 transition-all`}
-					height={150}
-					width={150}
-					onClick={playCorrectAnswerTTS}
-				/>}
+				{!onlyText && (
+					<Image
+						src="/img/icons/play-icon.svg"
+						alt="play"
+						className={`relative bg-accent rounded-3xl p-4 cursor-pointer active:bg-sky active:scale-105 transition-all`}
+						height={150}
+						width={150}
+						onClick={playCorrectAnswerTTS}
+					/>
+				)}
 
-				<div className={onlyText ? "flex gap-2 " : " flex-col flex gap-2 "}>
+				<div className={onlyText ? 'flex gap-2 ' : ' flex-col flex gap-2 '}>
 					<Button
 						onClick={handleRecordButton}
-						className={`w-[70px] h-[70px] active:scale-110 transition-all ${isRecording ? 'animate-pulse bg-destructive' : ''
-							} `}
+						className={`w-[70px] h-[70px] active:scale-110 transition-all ${
+							isRecording ? 'animate-pulse bg-destructive' : ''
+						} `}
 					>
 						<FaMicrophone
 							className={`text-3xl ${isRecording ? 'animate-ping' : ''}`}

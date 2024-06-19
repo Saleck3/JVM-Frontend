@@ -2,12 +2,11 @@ import { Button } from '@/components/ui/button';
 import { MdOutlineAddReaction } from 'react-icons/md';
 import Players from './components/Players';
 import LeadTitle from '@/app/shared/components/LeadTitle';
-import { getSsrUtils } from '@/lib/utils';
 import Link from 'next/link';
+import { getPlayers } from '@/lib/sessionUtils';
 
 export default async function PlayerSelection() {
-	const ssrUtils = await getSsrUtils();
-	const players = ssrUtils.getPlayers();
+	const players = await getPlayers();
 
 	return (
 		<main className="container py-32 md:px-12 lg:px-32 space-y-12">

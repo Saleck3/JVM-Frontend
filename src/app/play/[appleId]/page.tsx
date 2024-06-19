@@ -1,25 +1,19 @@
 'use client';
 import { scoreExercises } from '@/app/shared/services/exercises.service';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { useParams } from 'next/navigation';
-import FetchingScore from '../../../shared/components/FetchingScore';
-import GameRenderer from '../../../shared/components/GameRenderer';
-import GamesResults from '../../../shared/components/GamesResults';
-import ProgressBar from '../../../shared/components/ProgressBar';
+
 import useGames from '@/app/shared/hooks/useGames';
-import useUserData from '@/app/shared/hooks/useUserData';
+import FetchingScore from '@/app/shared/components/FetchingScore';
+import GamesResults from '@/app/shared/components/GamesResults';
+import ProgressBar from '@/app/shared/components/ProgressBar';
+import GameRenderer from '@/app/shared/components/GameRenderer';
 
 export default function NonAiGames() {
-	const { user, token } = useUserData();
 	const [gameScore, setGameScore] = useState<number | null>(null);
 	const [isFetchingScore, setIsFetchingScore] = useState(false);
 
-	const { player: playerAlias, appleId } = useParams();
-
-	const playerId = useMemo(
-		() => user?.players.find((player) => player.alias === playerAlias)?.id,
-		[user, playerAlias]
-	);
+	const { appleId } = useParams();
 
 	const {
 		apple,
@@ -31,9 +25,9 @@ export default function NonAiGames() {
 		isLastGame,
 		handleCorrectAnswer,
 		handleWrongAnswer,
-	} = useGames(false, playerId!, appleId as string, token!);
+	} = useGames(false, appleId as string);
 
-	const moduleUrl = `/${playerAlias}/modules/${apple?.moduleId}`;
+	const moduleUrl = `/modules/${apple?.moduleId}`;
 
 	const handleNextButton = async () => {
 		if (!isLastGame) {
@@ -41,12 +35,7 @@ export default function NonAiGames() {
 		} else {
 			setIsFetchingScore(true);
 
-			const score = await scoreExercises(
-				playerId!,
-				appleId as string,
-				errorCounter,
-				token!
-			);
+			const score = await scoreExercises(appleId as string, errorCounter);
 
 			setGameScore(score);
 			setIsFetchingScore(false);

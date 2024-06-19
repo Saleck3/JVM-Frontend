@@ -8,20 +8,11 @@ import {
 	getPathImagesAmount,
 	pathBgsStyle,
 } from './data/styleLogic';
-import { getSsrUtils } from '@/lib/utils';
 import Apple from './components/Apple';
 import Image from 'next/image';
 
 export default async function ApplePath({ params }: any): Promise<JSX.Element> {
-	const ssrUtils = await getSsrUtils();
-	const token = ssrUtils.getAccessTokenSsr();
-	const player = ssrUtils.getPlayerByAliasSsr(params.player);
-
-	const apples: AppleType[] = (await getApples(
-		player!.id,
-		params.moduleId,
-		token
-	)) as AppleType[];
+	const apples: AppleType[] = (await getApples(params.moduleId)) as AppleType[]; // TODO error handling
 
 	const applePositions = getPathAxisPositions(apples.length);
 	const imagesAmount = getPathImagesAmount(apples.length);
@@ -49,7 +40,6 @@ export default async function ApplePath({ params }: any): Promise<JSX.Element> {
 				<Apple
 					key={apple.id}
 					{...apple}
-					playerAlias={player!.alias}
 					leftPosition={applePositions[i]}
 					colors={appleColors[params.moduleId]}
 				/>

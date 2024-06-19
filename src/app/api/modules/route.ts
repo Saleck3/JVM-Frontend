@@ -2,31 +2,28 @@ import { headers } from 'next/headers';
 import { NextRequest } from 'next/server';
 
 export async function GET(req: NextRequest) {
-	const searchParams = req.nextUrl.searchParams;
-	const headersList = headers();
-	const playerId = searchParams.get('playerId')!;
-	const token = headersList.get('Authorization')!;
-
-	const query = new URLSearchParams({ playerId });
+	const query = req.nextUrl.searchParams;
 	const url = `${process.env.API_URL}/api/modules?${query}`;
+	const Authorization = headers().get('Authorization')!;
 
 	try {
 		const res = await fetch(url, {
 			headers: {
 				'Content-Type': 'application/json',
-				Authorization: token,
+				Authorization,
 			},
 		});
 
 		if (!res.ok) {
+			console.error('res not ok proxy error: ', res.statusText);
 			return Response.json(
 				{ status: res.status, message: res.statusText, url },
 				{ status: res.status }
 			);
 		}
 
-		const data = await res.json();
-		return Response.json({ data });
+		const { modules } = await res.json();
+		return Response.json(modules);
 	} catch (e: any) {
 		console.error('proxy error: ', e.message);
 		return Response.json(

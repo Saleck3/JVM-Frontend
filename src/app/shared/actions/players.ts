@@ -1,5 +1,6 @@
 'use server';
 
+import { getToken } from '@/lib/sessionUtils';
 import { AddPlayerSchema } from '../schemas/players.schema';
 import { FormState } from '../types/form.type';
 import { parseFormData } from '@/lib/utils';
@@ -14,7 +15,7 @@ export async function createPlayer(
 	if (parsedData.fieldErrors) return parsedData as FormState;
 
 	const url = new URL(`${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/players`);
-	const token = data.get('token');
+	const token = await getToken();
 
 	const { playerName, birthDate } = parsedData;
 
@@ -23,7 +24,7 @@ export async function createPlayer(
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
-				Authorization: `Bearer ${token}`,
+				Authorization: `Bearer ${token.value}`,
 			},
 			body: JSON.stringify({
 				playerName,

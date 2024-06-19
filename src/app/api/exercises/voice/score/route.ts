@@ -34,8 +34,6 @@ export async function POST(req: NextRequest) {
 
 		const data = await res.json();
 
-		console.log('data', data);
-
 		return Response.json(data);
 	} catch (e: any) {
 		console.error(e.message);

@@ -3,14 +3,11 @@ import { NextRequest } from 'next/server';
 
 export async function GET(req: NextRequest) {
 	const searchParams = req.nextUrl.searchParams;
-	const playerId = searchParams.get('playerId')!;
-	const appleId = searchParams.get('appleId')!;
 
 	const headersList = headers();
 	const token = headersList.get('Authorization')!;
 
-	const query = new URLSearchParams({ playerId, appleId });
-	const url = `${process.env.API_URL}/api/exercise/getExerciseByAppleId?${query}`;
+	const url = `${process.env.API_URL}/api/exercise/getExerciseByAppleId?${searchParams}`;
 
 	try {
 		const res = await fetch(url, {

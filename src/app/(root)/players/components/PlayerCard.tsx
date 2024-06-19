@@ -1,13 +1,28 @@
+'use client';
+
 import { Player } from '@/app/shared/types/user.type';
 import { AvatarImage, AvatarFallback, Avatar } from '@/components/ui/avatar';
+import { updateLectiData } from '@/lib/sessionUtils';
+import { useRouter } from 'next/navigation';
+import { FaCheck } from 'react-icons/fa6';
 
-import Link from 'next/link';
+type Props = {
+	player: Player;
+};
 
-export default function PlayerCard({ playerName, alias, totalCrowns }: Player) {
+export default function PlayerCard({ player }: Props) {
+	const { playerName, totalCrowns } = player;
+	const router = useRouter();
+
+	const setCurrentPlayer = () => {
+		updateLectiData({ currentPlayer: player });
+		router.push('/modules');
+	};
+
 	return (
-		<Link
+		<div
 			className="group relative cursor-pointer rounded-lg bg-gray-100 p-4 hover:scale-100 basis-48"
-			href={`${alias}/modules`}
+			onClick={setCurrentPlayer}
 		>
 			<div className="flex items-center justify-center">
 				<Avatar className="h-16 w-16">
@@ -22,27 +37,10 @@ export default function PlayerCard({ playerName, alias, totalCrowns }: Player) {
 				<p className="text-gray-500">{totalCrowns} ⭐</p>
 			</div>
 			<div className="absolute inset-0 flex items-center justify-center rounded-lg bg-gray-900/50 opacity-0 transition-opacity group-hover:opacity-100">
-				<CheckIcon className="h-8 w-8 text-white" />
+				<FaCheck className="h-8 w-8 text-white" />
 			</div>
-		</Link>
+		</div>
 	);
 }
 
-function CheckIcon(props: any) {
-	return (
-		<svg
-			{...props}
-			xmlns="http://www.w3.org/2000/svg"
-			width="24"
-			height="24"
-			viewBox="0 0 24 24"
-			fill="none"
-			stroke="currentColor"
-			strokeWidth="2"
-			strokeLinecap="round"
-			strokeLinejoin="round"
-		>
-			<path d="M20 6 9 17l-5-5" />
-		</svg>
-	);
-}
+//TODO subir el estado al comp padre para que este pueda ser client side y poder usar onclick, mientras que el padre puede usar el ssr utils

@@ -1,14 +1,13 @@
 import LeadTitle from '@/app/shared/components/LeadTitle';
 import ModuleCard from './components/ModuleCard';
 import { getModules } from '@/app/shared/services/modules.service';
-import { getSsrUtils } from '../../../../lib/utils';
+import { getCurrentPlayer } from '@/lib/sessionUtils';
 
-export default async function Modules({ params }: any) {
-	const ssrUtils = await getSsrUtils();
-	const token = ssrUtils.getAccessTokenSsr();
-	const player = ssrUtils.getPlayerByAliasSsr(params.player);
+export default async function Modules() {
+	const player = await getCurrentPlayer();
+	const modules = await getModules(player!.id);
 
-	const modules = await getModules(player!.id, token);
+	if (!modules) return 'foo'; //TODO error handler
 
 	return (
 		<main className="container py-16 md:px-12 xl:px-32 space-y-12">
@@ -22,7 +21,6 @@ export default async function Modules({ params }: any) {
 						key={module.id}
 						{...module}
 						recommended={player?.recommendedModule === module.id}
-						playerAlias={player?.alias}
 					/>
 				))}
 			</div>

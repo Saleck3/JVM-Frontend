@@ -1,11 +1,13 @@
+import { getLectiData, getToken } from '@/lib/sessionUtils';
 import { adaptExercises, adaptScore } from '../adapters/exercises.adapter';
 
-export const getExercises = async (
-	playerId: string,
-	appleId: string,
-	token: string
-) => {
-	const query = new URLSearchParams({ playerId, appleId }).toString();
+export const getExercises = async (appleId: string) => {
+	const { token, currentPlayer } = await getLectiData()!;
+
+	const query = new URLSearchParams({
+		playerId: currentPlayer!.id,
+		appleId,
+	}).toString();
 	const url = `${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/exercises?${query}`;
 
 	try {
@@ -13,7 +15,7 @@ export const getExercises = async (
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
-				Authorization: `Bearer ${token}`,
+				Authorization: `Bearer ${token.value}`,
 			},
 		});
 
@@ -65,12 +67,15 @@ export const getTest = async () => {
 };
 
 export const scoreExercises = async (
-	playerId: string,
 	appleId: string,
-	gameErrors: number[],
-	token: string
+	gameErrors: number[]
 ): Promise<any> => {
-	const query = new URLSearchParams({ playerId, appleId }).toString();
+	const { token, currentPlayer } = await getLectiData()!;
+	const query = new URLSearchParams({
+		playerId: currentPlayer!.id,
+		appleId,
+	}).toString();
+
 	const url = `${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/exercises/score?${query}`;
 
 	try {
@@ -79,7 +84,7 @@ export const scoreExercises = async (
 			body: JSON.stringify({ gameErrors }),
 			headers: {
 				'Content-Type': 'application/json',
-				Authorization: `Bearer ${token}`,
+				Authorization: `Bearer ${token.value}`,
 			},
 		});
 
@@ -100,11 +105,11 @@ export const scoreExercises = async (
 
 export const scoreVoice = async (
 	audio: Blob,
-	exerciseId: string,
-	token: string
+	exerciseId: string
 ): Promise<any> => {
 	const query = new URLSearchParams({ exerciseId }).toString();
 	const url = `${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/exercises/voice/score?${query}`;
+	const token = await getToken();
 
 	try {
 		const res = await fetch(url, {
@@ -112,7 +117,7 @@ export const scoreVoice = async (
 			body: audio,
 			headers: {
 				'Content-Type': 'audio/mp3',
-				Authorization: `Bearer ${token}`,
+				Authorization: `Bearer ${token.value}`,
 			},
 		});
 
@@ -124,9 +129,8 @@ export const scoreVoice = async (
 				`scoreVoice res not ok error: ${data.status}, ${data.message}, ${data.url}`
 			);
 		}
-		const data = await res.json();
 
-		console.log('data', data);
+		const data = await res.json();
 		return data;
 	} catch (e: any) {
 		console.error('score voice service error', e.message);

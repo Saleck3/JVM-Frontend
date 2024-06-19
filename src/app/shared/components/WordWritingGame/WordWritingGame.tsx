@@ -2,10 +2,11 @@
 
 import { FormEvent, useRef, useState } from 'react';
 import { ImageWriting } from '@/app/shared/types/games.type';
-import WordWritingGameInputs from './WordWritingGameInputs';
-import GameLayout from '../GameLayout';
-import { gameInstructions } from '@/app/[player]/play/[appleId]/data/gameInstructions';
 import GameImage from '../GameImage';
+import GameInstructionsButton from '../GameInstructionsButton';
+import GameLayout from '../GameLayout';
+import WordWritingGameInputs from './WordWritingGameInputs';
+import { gameInstructions } from '@/app/play/[appleId]/data/gameInstructions';
 
 interface Props extends ImageWriting {
 	outOfRetries?: boolean;

@@ -5,7 +5,6 @@ import { FaAppleWhole } from 'react-icons/fa6';
 
 type Props = {
 	name: string;
-	playerAlias: string;
 	id: number;
 	stars: number;
 	leftPosition: string;
@@ -13,7 +12,7 @@ type Props = {
 };
 
 export default function Apple(props: Props): JSX.Element {
-	const { name, playerAlias, id, stars, leftPosition, colors } = props;
+	const { name, id, stars, leftPosition, colors } = props;
 
 	const style: React.CSSProperties = {
 		position: 'relative',
@@ -21,7 +20,7 @@ export default function Apple(props: Props): JSX.Element {
 	};
 
 	return (
-		<Link style={style} href={`/${playerAlias}/play/${id}`} className="group">
+		<Link style={style} href={`/play/${id}`} className="group">
 			<div className="relative">
 				<FaAppleWhole
 					className={`absolute w-[100px] h-[100px] drop-shadow bottom-2 group-active:opacity-0`}

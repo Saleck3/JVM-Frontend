@@ -18,7 +18,7 @@ export default function Hero() {
 					</div>
 					<div className="w-full">
 						<Button className="w-full lg:w-1/3 mx-2 mb-4 lg:mb-0 text-md">
-							<Link href="#">Empezá ahora</Link>
+							<Link href="/players">Empezá ahora</Link>
 						</Button>
 						<Button
 							variant={'secondary'}

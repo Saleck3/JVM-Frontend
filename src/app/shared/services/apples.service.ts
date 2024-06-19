@@ -1,11 +1,13 @@
+import { getLectiData } from '@/lib/sessionUtils';
 import { adaptApples } from '../adapters/apples.adapter';
 
-export const getApples = async (
-	playerId: string,
-	moduleId: string,
-	token: string
-) => {
-	const query = new URLSearchParams({ playerId, moduleId }).toString();
+export const getApples = async (moduleId: string) => {
+	const { token, currentPlayer } = await getLectiData()!;
+
+	const query = new URLSearchParams({
+		playerId: currentPlayer!.id,
+		moduleId,
+	}).toString();
 	const url = `${process.env.FRONTEND_URL}/api/apples/?${query}`;
 
 	try {
@@ -13,7 +15,7 @@ export const getApples = async (
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
-				Authorization: `Bearer ${token}`,
+				Authorization: `Bearer ${token.value}`,
 			},
 		});
 

@@ -1,30 +1,12 @@
 'use client';
 
-import { signIn } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Suspense, useState } from 'react';
+import { Suspense } from 'react';
 import LoginForm from './components/LoginForm';
 import { Card } from '@/components/ui/card';
 
 export default function Login() {
-	const [isFetching, setIsFetching] = useState<boolean>(false);
-
-	const handleLogin = async (e: any) => {
-		e.preventDefault();
-
-		setIsFetching(true);
-
-		const email = e.target.elements.email.value;
-		const password = e.target.elements.password.value;
-
-		await signIn('credentials', {
-			email,
-			password,
-			redirect: true,
-		});
-	};
-
 	return (
 		<div
 			className="h-screen flex items-center justify-center 
@@ -47,7 +29,7 @@ export default function Login() {
 					</h2>
 				</div>
 				<Suspense>
-					<LoginForm handleLogin={handleLogin} isFetching={isFetching} />
+					<LoginForm />
 				</Suspense>
 			</Card>
 		</div>

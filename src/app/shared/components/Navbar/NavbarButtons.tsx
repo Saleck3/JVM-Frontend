@@ -1,49 +1,26 @@
-'use client';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 
-import { signOut } from 'next-auth/react';
 import DropdownButton from '../DropdownButton';
-import { User } from '../../types/user.type';
-import { useRouter } from 'next/navigation';
+import { getLoggedUser } from '@/lib/sessionUtils';
 
-type Props = {
-	user?: User;
-};
-
-export default function NavbarButtons({ user }: Props) {
-	const router = useRouter();
-
-	const handleSignOut = () => {
-		signOut({
-			callbackUrl: '/logout',
-		});
-	};
-
-	const redirectToPlayers = () => {
-		window.location.href = ("/players");
-	};
+export default async function NavbarButtons() {
+	const user = await getLoggedUser();
 
 	const navbarItems = [
 		{
 			label: 'Jugadores',
-			onClick: () => router.push('/players'),
+			href: '/players',
 		},
 		{
-			label: 'Logout',
-			onClick: handleSignOut,
-			className: 'text-red-600',
+			label: 'Módulos',
+			href: '/modules',
 		},
-
 	];
 
 	if (user) {
 		return (
-			<DropdownButton
-				label={user.email}
-				title="Mi cuenta"
-				items={navbarItems}
-			/>
+			<DropdownButton label={user} title="Mi cuenta" items={navbarItems} />
 		);
 	} else {
 		return (

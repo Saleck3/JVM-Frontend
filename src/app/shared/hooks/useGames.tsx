@@ -4,12 +4,7 @@ import useGameSounds from './useGameSounds';
 
 const MAX_ERRORS = 5;
 
-const useGames = (
-	isTest: boolean,
-	playerId?: string,
-	appleId?: string,
-	token?: string
-) => {
+const useGames = (isTest: boolean, appleId?: string) => {
 	const { playCorrectSound, playWrongSound } = useGameSounds();
 
 	const [apple, setApple] = useState<any>();
@@ -25,7 +20,7 @@ const useGames = (
 
 	useEffect(() => {
 		const fetchExercises = async () => {
-			const apple = await getExercises(playerId!, appleId!, token!);
+			const apple = await getExercises(appleId!);
 			setApple(apple);
 		};
 
@@ -34,9 +29,9 @@ const useGames = (
 			setApple(apple);
 		};
 
-		!isTest && token && fetchExercises();
+		!isTest && fetchExercises();
 		isTest && fetchtest();
-	}, [appleId, playerId, token, isTest]);
+	}, [appleId, isTest]);
 
 	const sumErrorToCurrentGame = () => {
 		setErrorCounter((prevValue) => {
