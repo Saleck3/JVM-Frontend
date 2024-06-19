@@ -2,17 +2,12 @@ import { headers } from 'next/headers';
 import { NextRequest } from 'next/server';
 
 export async function POST(req: NextRequest) {
-	const searchParams = req.nextUrl.searchParams;
+	const query = req.nextUrl.searchParams;
 	const audio = await req.blob();
-	const headersList = headers();
-
-	const exerciseId = searchParams.get('exerciseId')!;
-	const token = headersList.get('Authorization')!;
+	const Authorization = headers().get('Authorization')!;
 
 	const body = new FormData();
 	body.append('file', audio);
-
-	const query = new URLSearchParams({ exerciseId }).toString();
 
 	const url = `${process.env.API_URL}/api/ia/audio/checkAudio?${query}`;
 
@@ -21,22 +16,36 @@ export async function POST(req: NextRequest) {
 			method: 'POST',
 			body,
 			headers: {
-				Authorization: token,
+				Authorization,
 			},
 		});
 
 		if (!res.ok) {
+			const error = await res.json();
+			console.error('Backend error: ', error);
 			return Response.json(
-				{ status: res.status, message: res.statusText, url },
+				{
+					status: res.status,
+					message: res.statusText,
+					url,
+					type: 'Backend error',
+				},
 				{ status: res.status }
 			);
 		}
 
 		const data = await res.json();
-
 		return Response.json(data);
 	} catch (e: any) {
-		console.error(e.message);
-		return Response.json({ status: 500, message: e.message }, { status: 500 });
+		console.error('Proxy error: ', e);
+		return Response.json(
+			{
+				status: 500,
+				message: e.message,
+				url,
+				type: 'Proxy error',
+			},
+			{ status: 500 }
+		);
 	}
 }

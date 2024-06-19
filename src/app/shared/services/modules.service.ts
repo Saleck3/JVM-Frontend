@@ -16,9 +16,19 @@ export const getModules = async (playerId: string) => {
 			},
 		});
 
+		if (!res.ok) {
+			const error = await res.json();
+
+			console.error('Modules service request error: ', error);
+			throw new Error(
+				`"Modules service request error: ${error.type} - ${error.message}"`
+			);
+		}
+
 		const modules = await res.json();
 		return adaptModules(modules);
 	} catch (e: any) {
-		console.error('modules service error', e.message);
+		console.error('Modules service internal error: ', e.message);
+		throw new Error(`Modules service internal error: ${e.message}`);
 	}
 };

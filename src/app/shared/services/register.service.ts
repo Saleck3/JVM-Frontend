@@ -1,3 +1,5 @@
+//TODO refactorizar esto D:
+
 import { FormDataSchema } from '../schemas/register.schema';
 
 export async function registerUser(state: any, data: FormData) {

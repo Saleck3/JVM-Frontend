@@ -8,6 +8,7 @@ export const getExercises = async (appleId: string) => {
 		playerId: currentPlayer!.id,
 		appleId,
 	}).toString();
+
 	const url = `${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/exercises?${query}`;
 
 	try {
@@ -20,20 +21,19 @@ export const getExercises = async (appleId: string) => {
 		});
 
 		if (!res.ok) {
-			const data = res.headers.get('content-type') ? await res.json() : null;
+			const error = await res.json();
 
-			console.error('getExercises error: ', data);
+			console.error('Exercises service request error: ', error);
 			throw new Error(
-				`getExercises res not ok error: ${data.status}, ${data.message}, ${data.url}`
+				`"Exercises service request error: ${error.type} - ${error.message}"`
 			);
 		}
 
 		const data = await res.json();
-		const exercises = adaptExercises(data);
-
-		return exercises;
+		return adaptExercises(data);
 	} catch (e: any) {
-		console.error('exercises service error', e.message);
+		console.error('Exercises service internal error: ', e.message);
+		throw new Error(`Exercises service internal error: ${e.message}`);
 	}
 };
 
@@ -49,11 +49,11 @@ export const getTest = async () => {
 		});
 
 		if (!res.ok) {
-			const data = res.headers.get('content-type') ? await res.json() : null;
+			const error = await res.json();
 
-			console.error('getExercises error: ', data);
+			console.error('Exercises service request error: ', error);
 			throw new Error(
-				`getTest res not ok error: ${data.status}, ${data.message}, ${data.url}`
+				`"Exercises service request error: ${error.type} - ${error.message}"`
 			);
 		}
 
@@ -62,7 +62,8 @@ export const getTest = async () => {
 
 		return exercises;
 	} catch (e: any) {
-		console.error('exercises service error', e.message);
+		console.error('Exercises service internal error: ', e.message);
+		throw new Error(`Exercises service internal error: ${e.message}`);
 	}
 };
 
@@ -89,17 +90,19 @@ export const scoreExercises = async (
 		});
 
 		if (!res.ok) {
-			const data = res.headers.get('content-type') ? await res.json() : null;
+			const error = await res.json();
 
-			console.error('scoreExercises error: ', data);
+			console.error('Exercises service request error: ', error);
 			throw new Error(
-				`scoreExercises res not ok error: ${data.status}, ${data.message}, ${data.url}`
+				`"Exercises service request error: ${error.type} - ${error.message}"`
 			);
 		}
+
 		const data = await res.json();
 		return adaptScore(data);
 	} catch (e: any) {
-		console.error('score service error', e.message);
+		console.error('Exercises service internal error: ', e.message);
+		throw new Error(`Exercises service internal error: ${e.message}`);
 	}
 };
 
@@ -122,18 +125,19 @@ export const scoreVoice = async (
 		});
 
 		if (!res.ok) {
-			const data = res.headers.get('content-type') ? await res.json() : null;
+			const error = await res.json();
 
-			console.error('scoreExercises error: ', data);
+			console.error('Exercises service request error: ', error);
 			throw new Error(
-				`scoreVoice res not ok error: ${data.status}, ${data.message}, ${data.url}`
+				`"Exercises service request error: ${error.type} - ${error.message}"`
 			);
 		}
 
 		const data = await res.json();
 		return data;
 	} catch (e: any) {
-		console.error('score voice service error', e.message);
+		console.error('Exercises service internal error: ', e.message);
+		throw new Error(`Exercises service internal error: ${e.message}`);
 	}
 };
 
@@ -148,16 +152,17 @@ export const scoreTest = async (gameErrors: boolean[]): Promise<any> => {
 		});
 
 		if (!res.ok) {
-			const data = res.headers.get('content-type') ? await res.json() : null;
+			const error = await res.json();
 
-			console.error('scoreTest error: ', data);
+			console.error('Exercises service request error: ', error);
 			throw new Error(
-				`scoreTest res not ok error: ${data.status}, ${data.message}, ${data.url}`
+				`"Exercises service request error: ${error.type} - ${error.message}"`
 			);
 		}
-		const data = await res.json();
-		return data;
+
+		return await res.json();
 	} catch (e: any) {
-		console.error('score service error', e.message);
+		console.error('Exercises service internal error: ', e.message);
+		throw new Error(`Exercises service internal error: ${e.message}`);
 	}
 };

@@ -15,9 +15,15 @@ export async function GET(req: NextRequest) {
 		});
 
 		if (!res.ok) {
-			console.error('res not ok proxy error: ', res.statusText);
+			const error = await res.json();
+			console.error('Backend error: ', error);
 			return Response.json(
-				{ status: res.status, message: res.statusText, url },
+				{
+					status: res.status,
+					message: res.statusText,
+					url,
+					type: 'Backend error',
+				},
 				{ status: res.status }
 			);
 		}
@@ -25,9 +31,14 @@ export async function GET(req: NextRequest) {
 		const { modules } = await res.json();
 		return Response.json(modules);
 	} catch (e: any) {
-		console.error('proxy error: ', e.message);
+		console.error('Proxy error: ', e);
 		return Response.json(
-			{ status: 500, message: `proxy error: ${e.message}` },
+			{
+				status: 500,
+				message: e.message,
+				url,
+				type: 'Proxy error',
+			},
 			{ status: 500 }
 		);
 	}

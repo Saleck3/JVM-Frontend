@@ -9,8 +9,15 @@ export async function GET() {
 		});
 
 		if (!res.ok) {
+			const error = await res.json();
+			console.error('Backend error: ', error);
 			return Response.json(
-				{ status: res.status, message: res.statusText, url },
+				{
+					status: res.status,
+					message: res.statusText,
+					url,
+					type: 'Backend error',
+				},
 				{ status: res.status }
 			);
 		}
@@ -18,9 +25,14 @@ export async function GET() {
 		const data = await res.json();
 		return Response.json(data);
 	} catch (e: any) {
-		console.error('proxy error: ', e.message);
+		console.error('Proxy error: ', e);
 		return Response.json(
-			{ status: 500, message: `proxy error: ${e.message}` },
+			{
+				status: 500,
+				message: e.message,
+				url,
+				type: 'Proxy error',
+			},
 			{ status: 500 }
 		);
 	}

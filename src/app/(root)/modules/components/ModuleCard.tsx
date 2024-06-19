@@ -35,16 +35,14 @@ export default function ModuleCard({
 					{recommended && <span>⭐</span>}
 					{description.toUpperCase()}
 				</CardTitle>
-				<CardDescription>
-					<ProgressBar completedPercentage={progress} />
-					{recommended ? (
-						<span className="text-purple-400 font-semibold">
-							Módulo recomendado
-						</span>
-					) : (
-						'\u00A0'
-					)}
-				</CardDescription>
+				<ProgressBar completedPercentage={progress} />
+				{recommended ? (
+					<span className="text-purple-400 font-semibold">
+						Módulo recomendado
+					</span>
+				) : (
+					'\u00A0'
+				)}
 			</CardHeader>
 			<CardContent>
 				<Image

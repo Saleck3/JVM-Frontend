@@ -7,8 +7,6 @@ export default async function Modules() {
 	const player = await getCurrentPlayer();
 	const modules = await getModules(player!.id);
 
-	if (!modules) return 'foo'; //TODO error handler
-
 	return (
 		<main className="container py-16 md:px-12 xl:px-32 space-y-12">
 			<LeadTitle

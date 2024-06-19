@@ -8,6 +8,7 @@ export const getApples = async (moduleId: string) => {
 		playerId: currentPlayer!.id,
 		moduleId,
 	}).toString();
+
 	const url = `${process.env.FRONTEND_URL}/api/apples/?${query}`;
 
 	try {
@@ -20,17 +21,18 @@ export const getApples = async (moduleId: string) => {
 		});
 
 		if (!res.ok) {
-			const data = res.headers.get('content-type') ? await res.json() : null;
+			const error = await res.json();
 
-			console.error('getApples error: ', data);
+			console.error('Apples service request error: ', error);
 			throw new Error(
-				`getApples res not ok error: ${data.status}, ${data.message}, ${data.url}`
+				`"Apples service request error: ${error.type} - ${error.message}"`
 			);
 		}
 
 		const apples = await res.json();
 		return adaptApples(apples);
 	} catch (e: any) {
-		console.error('apples service error', e.message);
+		console.error('Apples service internal error: ', e.message);
+		throw new Error(`Apples service internal error: ${e.message}`);
 	}
 };
