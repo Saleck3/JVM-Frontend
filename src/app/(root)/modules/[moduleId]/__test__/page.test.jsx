@@ -22,7 +22,7 @@ beforeAll(() => {
 
 describe('ApplePath Page', () => {
 	it('renders correctly', async () => {
-		render(await ApplePath({ params: { player: 'foo' } }));
+		render(await ApplePath({ params: { player: 'foo', moduleId: 1 } }));
 		checkPageRender();
 	});
 });

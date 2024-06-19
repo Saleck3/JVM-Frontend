@@ -1,4 +1,4 @@
-type Games = 'WordOrderingGame' | 'WordSelectionGame' | 'WordWritingGame';
+type Games = 'WordOrderingGame' | 'WordSelectionGame' | 'WordWritingGame' | 'video';
 
 export const gameInstructions: Record<Games, string> = {
 	WordOrderingGame:
@@ -7,4 +7,6 @@ export const gameInstructions: Record<Games, string> = {
 		'Seleccioná la sílaba que falta y apretá comprobar.',
 	WordWritingGame:
 		'Escribí la palabra y apretá comprobar',
+	video:
+		'Reproducí el video',
 };

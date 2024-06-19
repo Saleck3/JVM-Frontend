@@ -25,6 +25,7 @@ const WordSelectionGame = (props: Props): JSX.Element => {
 		handleNextButton,
 		outOfRetries,
 		tts,
+		onlyText,
 	} = props;
 
 	const [gameFinished, setGameFinished] = useState(false);
@@ -62,12 +63,18 @@ const WordSelectionGame = (props: Props): JSX.Element => {
 			hasOwnCheckButton
 		>
 			<div className="mb-6 text-center flex-1 flex flex-col gap-8">
-				<div className="flex-1 relative">
+				{image && <div className="flex-1 relative">
 					<GameImage image={image} tts={tts || correctAnswer} />
-				</div>
+				</div>}
+
+				{!image &&
+					<div className="flex-1 relative">
+						<GameImage image="/img/icons/play-icon.svg" tts={tts || correctAnswer} />
+					</div>
+				}
 				<div>
 					<p className="text-2xl sm:text-3xl md:text-4xl font-bold">
-						💡 {label}
+						{label}
 					</p>
 				</div>
 				<div className="flex flex-wrap justify-around gap-4">

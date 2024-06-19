@@ -26,6 +26,7 @@ export type ImageSelection = {
 	correctAnswer: string;
 	image?: string;
 	tts?: string;
+	onlyText?: boolean;
 };
 
 /*
@@ -56,7 +57,7 @@ Reproduce un video
 Sin puntaje
 */
 export type video = {
-	image: string;
+	src: string;
 };
 
 /** IA **/

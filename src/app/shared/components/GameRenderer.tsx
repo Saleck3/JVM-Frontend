@@ -3,6 +3,7 @@ import WordOrderingGame from '@/app/shared/components/WordOrderingGame/WordOrder
 import WordSelectionGame from '@/app/shared/components/WordSelectionGame';
 import WordWritingGame from '@/app/shared/components/WordWritingGame/WordWritingGame';
 import { GameData } from '../types/games.type';
+import VideoGame from './VideoGame';
 
 type Props = {
 	gameData: GameData;
@@ -17,6 +18,8 @@ const gameComponents: any = {
 	image_selection: WordSelectionGame,
 	image_writing: WordWritingGame,
 	audio_repeating: VoiceRecognitionGame,
+	text_read: VoiceRecognitionGame,
+	video: VideoGame,
 };
 
 export default function GameRenderer(props: Props) {
@@ -45,7 +48,8 @@ export default function GameRenderer(props: Props) {
 			gameId={gameId}
 			key={gameId}
 			tts={gameParams.tts}
-			onlyText={gameParams.onlyText}
+			onlyText={gameParams.onlyText || gameType == "text_read"}
+			src={gameParams.src}
 		/>
 	);
 }

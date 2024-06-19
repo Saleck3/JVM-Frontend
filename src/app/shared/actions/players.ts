@@ -17,7 +17,7 @@ export async function createPlayer(
 	const url = new URL(`${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/players`);
 	const token = await getToken();
 
-	const { playerName, birthDate } = parsedData;
+	const { playerName, birthDate } = parsedData.fieldValues;
 
 	try {
 		const res = await fetch(url, {
