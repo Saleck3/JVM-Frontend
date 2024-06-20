@@ -1,7 +1,5 @@
 'use client';
 
-//TODO refactor con hooks
-
 import { Button } from '@/components/ui/button';
 import { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
@@ -11,6 +9,8 @@ import { FaMicrophone } from 'react-icons/fa';
 import { HiSpeakerWave } from 'react-icons/hi2';
 import GameCheckButton from './GameCheckButton';
 import GameInstructionsButton from './GameInstructionsButton';
+import { RiUserVoiceFill } from 'react-icons/ri';
+import '../styles/bubble.css';
 
 type Props = {
 	gameId: string;
@@ -31,8 +31,9 @@ const VoiceRecognitionGame = (props: Props): JSX.Element => {
 		onWrongAnswer,
 		handleNextButton,
 		outOfRetries,
-		onlyText,
 	} = props;
+
+	const onlyText = false;
 
 	const [isRecording, setIsRecording] = useState<any>(false);
 	const [stream, setStream] = useState<any>(null);
@@ -186,36 +187,96 @@ const VoiceRecognitionGame = (props: Props): JSX.Element => {
 	}
 
 	return (
-		<div className="bg-white rounded-sm shadow-lg p-8 space-y-8">
-			<div className="flex items-center justify-center flex-wrap gap-2 md:gap-4">
-				{gameInstructions && (
-					<GameInstructionsButton onclick={playInstructions} />
-				)}
-				<h1 className="text-3xl md:text-5xl font-bold text-gray-700 text-center">
-					Repetí la palabra
-				</h1>
-			</div>
-			{onlyText && (
-				<h1 className="text-3xl md:text-5xl font-bold text-gray-700 text-center">
-					{correctAnswer}
-				</h1>
-			)}
-			<div className="flex row gap-4 gap-x-8 justify-center">
-				{!onlyText && (
+		<>
+			<div className="space-y-10 px-4">
+				<div className="flex items-center justify-center gap-2 text-2xl">
+					{gameInstructions && <RiUserVoiceFill onClick={playInstructions} />}
+					<h1 className="font-bold text-gray-700">Repetí la palabra</h1>
+				</div>
+				<div className="flex justify-between items-center">
 					<Image
 						src="/img/icons/play-icon.svg"
 						alt="play"
-						className={`relative bg-accent rounded-3xl p-4 cursor-pointer active:bg-sky active:scale-105 transition-all`}
-						height={150}
-						width={150}
+						className={`relative bg-accent rounded-3xl p-4 cursor-pointer active:bg-sky active:scale-105 transition-all min-w-24`}
+						height={100}
+						width={100}
 						onClick={playCorrectAnswerTTS}
 					/>
-				)}
+					<div className="flex flex-col gap-2">
+						<Button
+							onClick={handleRecordButton}
+							className={`min-w-24 active:scale-110 transition-all ${
+								isRecording ? 'animate-pulse bg-destructive' : ''
+							} `}
+						>
+							<FaMicrophone
+								className={`text-3xl ${isRecording ? 'animate-ping' : ''}`}
+							/>
+						</Button>
+						<Button
+							className="min-w-24 active:scale-110 transition-all"
+							disabled={!Boolean(audio)}
+							onClick={() => audioPlayerRef.current!.play()}
+						>
+							<HiSpeakerWave className="text-3xl" />
+						</Button>
+					</div>
+				</div>
 
-				<div className={onlyText ? 'flex gap-2 ' : ' flex-col flex gap-2 '}>
+				<p className="bubble text-sm">
+					Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus,
+					doloremque.
+				</p>
+
+				<div className="h-24 relative m-10">
+					<Image
+						src="/img/games/talking.svg"
+						fill
+						objectFit="contain"
+						alt="lombriz hablando"
+					/>
+				</div>
+			</div>
+			<div className="bg-gray-200 absolute bottom-0 left-0 h-20 w-full px-10 flex items-center justify-end">
+				<GameCheckButton
+					onClick={
+						audioCorrection?.correct || outOfRetries
+							? handleNextButton
+							: getAudioCorrection
+					}
+					wrongAttempt={audioCorrection?.correct === false}
+					outOfRetries={outOfRetries}
+					gameFinished={audioCorrection?.correct}
+					loading={isFetchingScore}
+					disabled={!audio && !outOfRetries && !audioCorrection?.correct}
+				/>
+			</div>
+		</>
+	);
+
+	//TODO integrar a game layout
+	//TODO pasar el diseno a game layout
+
+	return (
+		<div className="sm:bg-white sm:shadow-lg rounded-sm sm:p-8 w-full space-y-4">
+			<div className="flex items-center justify-center gap-2 text-2xl bg-red-400">
+				{gameInstructions && <RiUserVoiceFill onClick={playInstructions} />}
+				<h1 className="font-bold text-gray-700">Repetí la palabra</h1>
+			</div>
+			<div className="flex justify-between">
+				<Image
+					src="/img/icons/play-icon.svg"
+					alt="play"
+					className={`relative bg-accent rounded-3xl p-4 cursor-pointer active:bg-sky active:scale-105 transition-all`}
+					height={150}
+					width={150}
+					onClick={playCorrectAnswerTTS}
+				/>
+
+				<div className="flex flex-col gap-2 bg-red-400">
 					<Button
 						onClick={handleRecordButton}
-						className={`w-[70px] h-[70px] active:scale-110 transition-all ${
+						className={`h-[70px] w-full active:scale-110 transition-all ${
 							isRecording ? 'animate-pulse bg-destructive' : ''
 						} `}
 					>

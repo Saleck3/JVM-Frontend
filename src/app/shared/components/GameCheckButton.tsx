@@ -13,6 +13,7 @@ type Props = {
 	hasOwnCheckButton?: boolean;
 	loading?: boolean;
 	disabled?: boolean;
+	className?: string;
 };
 
 export default function GameCheckButton(props: Props) {
@@ -24,6 +25,7 @@ export default function GameCheckButton(props: Props) {
 		hasOwnCheckButton,
 		loading,
 		disabled,
+		className,
 	} = props;
 
 	const getButtonContent = () => {
@@ -75,7 +77,7 @@ export default function GameCheckButton(props: Props) {
 	if (!hasOwnCheckButton || gameFinished || outOfRetries) {
 		return (
 			<Button
-				className="w-full mt-6 text-md"
+				className={className}
 				onClick={onClick}
 				variant={buttonVariant}
 				disabled={disabled || loading}

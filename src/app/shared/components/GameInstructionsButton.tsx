@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
+import { RiUserVoiceFill } from 'react-icons/ri';
 
 type Props = {
 	onclick: () => void;
@@ -7,14 +8,8 @@ type Props = {
 
 export default function GameInstructionsButton({ onclick }: Props) {
 	return (
-		<Button onClick={onclick} className="shrink-0" variant={'secondary'}>
-			<Image
-				src="/img/icons/play-icon-mini.svg"
-				alt="tts-instructions"
-				height={30}
-				width={30}
-				className="object-contain"
-			/>
+		<Button onClick={onclick} className="p-0 bg-transparent">
+			<RiUserVoiceFill />
 		</Button>
 	);
 }
