@@ -44,6 +44,7 @@ export type ImageWriting = {
 	preSelectedLetters: PreSelectedLetter[];
 	image?: string;
 	tts?: string;
+	onlyText?: boolean;
 };
 
 export type PreSelectedLetter = {

@@ -25,6 +25,7 @@ const WordWritingGame = (props: Props): JSX.Element => {
 		handleNextButton,
 		outOfRetries,
 		tts,
+		onlyText,
 	} = props;
 
 	const [gameFinished, setGameFinished] = useState<boolean>(false);
@@ -108,7 +109,7 @@ const WordWritingGame = (props: Props): JSX.Element => {
 		>
 			<div className="mb-6 text-center flex-1 flex flex-col gap-8">
 				<div className="flex-1 relative">
-					<GameImage image={image} tts={tts || correctAnswer} />
+					<GameImage image={onlyText ? "/img/icons/play-icon.svg" : image} tts={tts || correctAnswer} />
 				</div>
 				<form onSubmit={handleSubmit} ref={formRef}>
 					<WordWritingGameInputs
