@@ -4,19 +4,23 @@ import { LectiData, Token } from '@/app/shared/types/auth.type';
 import { Player } from '@/app/shared/types/user.type';
 import { cookies } from 'next/headers';
 
+
 export const getLectiData = (): LectiData | undefined => {
-	const lectiCookie = cookies().get('lecti-data');
-
-	if (lectiCookie) {
-		return JSON.parse(lectiCookie.value);
+	try {
+		const lectiCookie = cookies().get('lecti-data');
+		if (lectiCookie) {
+			return JSON.parse(lectiCookie.value);
+		}
+		return undefined;
+	} catch (error) {
+		console.error('Failed to get lecti-data cookie:', error);
+		return undefined;
 	}
-
-	return undefined;
 };
 
 export const getPlayers = async (): Promise<Player[]> => {
 	const lectiData = await getLectiData();
-	return lectiData!.players;
+	return lectiData ? lectiData.players : [];
 };
 
 export const getToken = async (): Promise<Token> => {

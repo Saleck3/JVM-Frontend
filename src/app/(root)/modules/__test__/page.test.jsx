@@ -1,15 +1,19 @@
 import { render, screen } from '@testing-library/react';
 import Modules from '../page';
-import { getServerSession } from 'next-auth';
-import { getModules } from '../../../../shared/services/modules.service';
+import { getModules } from '@/app/shared/services/modules.service';
+import { cookies, mockCookies } from '../../mockData/cookiesMock';
 
 jest.mock('next-auth/react');
-jest.mock('next-auth', () => ({
-	getServerSession: jest.fn(),
-}));
-jest.mock('../../../../shared/services/modules.service.ts', () => ({
+
+jest.mock('../../../shared/services/modules.service.ts', () => ({
 	getModules: jest.fn(),
 }));
+
+cookies.mockReturnValue({
+	get: jest.fn().mockReturnValue({
+		value: JSON.stringify(mockCookies)
+	})
+});
 
 const mockModules = [
 	{
@@ -29,11 +33,6 @@ const mockModules = [
 ];
 
 beforeAll(() => {
-	getServerSession.mockReturnValue({
-		user: {
-			players: [{ recommendedModule: 1, alias: 'foo' }],
-		},
-	});
 	getModules.mockResolvedValue(mockModules);
 });
 

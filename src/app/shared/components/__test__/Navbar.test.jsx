@@ -2,6 +2,7 @@ import Navbar from '../Navbar/Navbar';
 import { getServerSession } from 'next-auth';
 import { render, screen } from '@testing-library/react';
 import { useRouter } from 'next/navigation';
+import { cookies, mockCookies } from '../../mockData/cookiesMock';
 
 jest.mock('next-auth/react');
 jest.mock('next-auth', () => ({
@@ -10,6 +11,12 @@ jest.mock('next-auth', () => ({
 jest.mock('next/navigation', () => ({
 	useRouter: jest.fn(),
 }));
+
+cookies.mockReturnValue({
+	get: jest.fn().mockReturnValue({
+		value: JSON.stringify(mockCookies)
+	})
+});
 
 beforeAll(() => {
 	getServerSession.mockReturnValue({
@@ -37,8 +44,8 @@ beforeAll(() => {
 });
 
 describe('Navbar Component', () => {
-	it('renders correctly', async () => {
-		render(await Navbar());
+	it('renders correctly', () => {
+		render(Navbar());
 		checkNavbarRender();
 	});
 });
