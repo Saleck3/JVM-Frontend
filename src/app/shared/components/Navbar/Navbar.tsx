@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import NavbarButtons from './NavbarButtons';
-import { User } from '../../types/user.type';
 
 export default async function Navbar() {
 	return (

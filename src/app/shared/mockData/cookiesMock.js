@@ -9,10 +9,16 @@ const cookies = jest.fn(() => ({
 const mockCookies = {
 	players: [
 		{
-			id: 1
+			id: "1",
+			playerName: "test",
+			alias: "test",
+			birthDate: "",
+			totalCrowns: 3,
+			spentCrowns: 0,
+			recommendedModule: 1,
 		},
 	],
-	token: '',
+	token: 'mock-token',
 	email: 'mail@lecti.com',
 	currentPlayer: {
 		id: "1",

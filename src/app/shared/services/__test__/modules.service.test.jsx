@@ -1,19 +1,25 @@
 import { getModules } from '../modules.service';
+import { getToken } from '@/lib/sessionUtils';
+
+jest.mock('../../../../lib/sessionUtils.ts', () => ({
+	getToken: jest.fn(),
+}));
 
 beforeAll(() => {
 	global.fetch = jest.fn();
+	getToken.mockResolvedValue({
+		value: 'mock-token'
+	});
 });
 
-const mockResponse = {
-	data: { modules: [{ id: 1, description: 'module' }] },
-};
+const mockResponse = [{ id: 1, description: 'module' }];
 
 describe('Modules service', () => {
-	it('makes a request to modules internal api with correct params', () => {
+	it('makes a request to modules internal api with correct params', async () => {
 		setFetchMockResponse();
 
-		const response = getModules(1, 'token');
-		expect(response).resolves.toEqual(mockResponse.data.modules);
+		const response = await getModules('1'); // Await the function call
+		expect(response).toEqual(mockResponse); // Await the response
 
 		checkIfFetchWasCalledWithCorrectParams();
 	});
@@ -21,19 +27,20 @@ describe('Modules service', () => {
 
 const setFetchMockResponse = () => {
 	fetch.mockResolvedValueOnce({
+		ok: true,
 		json: async () => mockResponse,
 	});
 };
 
 const checkIfFetchWasCalledWithCorrectParams = () => {
 	expect(fetch).toHaveBeenCalledWith(
-		expect.stringContaining(`/modules?playerId=1`),
+		expect.stringContaining('/modules?playerId=1'),
 		{
+			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
-				Authorization: 'Bearer token',
+				Authorization: 'Bearer mock-token',
 			},
-			method: 'GET',
 		}
 	);
 };

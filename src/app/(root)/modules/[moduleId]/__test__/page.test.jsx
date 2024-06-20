@@ -1,13 +1,13 @@
 import { render, screen } from '@testing-library/react';
 import ApplePath from '../page';
 import { getServerSession } from 'next-auth';
-import { getApples } from '../../../../../shared/services/apples.service';
+import { getApples } from '@/app/shared/services/apples.service';
 
 jest.mock('next-auth/react');
 jest.mock('next-auth', () => ({
 	getServerSession: jest.fn(),
 }));
-jest.mock('../../../../../shared/services/apples.service');
+jest.mock('../../../../shared/services/apples.service.ts');
 
 const mockApples = [{ id: 1, name: 'apple1' }];
 
