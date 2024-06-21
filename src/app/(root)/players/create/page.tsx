@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { Card } from '@/components/ui/card';
 import AddPlayerForm from './components/AddPlayerForm';
 import Image from 'next/image';

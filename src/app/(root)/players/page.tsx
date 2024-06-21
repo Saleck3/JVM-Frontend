@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { Button } from '@/components/ui/button';
 import { MdOutlineAddReaction } from 'react-icons/md';
 import Players from './components/Players';

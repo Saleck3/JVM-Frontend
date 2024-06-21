@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import LeadTitle from '@/app/shared/components/LeadTitle';
 import ModuleCard from './components/ModuleCard';
 import { getModules } from '@/app/shared/services/modules.service';
