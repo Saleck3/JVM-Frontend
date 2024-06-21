@@ -8,8 +8,6 @@ jest.mock('../../../../lib/sessionUtils.ts', () => ({
 	getCurrentPlayer: jest.fn(),
 }));
 
-jest.mock('next-auth/react');
-
 jest.mock('../../../shared/services/modules.service.ts', () => ({
 	getModules: jest.fn(),
 }));
