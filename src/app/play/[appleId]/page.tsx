@@ -53,8 +53,7 @@ export default function NonAiGames() {
 	}
 
 	return (
-		// <div className="bg-gray h-screen flex flex-col items-center justify-center gap-8 p-10">
-		<div className="px-10 space-y-5">
+		<div className="px-10 space-y-5 sm:space-y-8 md:space-y-12">
 			{gameScore ? (
 				<GamesResults score={gameScore} moduleUrl={moduleUrl} />
 			) : (

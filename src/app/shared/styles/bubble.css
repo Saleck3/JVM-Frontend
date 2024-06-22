@@ -17,6 +17,5 @@
 	position: relative;
 	background: var(--bubble-color);
 	border-radius: 40px;
-	padding: 12px;
 	text-align: center;
 }

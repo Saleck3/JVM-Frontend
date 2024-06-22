@@ -1,9 +1,9 @@
-import VoiceRecognitionGame from '@/app/shared/components/VoiceRecognitionGame';
 import WordOrderingGame from '@/app/shared/components/WordOrderingGame/WordOrderingGame';
 import WordSelectionGame from '@/app/shared/components/WordSelectionGame';
 import WordWritingGame from '@/app/shared/components/WordWritingGame/WordWritingGame';
 import { GameData } from '../types/games.type';
 import VideoGame from './VideoGame';
+import VoiceRecognitionGame from './VoiceRecognitionGame/VoiceRecognitionGame';
 
 type Props = {
 	gameData: GameData;
@@ -48,7 +48,7 @@ export default function GameRenderer(props: Props) {
 			gameId={gameId}
 			key={gameId}
 			tts={gameParams.tts}
-			onlyText={gameParams.onlyText || gameType == "text_read"}
+			onlyText={gameParams.onlyText || gameType == 'text_read'}
 			src={gameParams.src}
 		/>
 	);

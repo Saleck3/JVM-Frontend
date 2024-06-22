@@ -3,14 +3,12 @@
 import { Button } from '@/components/ui/button';
 import { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
-import { scoreVoice } from '../services/exercises.service';
-import useTextToSpeech from '../hooks/useTextToSpeech';
-import { FaMicrophone } from 'react-icons/fa';
-import { HiSpeakerWave } from 'react-icons/hi2';
-import GameCheckButton from './GameCheckButton';
-import GameInstructionsButton from './GameInstructionsButton';
-import { RiUserVoiceFill } from 'react-icons/ri';
-import '../styles/bubble.css';
+import { scoreVoice } from '../../services/exercises.service';
+import useTextToSpeech from '../../hooks/useTextToSpeech';
+
+import '../../styles/bubble.css';
+import GameLayout from '../GameLayout';
+import VoiceRecognitionGameButtons from './VoiceRecognitionGameButtons';
 
 type Props = {
 	gameId: string;
@@ -33,8 +31,6 @@ const VoiceRecognitionGame = (props: Props): JSX.Element => {
 		outOfRetries,
 	} = props;
 
-	const onlyText = false;
-
 	const [isRecording, setIsRecording] = useState<any>(false);
 	const [stream, setStream] = useState<any>(null);
 	const [audioChunks, setAudioChunks] = useState<any>([]);
@@ -51,7 +47,6 @@ const VoiceRecognitionGame = (props: Props): JSX.Element => {
 		'Escuchá la palabra con el botón azul. Repetila en el micrófono. Cuando termines, volvé a presionar el micrófono. Comprobá tu respuesta';
 
 	const [playCorrectAnswerTTS] = useTextToSpeech(correctAnswer);
-	const [playInstructions] = useTextToSpeech(gameInstructions || '');
 
 	const createMediaStream = async () => {
 		if ('MediaRecorder' in window) {
@@ -187,48 +182,37 @@ const VoiceRecognitionGame = (props: Props): JSX.Element => {
 	}
 
 	return (
-		<>
-			<div className="space-y-10 px-4">
-				<div className="flex items-center justify-center gap-2 text-2xl">
-					{gameInstructions && <RiUserVoiceFill onClick={playInstructions} />}
-					<h1 className="font-bold text-gray-700">Repetí la palabra</h1>
-				</div>
-				<div className="flex justify-between items-center">
-					<Image
-						src="/img/icons/play-icon.svg"
-						alt="play"
-						className={`relative bg-accent rounded-3xl p-4 cursor-pointer active:bg-sky active:scale-105 transition-all min-w-24`}
-						height={100}
-						width={100}
-						onClick={playCorrectAnswerTTS}
-					/>
-					<div className="flex flex-col gap-2">
-						<Button
-							onClick={handleRecordButton}
-							className={`min-w-24 active:scale-110 transition-all ${
-								isRecording ? 'animate-pulse bg-destructive' : ''
-							} `}
-						>
-							<FaMicrophone
-								className={`text-3xl ${isRecording ? 'animate-ping' : ''}`}
-							/>
-						</Button>
-						<Button
-							className="min-w-24 active:scale-110 transition-all"
-							disabled={!Boolean(audio)}
-							onClick={() => audioPlayerRef.current!.play()}
-						>
-							<HiSpeakerWave className="text-3xl" />
-						</Button>
-					</div>
-				</div>
+		<GameLayout
+			gameFinished={audioCorrection?.correct}
+			wrongAttempt={audioCorrection?.correct === false}
+			outOfRetries={outOfRetries}
+			handleNextButton={handleNextButton}
+			title="Repetí la palabra"
+			gameInstructions={gameInstructions}
+			checkGame={getAudioCorrection}
+			gameCheckButtonDissabledLoading={isFetchingScore}
+			gameCheckButtonDissabled={!audio || outOfRetries}
+		>
+			<div className="max-w-xl mx-auto space-y-10 sm:space-y-16 md:space-y-20">
+				<VoiceRecognitionGameButtons
+					onPlayClick={playCorrectAnswerTTS}
+					onRecordClick={handleRecordButton}
+					onCheckClick={() => audioPlayerRef.current!.play()}
+					isRecording={isRecording}
+					recordDisabled={
+						isFetchingScore || outOfRetries || audioCorrection?.correct
+					}
+					checkDisabled={!Boolean(audio)}
+				/>
+				{audio && (
+					<audio src={audio} ref={audioPlayerRef} className="hidden"></audio>
+				)}
 
-				<p className="bubble text-sm">
-					Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus,
-					doloremque.
+				<p className="bubble text-sm sm:text-md md:text-xl md:font-light p-3 sm:p-6 md:p-8">
+					{audioCorrection?.corrections || '¡Buena suerte!'}
 				</p>
 
-				<div className="h-24 relative m-10">
+				<div className="relative m-10 h-24 sm:h-30 md:h-36">
 					<Image
 						src="/img/games/talking.svg"
 						fill
@@ -237,84 +221,7 @@ const VoiceRecognitionGame = (props: Props): JSX.Element => {
 					/>
 				</div>
 			</div>
-			<div className="bg-gray-200 absolute bottom-0 left-0 h-20 w-full px-10 flex items-center justify-end">
-				<GameCheckButton
-					onClick={
-						audioCorrection?.correct || outOfRetries
-							? handleNextButton
-							: getAudioCorrection
-					}
-					wrongAttempt={audioCorrection?.correct === false}
-					outOfRetries={outOfRetries}
-					gameFinished={audioCorrection?.correct}
-					loading={isFetchingScore}
-					disabled={!audio && !outOfRetries && !audioCorrection?.correct}
-				/>
-			</div>
-		</>
-	);
-
-	//TODO integrar a game layout
-	//TODO pasar el diseno a game layout
-
-	return (
-		<div className="sm:bg-white sm:shadow-lg rounded-sm sm:p-8 w-full space-y-4">
-			<div className="flex items-center justify-center gap-2 text-2xl bg-red-400">
-				{gameInstructions && <RiUserVoiceFill onClick={playInstructions} />}
-				<h1 className="font-bold text-gray-700">Repetí la palabra</h1>
-			</div>
-			<div className="flex justify-between">
-				<Image
-					src="/img/icons/play-icon.svg"
-					alt="play"
-					className={`relative bg-accent rounded-3xl p-4 cursor-pointer active:bg-sky active:scale-105 transition-all`}
-					height={150}
-					width={150}
-					onClick={playCorrectAnswerTTS}
-				/>
-
-				<div className="flex flex-col gap-2 bg-red-400">
-					<Button
-						onClick={handleRecordButton}
-						className={`h-[70px] w-full active:scale-110 transition-all ${
-							isRecording ? 'animate-pulse bg-destructive' : ''
-						} `}
-					>
-						<FaMicrophone
-							className={`text-3xl ${isRecording ? 'animate-ping' : ''}`}
-						/>
-					</Button>
-					<Button
-						className="w-[70px] h-[70px] active:scale-105 transition-all"
-						variant={'secondary'}
-						disabled={!Boolean(audio)}
-						onClick={() => audioPlayerRef.current!.play()}
-					>
-						<HiSpeakerWave className="text-3xl" />
-					</Button>
-				</div>
-			</div>
-			{audio && (
-				<audio src={audio} ref={audioPlayerRef} className="hidden"></audio>
-			)}
-			{audioCorrection?.correct === false && (
-				<p className="text-xl text-center text-gray-700 bg-accent rounded-lg p-2">
-					📒 {audioCorrection.corrections}
-				</p>
-			)}
-			<GameCheckButton
-				onClick={
-					audioCorrection?.correct || outOfRetries
-						? handleNextButton
-						: getAudioCorrection
-				}
-				wrongAttempt={audioCorrection?.correct === false}
-				outOfRetries={outOfRetries}
-				gameFinished={audioCorrection?.correct}
-				loading={isFetchingScore}
-				disabled={!audio && !outOfRetries && !audioCorrection?.correct}
-			/>
-		</div>
+		</GameLayout>
 	);
 };
 
