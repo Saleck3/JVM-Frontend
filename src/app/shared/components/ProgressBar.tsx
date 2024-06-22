@@ -9,7 +9,7 @@ type Props = {
 
 export default function ProgressBar({ completedPercentage, moduleUrl }: Props) {
 	return (
-		<div className="w-full max-w-4xl flex items-center gap-4">
+		<div className="w-full max-w-4xl flex items-center gap-4 mt-4 mx-auto">
 			{moduleUrl && (
 				<Modal triggerButton={<button>✖️</button>} title="¿Volver al módulo?">
 					<div className="flex flex-col gap-8 text-center">

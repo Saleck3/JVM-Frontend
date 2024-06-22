@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { FaPen } from 'react-icons/fa';
+import { GoChecklist } from 'react-icons/go';
 import { FaRedoAlt } from 'react-icons/fa';
 import { FaCheck } from 'react-icons/fa';
 import { MdWatchLater } from 'react-icons/md';
@@ -13,6 +13,7 @@ type Props = {
 	hasOwnCheckButton?: boolean;
 	loading?: boolean;
 	disabled?: boolean;
+	className?: string;
 };
 
 export default function GameCheckButton(props: Props) {
@@ -24,6 +25,7 @@ export default function GameCheckButton(props: Props) {
 		hasOwnCheckButton,
 		loading,
 		disabled,
+		className,
 	} = props;
 
 	const getButtonContent = () => {
@@ -32,7 +34,7 @@ export default function GameCheckButton(props: Props) {
 				return (
 					<>
 						<MdWatchLater className="text-2xl" />
-						<span>¡Reintentemoslo luego!</span>
+						<span className="inline-block">¡Hagamoslo luego!</span>
 					</>
 				);
 			case gameFinished:
@@ -45,20 +47,21 @@ export default function GameCheckButton(props: Props) {
 			case loading:
 				return (
 					<>
-						<FaSpinner className="animate-spin text-xl" />
+						<FaSpinner className="animate-spin text-xl min-w-20" />
 					</>
 				);
 			case wrongAttempt:
 				return (
 					<>
 						<FaRedoAlt className="text-2xl" />
-						<span>Intentar de nuevo</span>
+						<span>Reintentar</span>
 					</>
 				);
 			default:
 				return (
 					<>
-						<FaPen className="text-2xl" /> Comprobar
+						<GoChecklist className="text-2xl" />
+						<span>Comprobar</span>
 					</>
 				);
 		}
@@ -75,7 +78,7 @@ export default function GameCheckButton(props: Props) {
 	if (!hasOwnCheckButton || gameFinished || outOfRetries) {
 		return (
 			<Button
-				className="w-full mt-6 text-md"
+				className={className}
 				onClick={onClick}
 				variant={buttonVariant}
 				disabled={disabled || loading}

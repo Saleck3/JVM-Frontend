@@ -4,8 +4,8 @@ import { LetterOrdering } from '@/app/shared/types/games.type';
 import { useState } from 'react';
 import GameLayout from '../GameLayout';
 import WordOrderingGameSortableOptions from './WordOrderingGameSortableOptions';
-import GameImage from '../GameImage';
 import { gameInstructions } from '@/app/play/[appleId]/data/gameInstructions';
+import Image from 'next/image';
 
 interface Props extends LetterOrdering {
 	onWrongAnswer: () => void;
@@ -60,8 +60,8 @@ const WordOrderingGame = (props: Props): JSX.Element => {
 			checkGame={handleCheck}
 		>
 			<div className="mb-6 text-center flex-1 flex flex-col gap-8">
-				<div className="flex-1 relative">
-					<GameImage image={image} tts={tts || correctAnswer} />
+				<div className="h-24 relative">
+					<Image src={image!} alt={correctAnswer} fill objectFit="contain" />
 				</div>
 
 				<WordOrderingGameSortableOptions

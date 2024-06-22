@@ -26,10 +26,12 @@ export default function PlayerCard({ player }: Props) {
 		>
 			<div className="flex items-center justify-center">
 				<Avatar className="h-16 w-16">
-					<AvatarImage alt={playerName} src="/img/placeholder-avatar.png" />
-					<AvatarFallback>
-						{playerName ? (playerName[0] + playerName[1]).toUpperCase() : ''}
-					</AvatarFallback>
+					<AvatarImage
+						alt={playerName}
+						src="/img/placeholder-avatar.png"
+						className="bg-secondary"
+					/>
+					<AvatarFallback>{playerName}</AvatarFallback>
 				</Avatar>
 			</div>
 			<div className="mt-4 text-center">
@@ -42,5 +44,3 @@ export default function PlayerCard({ player }: Props) {
 		</div>
 	);
 }
-
-//TODO subir el estado al comp padre para que este pueda ser client side y poder usar onclick, mientras que el padre puede usar el ssr utils
