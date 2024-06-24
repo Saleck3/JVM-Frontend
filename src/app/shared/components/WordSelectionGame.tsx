@@ -4,8 +4,10 @@ import { Button } from '@/components/ui/button';
 import { ImageSelection } from '@/app/shared/types/games.type';
 import { useState } from 'react';
 import GameLayout from './GameLayout';
-import GameImage from './GameImage';
 import { gameInstructions } from '@/app/play/[appleId]/data/gameInstructions';
+import Image from 'next/image';
+import { FaPlayCircle } from 'react-icons/fa';
+import useTextToSpeech from '../hooks/useTextToSpeech';
 
 interface Props extends ImageSelection {
 	onWrongAnswer: () => void;
@@ -24,10 +26,9 @@ const WordSelectionGame = (props: Props): JSX.Element => {
 		onCorrectAnswer,
 		handleNextButton,
 		outOfRetries,
-		tts,
-		onlyText,
 	} = props;
 
+	const [playCorrectAnswer] = useTextToSpeech(correctAnswer);
 	const [gameFinished, setGameFinished] = useState(false);
 	const [gameOptions, setGameOptions] = useState(
 		options.map((option: string) => ({ value: option, selected: false }))
@@ -58,24 +59,27 @@ const WordSelectionGame = (props: Props): JSX.Element => {
 			gameFinished={gameFinished}
 			outOfRetries={outOfRetries}
 			handleNextButton={handleNextButton}
-			title="Seleccioná la palabra"
+			title="Seleccioná la opción"
 			gameInstructions={gameInstructions['WordSelectionGame']}
 			hasOwnCheckButton
 		>
 			<div className="mb-6 text-center flex-1 flex flex-col gap-8">
-				{image && <div className="flex-1 relative">
-					<GameImage image={image} tts={tts || correctAnswer} />
-				</div>}
-
-				{!image &&
-					<div className="flex-1 relative">
-						<GameImage image="/img/icons/play-icon.svg" tts={tts || correctAnswer} />
+				{image ? (
+					<div className="h-48 sm:h-72 md:h-96 mb-8 relative">
+						<Image src={image!} alt={correctAnswer} fill objectFit="contain" />
 					</div>
-				}
+				) : (
+					<Button
+						onClick={playCorrectAnswer}
+						className="text-4xl mx-auto size-24 sm:size-32 rounded-full p-2"
+						variant={'secondary'}
+					>
+						<FaPlayCircle className="text-orange-400" />
+					</Button>
+				)}
+
 				<div>
-					<p className="text-2xl sm:text-3xl md:text-4xl font-bold">
-						{label}
-					</p>
+					<p className="text-2xl sm:text-3xl md:text-4xl font-bold">{label}</p>
 				</div>
 				<div className="flex flex-wrap justify-around gap-4">
 					{gameOptions?.map((option) => {
@@ -85,9 +89,10 @@ const WordSelectionGame = (props: Props): JSX.Element => {
 							<Button
 								key={option.value}
 								variant={variant}
-								className="text-xl sm:text-2xl md:text-3xl py-4 md:py-6 lg:py-8"
 								onClick={() => handleSelectOption(option.value)}
 								disabled={gameFinished || option.selected || outOfRetries}
+								className="active:scale-110 transition-all uppercase
+									flex-grow flex-shrink text-2xl lg:text-3xl"
 							>
 								{option.value}
 							</Button>

@@ -12,7 +12,7 @@ import Apple from './components/Apple';
 import Image from 'next/image';
 
 export default async function ApplePath({ params }: any): Promise<JSX.Element> {
-	const apples: AppleType[] = (await getApples(params.moduleId)) as AppleType[]; // TODO error handling
+	const apples: AppleType[] = (await getApples(params.moduleId)) as AppleType[];
 
 	const applePositions = getPathAxisPositions(apples.length);
 	const imagesAmount = getPathImagesAmount(apples.length);

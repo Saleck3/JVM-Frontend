@@ -40,7 +40,8 @@ export default function WordOrderingGameSortableOptions({
 						onDragEnter={() => (draggedOverOption.current = i)}
 						onDragEnd={handleSort}
 						onDragOver={(e) => e.preventDefault()}
-						className="cursor-grab active:scale-110 active:cursor-grabbing transition-all text-4xl lg:text-5xl"
+						className="cursor-grab active:scale-110 active:cursor-grabbing transition-all uppercase
+						flex-grow flex-shrink text-2xl lg:text-3xl"
 					>
 						{option}
 					</Button>

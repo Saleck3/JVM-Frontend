@@ -43,7 +43,7 @@ export default function GameLayout(props: Props) {
 			case gameFinished:
 				return 'bg-green-400/50';
 			case wrongAttempt:
-				return 'bg-red-500/25';
+				return 'bg-red-300/50';
 			default:
 				return 'bg-pink-300/50';
 		}
@@ -52,15 +52,22 @@ export default function GameLayout(props: Props) {
 	return (
 		<>
 			<div
-				className="px-4 pb-28 mx-auto sm:shadow-lg sm:bg-white sm:p-8 sm:rounded-lg
+				className="px-4 pb-28 mx-auto sm:shadow-lg sm:bg-white/80 sm:p-8 sm:rounded-lg
 							md:p-14 max-w-4xl"
 			>
 				<div
 					className="flex items-center justify-center gap-2 text-2xl bg-
 								sm:text-3xl md:text-4xl mb-6 sm:mb-10 md:mb-14"
 				>
-					{gameInstructions && <RiUserVoiceFill onClick={playInstructions} />}
-					<h1 className="font-bold text-gray-700">{title}</h1>
+					<h1 className="font-bold text-sky text-balance text-center">
+						{gameInstructions && (
+							<RiUserVoiceFill
+								onClick={playInstructions}
+								className="inline me-2"
+							/>
+						)}
+						{title}
+					</h1>
 				</div>
 				{children}
 			</div>

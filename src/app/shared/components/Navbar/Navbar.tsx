@@ -4,7 +4,7 @@ import NavbarButtons from './NavbarButtons';
 
 export default async function Navbar() {
 	return (
-		<header className="flex items-center justify-between h-16 px-4 md:px-6 border-b">
+		<header className="bg-white flex items-center justify-between h-16 px-4 md:px-6 border-b">
 			<Link href="/">
 				<Image alt="Logo" height={140} src={`/img/isologo.png`} width={140} />
 			</Link>

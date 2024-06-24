@@ -47,8 +47,6 @@ export default function GameRenderer(props: Props) {
 			outOfRetries={outOfRetries}
 			gameId={gameId}
 			key={gameId}
-			tts={gameParams.tts}
-			onlyText={gameParams.onlyText || gameType == 'text_read'}
 			src={gameParams.src}
 		/>
 	);

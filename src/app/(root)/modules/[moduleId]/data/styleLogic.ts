@@ -1,15 +1,18 @@
 export const pathBgsStyle: Record<number, React.CSSProperties> = {
 	1: {
-		background:
-			'linear-gradient(white 0%, #FAB1A6 30%, #FAB1A6 50%, #FAB1A6 70%, white 100%)',
+		backgroundImage: `linear-gradient(white 0%, #FAB1A6 30%, #FAB1A6 50%, #FAB1A6 70%, white 100%),
+            	url('/img/worm-bg-pattern.png')`,
+		backgroundBlendMode: 'color',
 	},
 	2: {
-		background:
-			'linear-gradient(white 0%, #C5EF9A 30%, #C5EF9A 50%, #C5EF9A 70%, white 100%)',
+		background: `linear-gradient(white 0%, #C5EF9A 30%, #C5EF9A 50%, #C5EF9A 70%, white 100%),
+				url('/img/worm-bg-pattern.png')`,
+		backgroundBlendMode: 'color',
 	},
 	3: {
-		background:
-			'linear-gradient(white 0%, #CFFAF0 30%, #CFFAF0 50%, #CFFAF0 70%, white 100%)',
+		background: `linear-gradient(white 0%, #CFFAF0 30%, #CFFAF0 50%, #CFFAF0 70%, white 100%),
+				url('/img/worm-bg-pattern.png')`,
+		backgroundBlendMode: 'color',
 	},
 };
 

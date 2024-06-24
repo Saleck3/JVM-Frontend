@@ -6,7 +6,10 @@ export default function HomeLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<div className="sm:bg-gray-200 min-h-screen">
+		<div
+			className="sm:bg-gray-200 min-h-screen 
+			sm:bg-[url('/img/worm-bg-pattern.png')] bg-center"
+		>
 			<Navbar />
 			{children}
 		</div>
