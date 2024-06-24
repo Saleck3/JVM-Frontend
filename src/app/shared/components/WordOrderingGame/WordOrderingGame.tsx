@@ -59,17 +59,15 @@ const WordOrderingGame = (props: Props): JSX.Element => {
 			gameInstructions={gameInstructions['WordOrderingGame']}
 			checkGame={handleCheck}
 		>
-			<div className="mb-6 text-center flex-1 flex flex-col gap-8">
-				<div className="h-24 relative">
-					<Image src={image!} alt={correctAnswer} fill objectFit="contain" />
-				</div>
-
-				<WordOrderingGameSortableOptions
-					options={options}
-					onSort={onSort}
-					disableDrag={gameFinished || outOfRetries}
-				/>
+			<div className="h-48 sm:h-72 md:h-96 mb-8 relative">
+				<Image src={image!} alt={correctAnswer} fill objectFit="contain" />
 			</div>
+
+			<WordOrderingGameSortableOptions
+				options={options}
+				onSort={onSort}
+				disableDrag={gameFinished || outOfRetries}
+			/>
 		</GameLayout>
 	);
 };

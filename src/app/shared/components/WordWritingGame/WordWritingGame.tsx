@@ -2,10 +2,10 @@
 
 import { FormEvent, useRef, useState } from 'react';
 import { ImageWriting } from '@/app/shared/types/games.type';
-import GameImage from '../GameImage';
 import GameLayout from '../GameLayout';
 import WordWritingGameInputs from './WordWritingGameInputs';
 import { gameInstructions } from '@/app/play/[appleId]/data/gameInstructions';
+import Image from 'next/image';
 
 interface Props extends ImageWriting {
 	outOfRetries?: boolean;
@@ -23,8 +23,6 @@ const WordWritingGame = (props: Props): JSX.Element => {
 		onCorrectAnswer,
 		handleNextButton,
 		outOfRetries,
-		tts,
-		onlyText,
 	} = props;
 
 	const [gameFinished, setGameFinished] = useState<boolean>(false);
@@ -106,22 +104,18 @@ const WordWritingGame = (props: Props): JSX.Element => {
 			gameInstructions={gameInstructions['WordWritingGame']}
 			checkGame={submitForm}
 		>
-			<div className="mb-6 text-center flex-1 flex flex-col gap-8">
-				<div className="flex-1 relative">
-					<GameImage
-						image={onlyText ? '/img/icons/play-icon.svg' : image}
-						tts={tts || correctAnswer}
-					/>
-				</div>
-				<form onSubmit={handleSubmit} ref={formRef}>
-					<WordWritingGameInputs
-						word={correctAnswer}
-						preSelectedLetters={preSelectedLetters}
-						onKeyUp={handleKeyUp}
-						disableInputs={gameFinished || outOfRetries}
-					/>
-				</form>
+			<div className="h-48 sm:h-72 md:h-96 mb-8 relative">
+				<Image src={image!} alt={correctAnswer} fill objectFit="contain" />
 			</div>
+
+			<form onSubmit={handleSubmit} ref={formRef}>
+				<WordWritingGameInputs
+					word={correctAnswer}
+					preSelectedLetters={preSelectedLetters}
+					onKeyUp={handleKeyUp}
+					disableInputs={gameFinished || outOfRetries}
+				/>
+			</form>
 		</GameLayout>
 	);
 };

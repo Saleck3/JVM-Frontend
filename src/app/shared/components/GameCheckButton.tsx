@@ -78,7 +78,7 @@ export default function GameCheckButton(props: Props) {
 	if (!hasOwnCheckButton || gameFinished || outOfRetries) {
 		return (
 			<Button
-				className={className}
+				className={`${className} sm:text-lg sm:font-light`}
 				onClick={onClick}
 				variant={buttonVariant}
 				disabled={disabled || loading}

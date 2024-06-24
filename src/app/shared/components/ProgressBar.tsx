@@ -26,7 +26,7 @@ export default function ProgressBar({ completedPercentage, moduleUrl }: Props) {
 					style={{ width: `${completedPercentage}%` }}
 				></div>
 				<span className="absolute m-auto left-1/2 right-1/2 text-white font-semibold">
-					{completedPercentage}%
+					{!isNaN(completedPercentage) && `${completedPercentage}%`}
 				</span>
 			</div>
 		</div>

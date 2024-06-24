@@ -1,3 +1,4 @@
+//TODO refactor con hooks
 'use client';
 
 import { Button } from '@/components/ui/button';
@@ -181,6 +182,9 @@ const VoiceRecognitionGame = (props: Props): JSX.Element => {
 		);
 	}
 
+	const disableCheckButton =
+		(!audio && !audioCorrection) || (!audio && !outOfRetries);
+
 	return (
 		<GameLayout
 			gameFinished={audioCorrection?.correct}
@@ -188,10 +192,10 @@ const VoiceRecognitionGame = (props: Props): JSX.Element => {
 			outOfRetries={outOfRetries}
 			handleNextButton={handleNextButton}
 			title="Repetí la palabra"
-			gameInstructions={gameInstructions}
+			gameInstructions={gameInstructions} //TODO mover al archivo
 			checkGame={getAudioCorrection}
 			gameCheckButtonDissabledLoading={isFetchingScore}
-			gameCheckButtonDissabled={!audio || outOfRetries}
+			gameCheckButtonDissabled={disableCheckButton}
 		>
 			<div className="max-w-xl mx-auto space-y-10 sm:space-y-16 md:space-y-20">
 				<VoiceRecognitionGameButtons
