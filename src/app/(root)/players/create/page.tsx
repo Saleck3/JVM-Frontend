@@ -6,7 +6,7 @@ import Image from 'next/image';
 
 export default function AddPlayer() {
 	return (
-		<main className="py-32">
+		<main className="pt-32 pb-48">
 			<h1 className="text-center font-bold text-3xl mb-6 text-gray-700">
 				Nuevo jugador
 			</h1>

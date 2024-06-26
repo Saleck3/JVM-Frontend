@@ -7,7 +7,7 @@ export default function HomeLayout({
 }>) {
 	return (
 		<div
-			className="sm:bg-gray-200 min-h-screen 
+			className="sm:bg-gray-200 min-h-screen
 			sm:bg-[url('/img/worm-bg-pattern.png')] bg-center"
 		>
 			<Navbar />

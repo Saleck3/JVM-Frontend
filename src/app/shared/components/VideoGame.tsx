@@ -1,11 +1,10 @@
-//TODO ver
 'use client';
-import React from 'react';
-import { video as videoType } from '../types/games.type';
+
+import { Video } from '../types/games.type';
 import GameLayout from './GameLayout';
 import { gameInstructions } from '@/app/play/[appleId]/data/gameInstructions';
 
-interface Props extends videoType {
+interface Props extends Video {
 	outOfRetries?: boolean;
 	onWrongAnswer: () => void;
 	onCorrectAnswer: () => void;
@@ -13,31 +12,21 @@ interface Props extends videoType {
 }
 
 const VideoGame = (props: Props): JSX.Element => {
-	const { src, onWrongAnswer, onCorrectAnswer, handleNextButton } = props;
-
-	//TODO -ver que es esto - En realidad no hace falta, ver si se puede sacar
-	const submitForm = () => {
-		return true;
-	};
-
-	const setErrorsDefault = () => {
-		onCorrectAnswer();
-		handleNextButton();
-	};
-	console.log(src);
+	const { src, handleNextButton } = props;
 
 	return (
 		<GameLayout
-			handleNextButton={setErrorsDefault}
+			handleNextButton={handleNextButton}
 			title="Reproducí el video"
-			gameInstructions={gameInstructions['WordWritingGame']}
-			checkGame={submitForm}
+			gameInstructions={gameInstructions['video']}
+			hasOwnCheckButton
 			gameFinished={true}
 		>
-			<div className="mb-6 text-center flex-1 flex flex-col gap-8">
-				<iframe src={src} allowFullScreen className="h-full" />
+			<div className="h-[480px]">
+				<iframe src={src} allowFullScreen className="w-full h-full" />
 			</div>
 		</GameLayout>
 	);
 };
+
 export default VideoGame;

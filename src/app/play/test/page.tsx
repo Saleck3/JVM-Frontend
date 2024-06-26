@@ -1,24 +1,17 @@
 'use client';
-import { scoreExercises } from '@/app/shared/services/exercises.service';
+import { scoreTest } from '@/app/shared/services/exercises.service';
 import { useState } from 'react';
-import { useParams } from 'next/navigation';
-
 import useGames from '@/app/shared/hooks/useGames';
 import FetchingScore from '@/app/shared/components/FetchingScore';
-import GamesResults from '@/app/shared/components/GamesResults';
 import ProgressBar from '@/app/shared/components/ProgressBar';
 import GameRenderer from '@/app/shared/components/GameRenderer';
-import useGameSounds from '@/app/shared/hooks/useGameSounds';
+import TestResults from './components/TestResults';
 
 export default function NonAiGames() {
-	const [gameScore, setGameScore] = useState<number | null>(null);
 	const [isFetchingScore, setIsFetchingScore] = useState(false);
-	const { playFinishedSound } = useGameSounds();
-
-	const { appleId } = useParams();
+	const [recommendedModule, setRecommendedModule] = useState<string>();
 
 	const {
-		apple,
 		errorCounter,
 		currentGame,
 		completedPercentage,
@@ -27,21 +20,29 @@ export default function NonAiGames() {
 		isLastGame,
 		handleCorrectAnswer,
 		handleWrongAnswer,
-	} = useGames(false, appleId as string);
-
-	const moduleUrl = `/modules/${apple?.moduleId}`;
+	} = useGames(true);
 
 	const handleNextButton = async () => {
 		if (!isLastGame) {
 			setNextGame();
 		} else {
 			setIsFetchingScore(true);
+			const booleanErrors = errorCounter.map((error) => error === 0);
+			const recommendedModule = await scoreTest(booleanErrors);
 
-			const score = await scoreExercises(appleId as string, errorCounter);
+			console.log('recommendedModule', recommendedModule);
 
-			setGameScore(score);
+			const lectiLocalStorageObj = {
+				recommendedModule,
+			};
+
+			window.localStorage.setItem(
+				'lecti',
+				JSON.stringify(lectiLocalStorageObj)
+			);
+
+			setRecommendedModule(recommendedModule);
 			setIsFetchingScore(false);
-			playFinishedSound();
 		}
 	};
 
@@ -55,16 +56,13 @@ export default function NonAiGames() {
 		return <FetchingScore />;
 	}
 
-	if (gameScore) {
-		return <GamesResults score={gameScore} moduleUrl={moduleUrl} />;
+	if (recommendedModule) {
+		return <TestResults recommendedModule={recommendedModule} />;
 	}
 
 	return (
 		<div className="px-10 space-y-5 sm:space-y-8 md:space-y-12">
-			<ProgressBar
-				completedPercentage={completedPercentage}
-				moduleUrl={moduleUrl}
-			/>
+			<ProgressBar completedPercentage={completedPercentage} />
 			{currentGame && (
 				<GameRenderer
 					gameData={gameData}

@@ -8,7 +8,7 @@ export default function Footer() {
 				alt="lecti"
 				width={400}
 				height={400}
-				className="transform translate-y-1/4 mx-auto"
+				className="absolute bottom-[100px] right-0 left-0 mx-auto"
 			/>
 			<div className="bg-primary text-white py-12 pt-20 px-4 md:px-6">
 				<div className="container mx-auto flex flex-col md:flex-row items-center justify-between gap-8">

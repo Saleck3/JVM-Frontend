@@ -69,13 +69,28 @@ const WordSelectionGame = (props: Props): JSX.Element => {
 						<Image src={image!} alt={correctAnswer} fill objectFit="contain" />
 					</div>
 				) : (
-					<Button
-						onClick={playCorrectAnswer}
-						className="text-4xl mx-auto size-24 sm:size-32 rounded-full p-2"
-						variant={'secondary'}
-					>
-						<FaPlayCircle className="text-orange-400" />
-					</Button>
+					<>
+						<div
+							className="bubble text-sm p-3 sm:text-md md:text-xl 
+										md:font-light sm:p-6 md:p-8 mx-auto"
+						>
+							<Button
+								onClick={playCorrectAnswer}
+								className="text-4xl mx-auto size-24 sm:size-32 rounded-full p-2"
+								variant={'secondary'}
+							>
+								<FaPlayCircle className="text-orange-400" />
+							</Button>
+						</div>
+						<div className="relative m-10 h-24 sm:h-30 md:h-36">
+							<Image
+								src="/img/games/talking.svg"
+								fill
+								objectFit="contain"
+								alt="lombriz hablando"
+							/>
+						</div>
+					</>
 				)}
 
 				<div>

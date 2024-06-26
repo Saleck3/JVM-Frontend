@@ -1,3 +1,4 @@
+//TODO refactor de clases
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -16,13 +17,13 @@ export default function Hero() {
 							más divertida!
 						</p>
 					</div>
-					<div className="w-full">
-						<Button className="w-full lg:w-1/3 mx-2 mb-4 lg:mb-0 text-md">
+					<div className="w-full max-w-lg">
+						<Button className="w-full md:w-auto mx-2 mb-4 lg:mb-0 text-md">
 							<Link href="/players">Empezá ahora</Link>
 						</Button>
 						<Button
 							variant={'secondary'}
-							className="w-full lg:w-1/3 mx-2 text-md"
+							className="w-full md:w-auto mx-2 text-md"
 						>
 							<Link href="#test">Test de nivelación</Link>
 						</Button>

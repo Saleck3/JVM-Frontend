@@ -55,6 +55,21 @@ export default function NonAiGames() {
 	}
 
 	return (
+		<div className="px-10 space-y-5 sm:space-y-8 md:space-y-12">
+			<ProgressBar completedPercentage={completedPercentage} />
+			{currentGame && (
+				<GameRenderer
+					gameData={gameData}
+					outOfRetries={outOfRetries}
+					handleNextButton={handleNextButton}
+					handleCorrectAnswer={handleCorrectAnswer}
+					handleWrongAnswer={handleWrongAnswer}
+				/>
+			)}
+		</div>
+	);
+
+	return (
 		<div className="bg-gray h-screen flex flex-col items-center justify-center gap-8 p-10">
 			{recommendedModule ? (
 				<TestResults recommendedModule={recommendedModule} />
