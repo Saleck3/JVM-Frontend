@@ -71,6 +71,30 @@ export default function NonAiGames() {
 					handleCorrectAnswer={handleCorrectAnswer}
 					handleWrongAnswer={handleWrongAnswer}
 				/>
+<<<<<<<< HEAD:src/app/play/test/page.tsx
+========
+			)}
+		</div>
+	);
+
+	return (
+		<div className="bg-gray h-screen flex flex-col items-center justify-center gap-8 p-10">
+			{recommendedModule ? (
+				<TestResults recommendedModule={recommendedModule} />
+			) : (
+				<>
+					<ProgressBar completedPercentage={completedPercentage} />
+					{currentGame && (
+						<GameRenderer
+							gameData={gameData}
+							outOfRetries={outOfRetries}
+							handleNextButton={handleNextButton}
+							handleCorrectAnswer={handleCorrectAnswer}
+							handleWrongAnswer={handleWrongAnswer}
+						/>
+					)}
+				</>
+>>>>>>>> b349952 (feat: complete visual rework):src/app/test/page.tsx
 			)}
 		</div>
 	);
