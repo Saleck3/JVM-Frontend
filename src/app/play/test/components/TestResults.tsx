@@ -3,11 +3,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 type Props = {
-	score: number;
-	moduleUrl: string;
+	recommendedModule: string;
 };
 
-export default function GamesResults({ score, moduleUrl }: Props) {
+export default function TestResults({ recommendedModule }: Props) {
 	return (
 		<div className="flex flex-col p-8 space-y-6 md:py-10 lg:py-12 md:space-y-10 lg:space-y-16 sm:mx-auto sm:max-w-xl md:max-w-2xl lg:max-w-3xl sm:bg-white sm:rounded-lg sm:mt-8 sm:shadow-lg">
 			<h2 className="text-3xl text-center font-black bg-clip-text text-transparent bg-gradient-to-r from-primary to-indigo-500 tracking-wider">
@@ -21,13 +20,16 @@ export default function GamesResults({ score, moduleUrl }: Props) {
 				className="mx-auto"
 			/>
 			<p className="text-2xl font-bold text-conden text-center text-primary tracking-tighter">
-				Obtuviste {score} estrellas
-				<br />
-				{'⭐'.repeat(score)}
+				¡Tu módulo recomendado es el número {recommendedModule}!
 			</p>
-			<Button className="max-w-lg mx-auto">
-				<Link href={moduleUrl}>Volver al módulo</Link>
-			</Button>
+			<div className="mx-auto space-x-8">
+				<Button>
+					<Link href="/auth/register">Registrarse</Link>
+				</Button>
+				<Button variant={'link'}>
+					<Link href="/">Volver</Link>
+				</Button>
+			</div>
 		</div>
 	);
 }

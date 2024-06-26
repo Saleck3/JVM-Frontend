@@ -10,6 +10,9 @@ import {
 } from './data/styleLogic';
 import Apple from './components/Apple';
 import Image from 'next/image';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
+import { RiArrowGoBackFill } from 'react-icons/ri';
 
 export default async function ApplePath({ params }: any): Promise<JSX.Element> {
 	const apples: AppleType[] = (await getApples(params.moduleId)) as AppleType[];
@@ -19,9 +22,16 @@ export default async function ApplePath({ params }: any): Promise<JSX.Element> {
 
 	return (
 		<div
-			className={`flex flex-col gap-8 items-center relative py-10`}
+			className={`flex flex-col gap-8 items-center relative pb-48`}
 			style={pathBgsStyle[params.moduleId]}
 		>
+			<Button
+				className="text-lg space-x-2 relative top-4 right-28 
+								sm:top-8 sm:right-40 md:right-64 "
+			>
+				<Link href="/modules">Volver</Link>
+				<RiArrowGoBackFill className="text-xl" />
+			</Button>
 			{Array.from({ length: imagesAmount }, (_, i) => {
 				const style = getAppleImageStyle(i);
 				const imageNumber = getPathImageNumber(i);

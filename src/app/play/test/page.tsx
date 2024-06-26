@@ -1,11 +1,11 @@
 'use client';
 import { scoreTest } from '@/app/shared/services/exercises.service';
 import { useState } from 'react';
-import FetchingScore from '../shared/components/FetchingScore';
-import GameRenderer from '../shared/components/GameRenderer';
-import ProgressBar from '../shared/components/ProgressBar';
-import TestResults from './components/TestResults';
 import useGames from '@/app/shared/hooks/useGames';
+import FetchingScore from '@/app/shared/components/FetchingScore';
+import ProgressBar from '@/app/shared/components/ProgressBar';
+import GameRenderer from '@/app/shared/components/GameRenderer';
+import TestResults from './components/TestResults';
 
 export default function NonAiGames() {
 	const [isFetchingScore, setIsFetchingScore] = useState(false);
@@ -29,6 +29,8 @@ export default function NonAiGames() {
 			setIsFetchingScore(true);
 			const booleanErrors = errorCounter.map((error) => error === 0);
 			const recommendedModule = await scoreTest(booleanErrors);
+
+			console.log('recommendedModule', recommendedModule);
 
 			const lectiLocalStorageObj = {
 				recommendedModule,
@@ -54,23 +56,21 @@ export default function NonAiGames() {
 		return <FetchingScore />;
 	}
 
+	if (recommendedModule) {
+		return <TestResults recommendedModule={recommendedModule} />;
+	}
+
 	return (
-		<div className="bg-gray h-screen flex flex-col items-center justify-center gap-8 p-10">
-			{recommendedModule ? (
-				<TestResults recommendedModule={recommendedModule} />
-			) : (
-				<>
-					<ProgressBar completedPercentage={completedPercentage} />
-					{currentGame && (
-						<GameRenderer
-							gameData={gameData}
-							outOfRetries={outOfRetries}
-							handleNextButton={handleNextButton}
-							handleCorrectAnswer={handleCorrectAnswer}
-							handleWrongAnswer={handleWrongAnswer}
-						/>
-					)}
-				</>
+		<div className="px-10 space-y-5 sm:space-y-8 md:space-y-12">
+			<ProgressBar completedPercentage={completedPercentage} />
+			{currentGame && (
+				<GameRenderer
+					gameData={gameData}
+					outOfRetries={outOfRetries}
+					handleNextButton={handleNextButton}
+					handleCorrectAnswer={handleCorrectAnswer}
+					handleWrongAnswer={handleWrongAnswer}
+				/>
 			)}
 		</div>
 	);

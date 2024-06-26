@@ -21,7 +21,7 @@ export default function CallToAction() {
 					¡Comenzá ya tu <br />
 					aventura!
 				</h2>
-				<Link href="/test">
+				<Link href="/play/test">
 					<Button className="mt-4 w-full text-md" size={'lg'} variant={'super'}>
 						Ir al test de nivelación
 					</Button>

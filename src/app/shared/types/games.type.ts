@@ -57,7 +57,7 @@ export type PreSelectedLetter = {
 Reproduce un video
 Sin puntaje
 */
-export type video = {
+export type Video = {
 	src: string;
 };
 

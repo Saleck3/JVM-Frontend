@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 const RESOURCE_PATHS = ['_next', '/favicon.ico', '/img', '/api'];
-const PUBLIC_PATHS = ['/auth/login', '/auth/register'];
+const PUBLIC_PATHS = ['/auth/login', '/auth/register', '/test'];
 const FORBIDDEN_WHEN_LOGGED_IN_PATHS = [
 	'/auth/login',
 	'/auth/register',
