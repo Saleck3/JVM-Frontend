@@ -72,6 +72,6 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'lecti-front'
+          app-name: 'front-lecti'
           slot-name: 'Production'
           package: ./
