@@ -57,6 +57,8 @@ const useGames = (isTest: boolean, appleId?: string) => {
 		});
 	};
 
+	console.log(errorCounter);
+
 	const setNextGame = () => {
 		setCurrentGameIndex((prevValue) => prevValue + 1);
 	};
