@@ -1,6 +1,6 @@
 import Navbar from '../shared/components/Navbar/Navbar';
 
-export default function HomeLayout({
+export default function PlayLayout({
 	children,
 }: Readonly<{
 	children: React.ReactNode;

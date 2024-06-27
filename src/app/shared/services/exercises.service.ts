@@ -18,6 +18,7 @@ export const getExercises = async (appleId: string) => {
 				'Content-Type': 'application/json',
 				Authorization: `Bearer ${token.value}`,
 			},
+			cache: 'no-store',
 		});
 
 		if (!res.ok) {
@@ -76,6 +77,8 @@ export const scoreExercises = async (
 		playerId: currentPlayer!.id,
 		appleId,
 	}).toString();
+
+	console.log('gameErrors', gameErrors);
 
 	const url = `${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/exercises/score?${query}`;
 

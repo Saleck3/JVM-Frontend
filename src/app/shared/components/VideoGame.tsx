@@ -22,8 +22,12 @@ const VideoGame = (props: Props): JSX.Element => {
 			hasOwnCheckButton
 			gameFinished={true}
 		>
-			<div className="h-[480px]">
-				<iframe src={src} allowFullScreen className="w-full h-full" />
+			<div className="h-[480px] rounded-lg">
+				<iframe
+					src={src}
+					allowFullScreen
+					className="w-full h-full rounded-lg"
+				/>
 			</div>
 		</GameLayout>
 	);

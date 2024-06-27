@@ -1,6 +1,7 @@
+import { Button } from '@/components/ui/button';
 import useTextToSpeech from '../hooks/useTextToSpeech';
 import GameCheckButton from './GameCheckButton';
-import { RiUserVoiceFill } from 'react-icons/ri';
+import { IoEar } from 'react-icons/io5';
 
 type Props = {
 	children: React.ReactNode;
@@ -39,51 +40,59 @@ export default function GameLayout(props: Props) {
 	const getFooterColor = () => {
 		switch (true) {
 			case outOfRetries:
-				return 'bg-sky-300/50';
+				return 'sm:bg-sky-100/50';
 			case gameFinished:
-				return 'bg-green-400/50';
+				return 'sm:bg-green-400/50';
 			case wrongAttempt:
-				return 'bg-red-300/50';
+				return 'sm:bg-red-300/50';
 			default:
-				return 'bg-pink-300/50';
+				return 'sm:bg-pink-300/50';
 		}
 	};
+
+	const showFooterColor = hasOwnCheckButton
+		? gameFinished || outOfRetries
+			? true
+			: false
+		: true;
 
 	return (
 		<>
 			<div
-				className="px-4 pb-28 mx-auto sm:shadow-lg sm:bg-white/80 sm:p-8 sm:rounded-lg
-							md:p-14 max-w-4xl"
+				className="mx-auto sm:shadow-lg sm:bg-white/80 sm:rounded-lg
+							max-w-4xl"
 			>
-				<div
-					className="flex items-center justify-center gap-2 text-2xl bg-
-								sm:text-3xl md:text-4xl mb-6 sm:mb-10 md:mb-14"
-				>
-					<h1 className="font-bold text-sky text-balance text-center">
-						{gameInstructions && (
-							<RiUserVoiceFill
-								onClick={playInstructions}
-								className="inline me-2"
-							/>
-						)}
-						{title}
-					</h1>
+				<div className="sm:p-8 md:p-14">
+					<div
+						className="flex items-center justify-center gap-2 text-2xl bg-
+					sm:text-3xl md:text-4xl mb-6 sm:mb-10 md:mb-14"
+					>
+						<h1 className="font-bold text-sky text-balance text-center">
+							{gameInstructions && (
+								<Button className="inline me-4" variant={'defaultWithIcon'}>
+									<IoEar onClick={playInstructions} className="text-2xl" />
+								</Button>
+							)}
+							{title}
+						</h1>
+					</div>
+					{children}
 				</div>
-				{children}
-			</div>
-			<div
-				className={`fixed bottom-0 left-0 h-20 sm:h-28 md:h-32 w-full px-8
-							flex items-center justify-end ${getFooterColor()}`}
-			>
-				<GameCheckButton
-					onClick={onCheckButtonClick}
-					wrongAttempt={wrongAttempt}
-					outOfRetries={outOfRetries!}
-					gameFinished={gameFinished}
-					hasOwnCheckButton={hasOwnCheckButton}
-					loading={gameCheckButtonDissabledLoading}
-					disabled={gameCheckButtonDissabled}
-				/>
+				<div
+					className={`${showFooterColor && getFooterColor()}
+								flex items-center justify-end rounded-b-lg
+								h-20 sm:h-28 md:h-32 sm:px-8 mt-10 sm:mt-0`}
+				>
+					<GameCheckButton
+						onClick={onCheckButtonClick}
+						wrongAttempt={wrongAttempt}
+						outOfRetries={outOfRetries!}
+						gameFinished={gameFinished}
+						hasOwnCheckButton={hasOwnCheckButton}
+						loading={gameCheckButtonDissabledLoading}
+						disabled={gameCheckButtonDissabled}
+					/>
+				</div>
 			</div>
 		</>
 	);

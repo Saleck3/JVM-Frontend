@@ -37,7 +37,8 @@ export default function NonAiGames() {
 		} else {
 			setIsFetchingScore(true);
 
-			const score = await scoreExercises(appleId as string, errorCounter);
+			const gameErrors = errorCounter.filter((error) => !isNaN(error));
+			const score = await scoreExercises(appleId as string, gameErrors);
 
 			setGameScore(score);
 			setIsFetchingScore(false);
@@ -60,7 +61,7 @@ export default function NonAiGames() {
 	}
 
 	return (
-		<div className="px-10 space-y-5 sm:space-y-8 md:space-y-12">
+		<div className="px-10 space-y-5 pb-10">
 			<ProgressBar
 				completedPercentage={completedPercentage}
 				moduleUrl={moduleUrl}
