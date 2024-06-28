@@ -183,7 +183,7 @@ const VoiceRecognitionGame = (props: Props): JSX.Element => {
 	}
 
 	const disableCheckButton =
-		(!audio && !audioCorrection) || (!audio && !outOfRetries);
+		audioCorrection?.correct || outOfRetries ? false : !audio;
 
 	return (
 		<GameLayout
