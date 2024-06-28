@@ -166,19 +166,22 @@ const VoiceRecognitionGame = (props: Props): JSX.Element => {
 
 	if (!hasAudioPermissions) {
 		return (
-			<>
+			<div className="bg-white rounded-lg text-center p-4 space-y-6 max-w-3xl mx-auto">
 				<h1 className="text-3xl font-bold text-primary">¿Nos das permiso?</h1>
 				<Image
 					src="/img/mic-permission.svg"
 					alt="permisos"
 					height={500}
 					width={500}
+					className="mx-auto"
 				/>
 				<p className="text-xl text-pretty">
 					Necesitamos que nos permitas usar el microfono para poder evaluarte :)
 				</p>
-				<Button onClick={allowMicrophone}>Permitir</Button>
-			</>
+				<Button onClick={allowMicrophone} className="text-center">
+					Permitir
+				</Button>
+			</div>
 		);
 	}
 
