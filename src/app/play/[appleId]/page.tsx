@@ -61,7 +61,7 @@ export default function NonAiGames() {
 	}
 
 	return (
-		<div className="px-10 space-y-5 pb-10">
+		<div className="px-10 space-y-5 pb-10" data-testid="game">
 			<ProgressBar
 				completedPercentage={completedPercentage}
 				moduleUrl={moduleUrl}

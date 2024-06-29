@@ -24,6 +24,7 @@ export default function VoiceRecognitionGameButtons(props: Props) {
 	return (
 		<div className="flex justify-between gap-8">
 			<Button
+				data-testid="play-button"
 				onClick={onPlayClick}
 				className="text-6xl py-12 sm:py-16 flex-1"
 				variant={'secondary'}

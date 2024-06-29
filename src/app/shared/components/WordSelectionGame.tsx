@@ -75,6 +75,7 @@ const WordSelectionGame = (props: Props): JSX.Element => {
 										md:font-light sm:p-6 md:p-8 mx-auto"
 						>
 							<Button
+								data-testid="play-button"
 								onClick={playCorrectAnswer}
 								className="text-4xl mx-auto size-24 sm:size-32 rounded-full p-2"
 								variant={'secondary'}

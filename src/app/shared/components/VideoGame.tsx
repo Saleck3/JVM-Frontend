@@ -27,6 +27,7 @@ const VideoGame = (props: Props): JSX.Element => {
 					src={src}
 					allowFullScreen
 					className="w-full h-full rounded-lg"
+					data-testid="video"
 				/>
 			</div>
 		</GameLayout>

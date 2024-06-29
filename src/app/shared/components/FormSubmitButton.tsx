@@ -7,7 +7,7 @@ export default function FormSubmitButton(props: any) {
 	return (
 		<Button type="submit" {...props} disabled={pending}>
 			{pending ? (
-				<FaSpinner className="animate-spin text-xl" />
+				<FaSpinner className="animate-spin text-xl" data-testid="spinner" />
 			) : (
 				props.children
 			)}

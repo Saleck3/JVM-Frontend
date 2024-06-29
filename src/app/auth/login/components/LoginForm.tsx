@@ -14,7 +14,7 @@ export default function LoginForm() {
 	};
 
 	return (
-		<form className="space-y-6" action={handleSubmit}>
+		<form className="space-y-6" action={handleSubmit} data-testid="form">
 			<div>
 				<Label htmlFor="email">Email</Label>
 				<Input

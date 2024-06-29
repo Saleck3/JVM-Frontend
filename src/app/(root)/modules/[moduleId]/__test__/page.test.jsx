@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import ApplePath from '../page';
 import { getApples } from '@/app/shared/services/apples.service';
 

@@ -108,7 +108,7 @@ const WordWritingGame = (props: Props): JSX.Element => {
 				<Image src={image!} alt={correctAnswer} fill objectFit="contain" />
 			</div>
 
-			<form onSubmit={handleSubmit} ref={formRef}>
+			<form onSubmit={handleSubmit} ref={formRef} data-testid="form">
 				<WordWritingGameInputs
 					word={correctAnswer}
 					preSelectedLetters={preSelectedLetters}
