@@ -34,6 +34,7 @@ export default function GameRenderer(props: Props) {
 	const { params: gameParams, gameType, id: gameId } = gameData;
 	const GameComponent = gameComponents[gameType];
 
+	console.log('gameType', gameType);
 	return (
 		<GameComponent
 			options={gameParams.options}
@@ -48,6 +49,7 @@ export default function GameRenderer(props: Props) {
 			gameId={gameId}
 			key={gameId}
 			src={gameParams.src}
+			textRead={gameType === 'text_read'}
 		/>
 	);
 }

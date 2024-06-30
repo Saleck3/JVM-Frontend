@@ -8,7 +8,7 @@ jest.mock('../../../../lib/sessionUtils.ts', () => ({
 beforeAll(() => {
 	global.fetch = jest.fn();
 	getToken.mockResolvedValue({
-		value: 'mock-token'
+		value: 'mock-token',
 	});
 });
 
@@ -18,8 +18,8 @@ describe('Modules service', () => {
 	it('makes a request to modules internal api with correct params', async () => {
 		setFetchMockResponse();
 
-		const response = await getModules('1'); // Await the function call
-		expect(response).toEqual(mockResponse); // Await the response
+		const response = await getModules('1');
+		expect(response).toEqual(mockResponse);
 
 		checkIfFetchWasCalledWithCorrectParams();
 	});

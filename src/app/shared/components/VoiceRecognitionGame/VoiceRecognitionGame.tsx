@@ -19,7 +19,7 @@ type Props = {
 	onCorrectAnswer: () => void;
 	handleNextButton: () => void;
 	outOfRetries: boolean;
-	onlyText?: Boolean;
+	textRead?: boolean;
 };
 
 const VoiceRecognitionGame = (props: Props): JSX.Element => {
@@ -30,6 +30,7 @@ const VoiceRecognitionGame = (props: Props): JSX.Element => {
 		onWrongAnswer,
 		handleNextButton,
 		outOfRetries,
+		textRead,
 	} = props;
 
 	const [isRecording, setIsRecording] = useState<any>(false);
@@ -202,6 +203,7 @@ const VoiceRecognitionGame = (props: Props): JSX.Element => {
 		>
 			<div className="max-w-xl mx-auto space-y-10 sm:space-y-16 md:space-y-20">
 				<VoiceRecognitionGameButtons
+					textOnly={textRead}
 					onPlayClick={playCorrectAnswerTTS}
 					onRecordClick={handleRecordButton}
 					onCheckClick={() => audioPlayerRef.current!.play()}
@@ -216,7 +218,7 @@ const VoiceRecognitionGame = (props: Props): JSX.Element => {
 				)}
 
 				<p className="bubble text-sm sm:text-md md:text-xl md:font-light p-3 sm:p-6 md:p-8">
-					{audioCorrection?.corrections || '¡Buena suerte!'}
+					{audioCorrection?.corrections || `Repite: ${correctAnswer}`}
 				</p>
 
 				<div className="relative m-10 h-24 sm:h-30 md:h-36">

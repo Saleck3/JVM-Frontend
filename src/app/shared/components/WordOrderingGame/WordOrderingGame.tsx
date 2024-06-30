@@ -23,7 +23,6 @@ const WordOrderingGame = (props: Props): JSX.Element => {
 		onCorrectAnswer,
 		handleNextButton,
 		outOfRetries,
-		tts,
 	} = props;
 	const [playerAnswer, setPlayerAnswer] = useState<string>('');
 	const [gameFinished, setGameFinished] = useState(false);
