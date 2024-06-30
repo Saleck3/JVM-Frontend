@@ -50,7 +50,7 @@ describe('VoiceRecognitionGame', () => {
 		expect(screen.getByText('¿Nos das permiso?')).toBeInTheDocument();
 		expect(
 			screen.getByText(
-				'Necesitamos que nos permitas usar el microfono para poder evaluarte :)'
+				'Necesitamos que nos permitas usar el micrófono para poder evaluarte :)'
 			)
 		).toBeInTheDocument();
 	};
