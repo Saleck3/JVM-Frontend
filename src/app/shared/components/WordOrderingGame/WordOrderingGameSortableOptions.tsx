@@ -28,6 +28,18 @@ export default function WordOrderingGameSortableOptions({
 		onSort(newOptions);
 	};
 
+	const handleTouchMove = (e) => {
+		const touchLocation = e.targetTouches[0];
+		const element = document.elementFromPoint(
+			touchLocation.clientX,
+			touchLocation.clientY
+		);
+		const index = parseInt(element?.getAttribute('data-index')!, 10);
+		if (!isNaN(index)) {
+			draggedOverOption.current = index;
+		}
+	};
+
 	return (
 		<div className="flex justify-around flex-wrap gap-2">
 			{orderedOptions?.map((option, i) => {
@@ -39,6 +51,10 @@ export default function WordOrderingGameSortableOptions({
 						onDragStart={() => (dragOption.current = i)}
 						onDragEnter={() => (draggedOverOption.current = i)}
 						onDragEnd={handleSort}
+						data-index={i}
+						onTouchStart={() => (dragOption.current = i)}
+						onTouchMove={handleTouchMove}
+						onTouchEnd={handleSort}
 						onDragOver={(e) => e.preventDefault()}
 						className="cursor-grab active:scale-110 active:cursor-grabbing transition-all uppercase
 						flex-grow flex-shrink text-2xl lg:text-3xl"
