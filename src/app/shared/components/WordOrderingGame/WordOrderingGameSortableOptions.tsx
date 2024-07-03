@@ -28,7 +28,7 @@ export default function WordOrderingGameSortableOptions({
 		onSort(newOptions);
 	};
 
-	const handleTouchMove = (e) => {
+	const handleTouchMove = (e:any) => {
 		const touchLocation = e.targetTouches[0];
 		const element = document.elementFromPoint(
 			touchLocation.clientX,
