@@ -177,7 +177,7 @@ const VoiceRecognitionGame = (props: Props): JSX.Element => {
 					className="mx-auto"
 				/>
 				<p className="text-xl text-pretty">
-					Necesitamos que nos permitas usar el microfono para poder evaluarte :)
+					Necesitamos que nos permitas usar el micrófono para poder evaluarte :)
 				</p>
 				<Button onClick={allowMicrophone} className="text-center">
 					Permitir
