@@ -43,7 +43,7 @@ export default function LoginForm() {
 				href="/auth/register"
 				className="font-semibold text-primary inline-block"
 			>
-				¿No tenés cuenta? Registrate!
+				¿No tenés cuenta? ¡Regístrate!
 			</Link>
 		</form>
 	);

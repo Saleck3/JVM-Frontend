@@ -218,7 +218,7 @@ const VoiceRecognitionGame = (props: Props): JSX.Element => {
 				)}
 
 				<p className="bubble text-sm sm:text-md md:text-xl md:font-light p-3 sm:p-6 md:p-8">
-					{audioCorrection?.corrections || `Repite: ${correctAnswer}`}
+					{audioCorrection?.corrections || `${correctAnswer}`}
 				</p>
 
 				<div className="relative m-10 h-24 sm:h-30 md:h-36">

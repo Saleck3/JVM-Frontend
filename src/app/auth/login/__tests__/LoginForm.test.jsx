@@ -72,7 +72,7 @@ describe('LoginForm component', () => {
 			screen.getByRole('button', { name: /Iniciar sesión/i })
 		).toBeInTheDocument();
 		expect(
-			screen.getByText(/¿No tenés cuenta\? Registrate!/i)
+			screen.getByText(/¿No tenés cuenta\? ¡Regístrate!/i)
 		).toBeInTheDocument();
 	};
 
