@@ -1,11 +1,12 @@
 'use server';
 
-import { getToken } from '@/lib/sessionUtils';
+import { getPlayers, getToken, updateLectiData } from '@/lib/sessionUtils';
 import { AddPlayerSchema } from '../schemas/players.schema';
 import { FormState } from '../types/form.type';
 import { parseFormData } from '@/lib/utils';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
+import { Player } from '../types/user.type';
 
 export async function createPlayer(
 	state: any,
@@ -38,6 +39,17 @@ export async function createPlayer(
 				fieldValues: { playerName, birthDate },
 			};
 		}
+
+		const newPlayer = {
+			playerName,
+			birthDate,
+			totalCrowns: 0,
+		} as Player;
+
+		const currentPlayers = await getPlayers();
+		const updatedPlayers = [...currentPlayers, newPlayer];
+
+		updateLectiData({ players: updatedPlayers });
 	} catch (e: any) {
 		return { reqError: e.message, fieldValues: { playerName, birthDate } };
 	}
