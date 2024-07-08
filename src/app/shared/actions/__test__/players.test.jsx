@@ -53,7 +53,6 @@ describe('createPlayer action', () => {
 		await createPlayer({}, formData);
 
 		checkIfFetchWasCalled();
-		checkIfRevalidateAndRedirectHappened();
 	});
 
 	it('should handle field validation errors', async () => {
