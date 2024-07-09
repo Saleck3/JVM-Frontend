@@ -19,7 +19,7 @@ const faqs = [
 			'Sí. Gracias a un sistema de seguimiento que monitorea el avance de cada usuario junto con el envío de estos reportes a su correo electrónico.',
 	},
 	{
-		title: 'Hay algún costo asociado al uso de Lecti?',
+		title: '¿Hay algún costo asociado al uso de Lecti?',
 		description: 'No, es gratuito para cualquier persona hasta 5 jugadores.',
 	},
 ];

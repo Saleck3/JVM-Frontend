@@ -9,7 +9,7 @@ const features = [
 	{
 		title: 'divertido',
 		description:
-			'Con tres modulos disponibles para jugar, cada ejercicio provee feedback inmediato y motivaciones constantes.',
+			'Con tres módulos disponibles para jugar, cada ejercicio provee feedback inmediato y motivaciones constantes.',
 		imageAlt: 'feature divertido',
 		imageSrc: `/img/features/feature-fun.svg`,
 	},
