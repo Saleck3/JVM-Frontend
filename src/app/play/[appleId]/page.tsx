@@ -42,7 +42,6 @@ export default function NonAiGames() {
 
 			setGameScore(score);
 			setIsFetchingScore(false);
-			playFinishedSound();
 		}
 	};
 

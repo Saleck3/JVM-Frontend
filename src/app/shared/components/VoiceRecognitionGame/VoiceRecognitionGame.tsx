@@ -189,6 +189,8 @@ const VoiceRecognitionGame = (props: Props): JSX.Element => {
 	const disableCheckButton =
 		audioCorrection?.correct || outOfRetries ? false : !audio;
 
+	const corrections = audioCorrection?.corrections.replace(/<<\/n>>/g, '\r\n');
+
 	return (
 		<GameLayout
 			gameFinished={audioCorrection?.correct}
@@ -217,8 +219,8 @@ const VoiceRecognitionGame = (props: Props): JSX.Element => {
 					<audio src={audio} ref={audioPlayerRef} className="hidden"></audio>
 				)}
 
-				<p className="bubble text-sm sm:text-md md:text-xl md:font-light p-3 sm:p-6 md:p-8">
-					{audioCorrection?.corrections || `${correctAnswer}`}
+				<p className="bubble text-sm sm:text-md md:text-xl md:font-light p-3 sm:p-6 md:p-8 whitespace-pre-wrap">
+					{corrections || `${correctAnswer}`}
 				</p>
 
 				<div className="relative m-10 h-24 sm:h-30 md:h-36">
