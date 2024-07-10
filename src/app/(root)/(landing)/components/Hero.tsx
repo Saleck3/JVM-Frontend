@@ -13,7 +13,7 @@ export default function Hero() {
 							Unite a las aventuras
 						</h1>
 						<p className="mx-auto max-w-[700px] text-gray-600 md:text-xl">
-							¡Hace del aprendizaje de la lecto escritura una experiencia mucho
+							¡Hace del aprendizaje de la lectoescritura una experiencia mucho
 							más divertida!
 						</p>
 					</div>
